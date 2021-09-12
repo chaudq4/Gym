@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Gym</string>
+    <string name="chest">Ngực</string>
+    <string name="lats">Lưng xô</string>
+    <string name="shoulder">Vai</string>
+    <string name="leg">Chân</string>
+    <string name="abs">Bụng</string>
+    <string name="glute">Mông</string>
+    <string name="arm">Tay</string>
+    <string name="begin_type">Nhóm cơ</string>
+</resources>

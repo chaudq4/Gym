@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Android Project/Gym/app/src/main/res/drawable/ripple.xml" value="0.2171875" />
+        <entry key="..\:/Android Project/Gym/app/src/main/res/layout/activity_type.xml" value="0.196875" />
+        <entry key="..\:/Android Project/app/src/main/res/drawable/activity_type.xml" value="0.35625" />
+        <entry key="..\:/Android Project/app/src/main/res/drawable/divider_type.xml" value="1.5285714285714285" />
+        <entry key="..\:/Android Project/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.35625" />
+        <entry key="..\:/Android Project/app/src/main/res/drawable/ic_baseline_home_24_on.xml" value="0.35625" />
+        <entry key="..\:/Android Project/app/src/main/res/drawable/ic_home.xml" value="0.35625" />
+        <entry key="..\:/Android Project/app/src/main/res/drawable/ripple.xml" value="0.35625" />
+        <entry key="..\:/Android Project/app/src/main/res/drawable/shape.xml" value="0.35625" />
+        <entry key="..\:/Android Project/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Android Project/app/src/main/res/layout/fragment_food.xml" value="0.3359375" />
+        <entry key="..\:/Android Project/app/src/main/res/layout/fragment_home.xml" value="0.3359375" />
+        <entry key="..\:/Android Project/app/src/main/res/layout/fragment_note.xml" value="0.3359375" />
+        <entry key="..\:/Android Project/app/src/main/res/layout/fragment_personal.xml" value="0.3359375" />
+        <entry key="..\:/Android Project/app/src/main/res/layout/fragment_setting.xml" value="0.3359375" />
+        <entry key="..\:/Android Project/app/src/main/res/layout/item_type.xml" value="0.3359375" />
+        <entry key="..\:/Project/Gym/app/src/main/res/drawable/ripple.xml" value="0.3536458333333333" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
