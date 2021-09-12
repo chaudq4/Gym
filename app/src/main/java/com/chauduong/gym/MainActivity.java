@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         mViewPagerFragmentAdapter.addFragment(mSettingFragment);
         activityMainBinding.vpager.setAdapter(mViewPagerFragmentAdapter);
         activityMainBinding.tblayout.setupWithViewPager(activityMainBinding.vpager);
-        for (int i=0;i<5;i++){
+        for (int i=0;i<mViewPagerFragmentAdapter.getCount();i++){
             activityMainBinding.tblayout.getTabAt(i).setIcon(icon[i]);
         }
     }

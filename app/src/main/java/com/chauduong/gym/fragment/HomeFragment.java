@@ -1,6 +1,7 @@
 package com.chauduong.gym.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.chauduong.gym.R;
+import com.chauduong.gym.TypeActivity;
 import com.chauduong.gym.adapter.TypeAdapter;
 import com.chauduong.gym.adapter.TypeListener;
 import com.chauduong.gym.databinding.FragmentHomeBinding;
@@ -59,12 +61,13 @@ public class HomeFragment extends Fragment implements TypeListener {
             mTypeList.add(new Type(R.drawable.ic_type_chest, getString(R.string.begin_type) + " " + getString(R.string.abs)));
             mTypeList.add(new Type(R.drawable.ic_type_chest, getString(R.string.begin_type) + " " + getString(R.string.glute)));
             mTypeList.add(new Type(R.drawable.ic_type_chest, getString(R.string.begin_type) + " " + getString(R.string.leg)));
-
         }
     }
 
     @Override
     public void onTypeClick(Type type) {
-
+        Intent intent = new Intent(getContext(), TypeActivity.class);
+        intent.putExtra("TYPE", type);
+        startActivity(intent);
     }
 }
