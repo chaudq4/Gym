@@ -1,5 +1,6 @@
 package com.chauduong.gym.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +34,7 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TypeViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TypeViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.mItemTypeBinding.txtName.setText(mTypeList.get(position).getName());
         holder.mItemTypeBinding.imgType.setImageResource(mTypeList.get(position).getIcon());
         holder.itemView.setOnClickListener(new View.OnClickListener() {

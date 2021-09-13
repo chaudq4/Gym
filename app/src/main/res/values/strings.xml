@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Gym</string>
+    <string name="app_name">BodyGC</string>
     <string name="chest">Ngực</string>
     <string name="lats">Lưng xô</string>
     <string name="shoulder">Vai</string>
@@ -8,4 +8,9 @@
     <string name="glute">Mông</string>
     <string name="arm">Tay</string>
     <string name="begin_type">Nhóm cơ</string>
+    <string name="exercise">Bài tập: </string>
+    <string name="main">Nhóm cơ : </string>
+    <string name="equiqment">Dụng cụ: </string>
+    <string name="level">Cấp độ: </string>
+    <string name="type">Thể loại: </string>
 </resources>

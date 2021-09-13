@@ -1,6 +1,5 @@
 package com.chauduong.gym.fragment;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,18 +8,16 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.chauduong.gym.R;
-import com.chauduong.gym.TypeActivity;
 import com.chauduong.gym.adapter.TypeAdapter;
 import com.chauduong.gym.adapter.TypeListener;
 import com.chauduong.gym.databinding.FragmentHomeBinding;
 import com.chauduong.gym.model.Type;
+import com.chauduong.gym.ui.HomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +26,6 @@ public class HomeFragment extends Fragment implements TypeListener {
     List<Type> mTypeList;
     FragmentHomeBinding mFragmentHomeBinding;
     TypeAdapter mTypeAdapter;
-
     public HomeFragment() {
     }
 
@@ -66,7 +62,7 @@ public class HomeFragment extends Fragment implements TypeListener {
 
     @Override
     public void onTypeClick(Type type) {
-        Intent intent = new Intent(getContext(), TypeActivity.class);
+        Intent intent = new Intent(getContext(), HomeActivity.class);
         intent.putExtra("TYPE", type);
         startActivity(intent);
     }
