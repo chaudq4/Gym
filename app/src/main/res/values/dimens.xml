@@ -3,5 +3,15 @@
     <dimen name="divider_height">1dp</dimen>
     <dimen name="divider_width">150dp</dimen>
     <dimen name="elevation">2dp</dimen>
-    <dimen name="radius">5dp</dimen>
+    <dimen name="radius">7dp</dimen>
+    <dimen name="detail_level_margin_start">220dp</dimen>
+    <dimen name="title_instruction">30sp</dimen>
+    <dimen name="detail_card_view_margin">3dp</dimen>
+    <dimen name="detail_text_size">14sp</dimen>
+    <dimen name="detail_text_margin_top">10dp</dimen>
+    <dimen name="detail_text_instruction_margin_top">15dp</dimen>
+    <dimen name="detail_text_title_instruction_margin_top">20dp</dimen>
+    <dimen name="title_detail">26sp</dimen>
+    <dimen name="item_type_title_margin_end">10dp</dimen>
+    <dimen name="radius_button">20dp</dimen>
 </resources>

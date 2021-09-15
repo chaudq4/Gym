@@ -1,7 +1,7 @@
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp">
@@ -11,30 +11,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/detail_text_margin_top"
             android:gravity="center"
             android:text="That day an toan"
             android:textAllCaps="true"
-            android:textSize="18dp"
+            android:textColor="@color/detail_title"
+            android:textSize="@dimen/title_detail"
             android:textStyle="bold" />
-
-        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-            android:id="@+id/ytVideo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txtName"
-            android:layout_marginTop="10dp"
-            app:autoPlay="false"
-            app:showFullScreenButton="true"
-            app:showSeekBar="true"
-            app:showVideoCurrentTime="true"
-            app:showVideoDuration="true"
-            app:showYouTubeButton="true" />
 
         <ScrollView
             android:id="@+id/scView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/ytVideo"
+            android:layout_below="@+id/txtName"
             android:layout_marginTop="20dp">
 
             <LinearLayout
@@ -46,7 +35,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="@dimen/detail_card_view_margin"
                     app:cardCornerRadius="6dp">
 
                     <com.smarteist.autoimageslider.SliderView
@@ -66,31 +55,123 @@
 
                 </androidx.cardview.widget.CardView>
 
+                <RelativeLayout
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="@dimen/detail_text_margin_top"
+                    >
+
+
+                    <RelativeLayout
+                        android:background="@drawable/ripple_watching"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                        <Button
+
+                            android:layout_width="100dp"
+                            android:layout_height="40dp"
+                            android:duplicateParentState="true"
+                            android:gravity="center"
+                            android:text="Xem video"
+                            android:textAllCaps="true"
+                            android:textColor="@color/watching_now"
+                            android:textSize="14sp" />
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/detail_card_view_margin"
+                    android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top"
+                    android:layout_marginEnd="@dimen/detail_card_view_margin">
+
+                    <TextView
+                        android:id="@+id/txtType"
+                        style="@style/DetailText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="@dimen/detail_text_margin_top"
+                        android:text="Loai" />
+
+                    <TextView
+                        android:id="@+id/txtMain"
+                        style="@style/DetailText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txtType"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="@dimen/detail_text_margin_top"
+                        android:text="Nhom co chinh" />
+
+                    <TextView
+                        android:id="@+id/txtOther"
+                        style="@style/DetailText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txtMain"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="@dimen/detail_text_margin_top"
+                        android:text="Nhom co khac" />
+
+                    <TextView
+                        android:id="@+id/txtLevel"
+                        style="@style/DetailText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/detail_level_margin_start"
+                        android:layout_marginTop="@dimen/detail_text_margin_top"
+                        android:text="Cap do" />
+
+                    <TextView
+                        android:id="@+id/txtForce"
+                        style="@style/DetailText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txtLevel"
+                        android:layout_marginStart="@dimen/detail_level_margin_start"
+                        android:layout_marginTop="@dimen/detail_text_margin_top"
+                        android:text="Luc" />
+
+                    <TextView
+                        android:id="@+id/txtEquipment"
+                        style="@style/DetailText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txtForce"
+                        android:layout_marginStart="@dimen/detail_level_margin_start"
+                        android:layout_marginTop="@dimen/detail_text_margin_top"
+                        android:text="Dung cu" />
+                </RelativeLayout>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top"
+                    android:gravity="center"
+                    android:text="@string/instruction"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/title_instruction" />
+
 
                 <TextView
                     android:id="@+id/txtInstruction"
+                    style="@style/DetailText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="chau"
-                    android:textAllCaps="false"
-                    android:textSize="14dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/detail_card_view_margin"
+                    android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top"
+                    android:gravity="start"
+                    android:textAlignment="textStart"
                     android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
 
             </LinearLayout>
         </ScrollView>

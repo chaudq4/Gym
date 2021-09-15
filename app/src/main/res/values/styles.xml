@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="DetailText">
+        <item name="android:textSize"> @dimen/detail_text_size</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+</resources>
