@@ -14,4 +14,6 @@
     <string name="level">Cấp độ: </string>
     <string name="type">Thể loại: </string>
     <string name="instruction">Hướng dẫn</string>
+    <string name="watching_video">Xem video</string>
+    <string name="close_video">Đóng</string>
 </resources>

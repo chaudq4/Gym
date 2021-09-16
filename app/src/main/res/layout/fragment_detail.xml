@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
+        android:id="@+id/rl_detail_parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp">
@@ -58,26 +59,34 @@
                 <RelativeLayout
                     android:layout_width="150dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="@dimen/detail_text_margin_top"
-                    >
-
+                    android:layout_gravity="end"
+                    android:layout_marginTop="@dimen/detail_text_margin_top">
 
                     <RelativeLayout
-                        android:background="@drawable/ripple_watching"
+                        android:id="@+id/rlWatchingVideo"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ripple_watching_video"
+                        android:clickable="true">
 
-
-                        <Button
-
-                            android:layout_width="100dp"
-                            android:layout_height="40dp"
-                            android:duplicateParentState="true"
-                            android:gravity="center"
-                            android:text="Xem video"
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="50dp"
+                            android:text="@string/watching_video"
                             android:textAllCaps="true"
-                            android:textColor="@color/watching_now"
-                            android:textSize="14sp" />
+                            android:textColor="@color/watching_video" />
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/play_button" />
+
+
                     </RelativeLayout>
 
 
@@ -90,63 +99,148 @@
                     android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top"
                     android:layout_marginEnd="@dimen/detail_card_view_margin">
 
-                    <TextView
-                        android:id="@+id/txtType"
-                        style="@style/DetailText"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/llType"
+                        android:layout_width="@dimen/detail_text_width"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_marginTop="@dimen/detail_text_margin_top"
-                        android:text="Loai" />
+                        android:gravity="center_vertical">
 
-                    <TextView
-                        android:id="@+id/txtMain"
-                        style="@style/DetailText"
-                        android:layout_width="wrap_content"
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_detail_circle" />
+
+                        <TextView
+                            android:id="@+id/txtType"
+                            style="@style/DetailText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/radius"
+                            android:text="Loai" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llMain"
+                        android:layout_width="@dimen/detail_text_width"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/txtType"
+                        android:layout_below="@id/llType"
                         android:layout_alignParentStart="true"
                         android:layout_marginTop="@dimen/detail_text_margin_top"
-                        android:text="Nhom co chinh" />
+                        android:gravity="center_vertical">
 
-                    <TextView
-                        android:id="@+id/txtOther"
-                        style="@style/DetailText"
-                        android:layout_width="wrap_content"
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_detail_circle" />
+
+                        <TextView
+                            android:id="@+id/txtMain"
+                            style="@style/DetailText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/radius"
+                            android:text="Nhom co chinh" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llOther"
+                        android:layout_width="@dimen/detail_text_width"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/txtMain"
+                        android:layout_below="@id/llMain"
                         android:layout_alignParentStart="true"
                         android:layout_marginTop="@dimen/detail_text_margin_top"
-                        android:text="Nhom co khac" />
+                        android:gravity="center_vertical">
 
-                    <TextView
-                        android:id="@+id/txtLevel"
-                        style="@style/DetailText"
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_detail_circle" />
+
+                        <TextView
+                            android:id="@+id/txtOther"
+                            style="@style/DetailText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/radius"
+                            android:text="Nhom co khac" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/llLevel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/detail_level_margin_start"
                         android:layout_marginTop="@dimen/detail_text_margin_top"
-                        android:text="Cap do" />
+                        android:layout_toRightOf="@id/llType"
+                        android:gravity="center_vertical">
 
-                    <TextView
-                        android:id="@+id/txtForce"
-                        style="@style/DetailText"
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_detail_circle" />
+
+                        <TextView
+                            android:id="@+id/txtLevel"
+                            style="@style/DetailText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/radius"
+                            android:text="Cap do" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llForce"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/txtLevel"
+                        android:layout_below="@+id/llLevel"
                         android:layout_marginStart="@dimen/detail_level_margin_start"
                         android:layout_marginTop="@dimen/detail_text_margin_top"
-                        android:text="Luc" />
+                        android:layout_toEndOf="@id/llMain"
+                        android:gravity="center_vertical">
 
-                    <TextView
-                        android:id="@+id/txtEquipment"
-                        style="@style/DetailText"
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_detail_circle" />
+
+
+                        <TextView
+                            android:id="@+id/txtForce"
+                            style="@style/DetailText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/radius"
+                            android:text="Luc" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/llEqioment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/txtForce"
+                        android:layout_below="@+id/llForce"
                         android:layout_marginStart="@dimen/detail_level_margin_start"
                         android:layout_marginTop="@dimen/detail_text_margin_top"
-                        android:text="Dung cu" />
+                        android:layout_toRightOf="@id/llOther"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_detail_circle" />
+
+                        <TextView
+                            android:id="@+id/txtEquipment"
+                            style="@style/DetailText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/radius"
+                            android:text="Dung cu" />
+                    </LinearLayout>
+
                 </RelativeLayout>
 
 

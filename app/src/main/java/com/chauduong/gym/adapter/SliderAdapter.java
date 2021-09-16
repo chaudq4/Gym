@@ -59,12 +59,6 @@ public class SliderAdapter extends SliderViewAdapter<SliderViewHolder> {
                 .fitCenter()
                 .into(viewHolder.mItemSliderImageBinding.ivAutoImageSlider);
 
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "This is item in position " + position, Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
 

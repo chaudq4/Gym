@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil;
 import com.chauduong.gym.R;
 import com.chauduong.gym.databinding.ActivityHomeBinding;
 import com.chauduong.gym.fragment.ExerciseFragment;
+import com.chauduong.gym.manager.DialogManager;
 import com.chauduong.gym.model.Type;
 
 public class HomeActivity extends AppCompatActivity {
@@ -42,6 +43,10 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if (DialogManager.getInstance(this).isShow()) {
+            DialogManager.getInstance(this).dismiss();
+            return;
+        }
         if (getSupportFragmentManager().getBackStackEntryCount() > 1)
             getSupportFragmentManager().popBackStack();
         else

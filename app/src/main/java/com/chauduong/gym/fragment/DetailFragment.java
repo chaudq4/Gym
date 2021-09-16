@@ -18,6 +18,7 @@ import com.chauduong.gym.R;
 import com.chauduong.gym.adapter.SliderAdapter;
 import com.chauduong.gym.databinding.DialogVideoBinding;
 import com.chauduong.gym.databinding.FragmentDetailBinding;
+import com.chauduong.gym.manager.DialogManager;
 import com.chauduong.gym.model.SliderItem;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
@@ -28,9 +29,10 @@ import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnima
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
-public class DetailFragment extends Fragment {
+public class DetailFragment extends Fragment implements View.OnClickListener {
     FragmentDetailBinding mFragmentDetailBinding;
     SliderAdapter mSliderAdapter;
+    DialogManager mDialogManager;
 
     @Nullable
     @Override
@@ -50,7 +52,7 @@ public class DetailFragment extends Fragment {
     private void initSlider() {
 
         mSliderAdapter = new SliderAdapter(getContext());
-        SliderItem sliderItem= new SliderItem();
+        SliderItem sliderItem = new SliderItem();
         sliderItem.setDescription("abc");
         sliderItem.setUrl("https://scontent-hkt1-2.xx.fbcdn.net/v/t31.18172-8/20448961_699634593561087_8746736614760217131_o.png?_nc_cat=106&ccb=1-5&_nc_sid=cdbe9c&_nc_ohc=CQ8O_ZHcRo4AX-M78AG&_nc_ht=scontent-hkt1-2.xx&oh=f6a8f63a2d7d1178b3944c5b822e9e11&oe=6166911C");
         mSliderAdapter.addItem(sliderItem);
@@ -68,86 +70,17 @@ public class DetailFragment extends Fragment {
 
 
     private void initView() {
-            StringBuilder sb= new StringBuilder();
-            for (int i=0;i<10000;i++){
-                sb.append("abcd");
-            }
-            mFragmentDetailBinding.txtInstruction.setText(sb.toString());
-            mFragmentDetailBinding.txtInstruction.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final Dialog dialog = new Dialog(getContext());
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    DialogVideoBinding dialogVideoBinding= DataBindingUtil.inflate(getLayoutInflater(),R.layout.dialog_video,null,false);
-                    dialog.setContentView(dialogVideoBinding.getRoot());
-                    dialog.show();
-                    WindowManager.LayoutParams lp = new WindowManager.LayoutParams(
-                            ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    lp.copyFrom(dialog.getWindow().getAttributes());
-                    dialog.getWindow().setAttributes(lp);
-                    getActivity().getLifecycle().addObserver(dialogVideoBinding.ytVideo);
-                    dialogVideoBinding.ytVideo.addYouTubePlayerListener(new YouTubePlayerListener() {
-                        @Override
-                        public void onReady(YouTubePlayer youTubePlayer) {
-                            String videoId = "Z4HivEWoXGE";
-                            youTubePlayer.loadVideo(videoId, 0);
-                            youTubePlayer.pause();
-                        }
-
-                        @Override
-                        public void onStateChange(YouTubePlayer youTubePlayer, PlayerConstants.PlayerState playerState) {
-
-                        }
-
-                        @Override
-                        public void onPlaybackQualityChange(YouTubePlayer youTubePlayer, PlayerConstants.PlaybackQuality playbackQuality) {
-
-                        }
-
-                        @Override
-                        public void onPlaybackRateChange(YouTubePlayer youTubePlayer, PlayerConstants.PlaybackRate playbackRate) {
-
-                        }
-
-                        @Override
-                        public void onError(YouTubePlayer youTubePlayer, PlayerConstants.PlayerError playerError) {
-
-                        }
-
-                        @Override
-                        public void onCurrentSecond(YouTubePlayer youTubePlayer, float v) {
-
-                        }
-
-                        @Override
-                        public void onVideoDuration(YouTubePlayer youTubePlayer, float v) {
-
-                        }
-
-                        @Override
-                        public void onVideoLoadedFraction(YouTubePlayer youTubePlayer, float v) {
-
-                        }
-
-                        @Override
-                        public void onVideoId(YouTubePlayer youTubePlayer, String s) {
-
-                        }
-
-                        @Override
-                        public void onApiChange(YouTubePlayer youTubePlayer) {
-
-                        }
-                    });
-
-                }
-
-            });
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 10000; i++) {
+            sb.append("abcd");
+        }
+        mFragmentDetailBinding.txtInstruction.setText(sb.toString());
+        mFragmentDetailBinding.rlWatchingVideo.setOnClickListener(this);
 
     }
 
     private void initData() {
-
+        if (mDialogManager == null) mDialogManager = DialogManager.getInstance(getContext());
     }
 
     @Override
@@ -156,5 +89,18 @@ public class DetailFragment extends Fragment {
     }
 
     public DetailFragment() {
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (mDialogManager.isShow()) return;
+        switch (v.getId()) {
+            case R.id.rlWatchingVideo:
+                String uri = "Z4HivEWoXGE";
+                mDialogManager.showPlayVideo(mFragmentDetailBinding.rlDetailParent, uri);
+                break;
+            default:
+                break;
+        }
     }
 }
