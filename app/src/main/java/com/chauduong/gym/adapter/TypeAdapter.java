@@ -26,6 +26,11 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeViewHolder> {
         this.mContext = mContext;
     }
 
+    public void setmTypeList(List<Type> mTypeList) {
+        this.mTypeList = mTypeList;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public TypeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -36,7 +41,7 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull TypeViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.mItemTypeBinding.txtName.setText(mTypeList.get(position).getName());
-        holder.mItemTypeBinding.imgType.setImageResource(mTypeList.get(position).getIcon());
+        holder.mItemTypeBinding.imgType.setImageResource(R.drawable.ic_type_chest);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

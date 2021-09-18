@@ -1,8 +1,10 @@
 package com.chauduong.gym.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Exercise implements Serializable {
+    private String id;
     private String name;
     private String main;
     private String other;
@@ -11,6 +13,8 @@ public class Exercise implements Serializable {
     private String force;
     private String equipment;
     private String instruction;
+    private List<String> imageUrlList;
+    private String videoUrl;
 
     public String getName() {
         return name;
@@ -79,14 +83,37 @@ public class Exercise implements Serializable {
     public Exercise() {
     }
 
-    public Exercise(String name, String main, String other, String level, String type, String force, String equipment, String instruction) {
-        this.name = name;
-        this.main = main;
-        this.other = other;
-        this.level = level;
-        this.type = type;
-        this.force = force;
-        this.equipment = equipment;
-        this.instruction = instruction;
+
+    public List<String> getImageUrlList() {
+        return imageUrlList;
+    }
+
+    public void setImageUrlList(List<String> imageUrlList) {
+        this.imageUrlList = imageUrlList;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "Exercise{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", main='" + main + '\'' +
+                ", other='" + other + '\'' +
+                ", level='" + level + '\'' +
+                ", type='" + type + '\'' +
+                ", force='" + force + '\'' +
+                ", equipment='" + equipment + '\'' +
+                ", instruction='" + instruction + '\'' +
+                ", imageUrlList=" + imageUrlList +
+                ", videoUrl='" + videoUrl + '\'' +
+                '}';
     }
 }

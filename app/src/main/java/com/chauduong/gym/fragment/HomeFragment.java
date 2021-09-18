@@ -1,7 +1,12 @@
 package com.chauduong.gym.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,18 +21,25 @@ import com.chauduong.gym.R;
 import com.chauduong.gym.adapter.TypeAdapter;
 import com.chauduong.gym.adapter.TypeListener;
 import com.chauduong.gym.databinding.FragmentHomeBinding;
+import com.chauduong.gym.manager.DatabaseListener;
+import com.chauduong.gym.manager.DatabaseManager;
 import com.chauduong.gym.model.Type;
 import com.chauduong.gym.ui.HomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment implements TypeListener {
-    List<Type> mTypeList;
-    FragmentHomeBinding mFragmentHomeBinding;
-    TypeAdapter mTypeAdapter;
+public class HomeFragment extends Fragment implements TypeListener, DatabaseListener {
+    private static final int MSG_UPDATE_RV = 1;
+    private static List<Type> mTypeList;
+    @SuppressLint("StaticFieldLeak")
+    static FragmentHomeBinding mFragmentHomeBinding;
+    @SuppressLint("StaticFieldLeak")
+    static TypeAdapter mTypeAdapter;
+
     public HomeFragment() {
     }
+
 
     @Nullable
     @Override
@@ -39,25 +51,24 @@ public class HomeFragment extends Fragment implements TypeListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initView();
         initDataType();
-        if (mTypeAdapter == null)
-            mTypeAdapter = new TypeAdapter(mTypeList, getContext());
+    }
+
+
+    private void initView() {
+        if (mTypeList == null) mTypeList = new ArrayList<>();
+        if (mTypeAdapter == null) mTypeAdapter = new TypeAdapter(mTypeList, getContext());
         mTypeAdapter.setmTypeListener(this);
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        mFragmentHomeBinding.rvType.setLayoutManager(llm);
         mFragmentHomeBinding.rvType.setAdapter(mTypeAdapter);
-        mFragmentHomeBinding.rvType.setLayoutManager(new LinearLayoutManager(getContext()));
+
     }
 
     private void initDataType() {
-        if (mTypeList == null) {
-            mTypeList = new ArrayList<>();
-            mTypeList.add(new Type(R.drawable.ic_type_chest, getString(R.string.begin_type) + " " + getString(R.string.chest)));
-            mTypeList.add(new Type(R.drawable.ic_type_chest, getString(R.string.begin_type) + " " + getString(R.string.lats)));
-            mTypeList.add(new Type(R.drawable.ic_type_chest, getString(R.string.begin_type) + " " + getString(R.string.arm)));
-            mTypeList.add(new Type(R.drawable.ic_type_chest, getString(R.string.begin_type) + " " + getString(R.string.shoulder)));
-            mTypeList.add(new Type(R.drawable.ic_type_chest, getString(R.string.begin_type) + " " + getString(R.string.abs)));
-            mTypeList.add(new Type(R.drawable.ic_type_chest, getString(R.string.begin_type) + " " + getString(R.string.glute)));
-            mTypeList.add(new Type(R.drawable.ic_type_chest, getString(R.string.begin_type) + " " + getString(R.string.leg)));
-        }
+        DatabaseManager.getInstance(getActivity(), this).getAllType();
     }
 
     @Override
@@ -66,4 +77,18 @@ public class HomeFragment extends Fragment implements TypeListener {
         intent.putExtra("TYPE", type);
         startActivity(intent);
     }
+
+    @Override
+    public void onSuccessGetAllType(List<Type> typeList) {
+        mTypeList.clear();
+        mTypeList.addAll(typeList);
+        mTypeAdapter.setmTypeList(mTypeList);
+    }
+
+    @Override
+    public void onCancelGetAllTye(String msg) {
+
+    }
+
+
 }

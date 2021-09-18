@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.chauduong.gym.adapter.ViewPagerFragmentAdapter;
 import com.chauduong.gym.databinding.ActivityMainBinding;
@@ -16,12 +17,20 @@ import com.chauduong.gym.fragment.HomeFragment;
 import com.chauduong.gym.fragment.NoteFragment;
 import com.chauduong.gym.fragment.PersonalFragment;
 import com.chauduong.gym.fragment.SettingFragment;
+import com.chauduong.gym.manager.DatabaseListener;
+import com.chauduong.gym.manager.DatabaseManager;
+import com.chauduong.gym.model.Type;
 import com.chauduong.gym.utils.Util;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
-public class MainActivity extends AppCompatActivity {
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity  {
 
     ActivityMainBinding activityMainBinding;
     HomeFragment mHomeFragment;
@@ -57,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         mViewPagerFragmentAdapter.addFragment(mSettingFragment);
         activityMainBinding.vpager.setAdapter(mViewPagerFragmentAdapter);
         activityMainBinding.tblayout.setupWithViewPager(activityMainBinding.vpager);
-        for (int i=0;i<mViewPagerFragmentAdapter.getCount();i++){
+        for (int i = 0; i < mViewPagerFragmentAdapter.getCount(); i++) {
             activityMainBinding.tblayout.getTabAt(i).setIcon(icon[i]);
         }
     }
