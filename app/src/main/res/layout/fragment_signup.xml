@@ -1,0 +1,84 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_login_parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="@dimen/logo_width"
+            android:layout_height="@dimen/logo_width"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            android:src="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/txtSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imgLogo"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top"
+            android:gravity="center"
+            android:text="@string/signup_account"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/title_detail"
+            android:textStyle="bold" />
+
+        <EditText
+
+            android:id="@+id/edtPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtSignUp"
+            android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top"
+            android:hint="@string/phone_number"
+            android:text="0966869524" />
+
+        <EditText
+            android:id="@+id/edtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edtPhoneNumber"
+            android:layout_marginTop="@dimen/detail_text_margin_top"
+            android:hint="@string/password"
+            android:text="123456" />
+
+        <EditText
+            android:id="@+id/edtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edtPassword"
+            android:hint="@string/name"
+            android:text="Chau" />
+
+
+        <Button
+            android:id="@+id/btnSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edtName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top"
+            android:layout_marginEnd="100dp"
+            android:background="@drawable/ripple_button_login"
+            android:text="@string/signup" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:text="@string/copy_right"
+            android:textSize="10sp"
+            tools:ignore="SmallSp" />
+    </RelativeLayout>
+</layout>

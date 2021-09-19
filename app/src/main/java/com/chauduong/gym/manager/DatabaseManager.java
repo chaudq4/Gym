@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 
 import com.chauduong.gym.model.Exercise;
 import com.chauduong.gym.model.Type;
+import com.chauduong.gym.model.User;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -106,7 +107,9 @@ public class DatabaseManager {
         return type;
     }
 
-    ;
+    private User signUp(User user) {
 
+        return null;
+    }
 
 }

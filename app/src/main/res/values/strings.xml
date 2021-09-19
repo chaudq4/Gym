@@ -16,4 +16,16 @@
     <string name="instruction">Hướng dẫn</string>
     <string name="watching_video">Xem video</string>
     <string name="close_video">Đóng</string>
+    <string name="signin">Đăng nhập</string>
+    <string name="not_have_account">Bạn chưa có tài khoản? </string>
+    <string name="signup">Đăng ký</string>
+    <string name="phone_number">Số điện thoại</string>
+    <string name="password">Mật khẩu</string>
+    <string name="remember_account">Nhớ tài khoản</string>
+    <string name="copy_right">Copy right in 2021</string>
+    <string name="name">Họ và tên</string>
+    <string name="signup_account">Đăng ký tài khoản</string>
+    <string name="signup_now">Đăng ký ngay</string>
+    <string name="invalid_account">Sai thông tin tài khoản</string>
+    <string name="back_again_to_exit">Trở về lần nữa để thoát ứng dụng</string>
 </resources>

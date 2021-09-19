@@ -15,4 +15,7 @@
     <dimen name="item_type_title_margin_end">10dp</dimen>
     <dimen name="radius_button">20dp</dimen>
     <dimen name="detail_text_width">200dp</dimen>
+    <dimen name="padding_login_parent">15dp</dimen>
+    <dimen name="logo_width">200dp</dimen>
+    <dimen name="radius_button_login">15dp</dimen>
 </resources>
