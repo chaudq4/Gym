@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BodyGC</string>
+    <string name="app_name">GymGC</string>
     <string name="chest">Ngực</string>
     <string name="lats">Lưng xô</string>
     <string name="shoulder">Vai</string>
@@ -30,4 +30,6 @@
     <string name="back_again_to_exit">Trở về lần nữa để thoát ứng dụng</string>
     <string name="forgot_password">Quên mật khẩu?</string>
     <string name="show_pass">Hiện mật khẩu</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="setting">Cài đặt</string>
 </resources>

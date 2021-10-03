@@ -66,8 +66,6 @@ public class HomeFragment extends Fragment implements TypeListener, HomePresente
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         mFragmentHomeBinding.rvType.setLayoutManager(llm);
         mFragmentHomeBinding.rvType.setAdapter(mTypeAdapter);
-        SearchManager searchManager = (SearchManager) getActivity().getSystemService(SEARCH_SERVICE);
-        mFragmentHomeBinding.sv.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         mFragmentHomeBinding.sv.setOnQueryTextListener(this);
     }
 

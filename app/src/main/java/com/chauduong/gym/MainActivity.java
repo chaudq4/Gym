@@ -5,22 +5,26 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.chauduong.gym.adapter.ViewPagerFragmentAdapter;
 import com.chauduong.gym.databinding.ActivityMainBinding;
+import com.chauduong.gym.databinding.ItemTabBinding;
 import com.chauduong.gym.fragment.food.FoodFragment;
 import com.chauduong.gym.fragment.home.HomeFragment;
 import com.chauduong.gym.fragment.note.NoteFragment;
 import com.chauduong.gym.fragment.personal.PersonalFragment;
 import com.chauduong.gym.fragment.setting.SettingFragment;
 import com.chauduong.gym.utils.Util;
+import com.google.android.material.tabs.TabLayout;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
 
     ActivityMainBinding activityMainBinding;
     HomeFragment mHomeFragment;
@@ -34,7 +38,7 @@ public class MainActivity extends AppCompatActivity  {
             R.drawable.ic_baseline_food_bank_24,
             R.drawable.ic_baseline_sticky_note_2_24,
             R.drawable.ic_baseline_person_24,
-            R.drawable.ic_baseline_settings_24
+            R.drawable.ic_baseline_more_vert_24
     };
     private boolean doubleBackToExitPressedOnce=false;
 
@@ -57,8 +61,13 @@ public class MainActivity extends AppCompatActivity  {
         activityMainBinding.vpager.setAdapter(mViewPagerFragmentAdapter);
         activityMainBinding.tblayout.setupWithViewPager(activityMainBinding.vpager);
         for (int i = 0; i < mViewPagerFragmentAdapter.getCount(); i++) {
-            activityMainBinding.tblayout.getTabAt(i).setIcon(icon[i]);
+            ItemTabBinding itemTabBinding= DataBindingUtil.inflate(getLayoutInflater(),R.layout.item_tab,null,false);
+            itemTabBinding.icon.setImageResource(icon[i]);
+            activityMainBinding.tblayout.getTabAt(i).setCustomView(itemTabBinding.getRoot());
         }
+        activityMainBinding.tblayout.addOnTabSelectedListener(this);
+        Util.updateIconTab(activityMainBinding.tblayout.getTabAt(activityMainBinding.tblayout.getSelectedTabPosition()).getCustomView().findViewById(R.id.icon),getResources().getDimensionPixelSize(R.dimen.icon_tab_size_selected),getResources().getDimensionPixelSize(R.dimen.icon_tab_size_selected));
+        ((ImageView) activityMainBinding.tblayout.getTabAt(activityMainBinding.tblayout.getSelectedTabPosition()).getCustomView().findViewById(R.id.icon)).setColorFilter(getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
     }
 
     private void initFragment() {
@@ -90,5 +99,26 @@ public class MainActivity extends AppCompatActivity  {
             }, 2000);
         }
 
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        Util.updateIconTab(tab.getCustomView().findViewById(R.id.icon),getResources().getDimensionPixelSize(R.dimen.icon_tab_size_selected),
+                getResources().getDimensionPixelSize(R.dimen.icon_tab_size_selected));
+        ((ImageView)tab.getCustomView().findViewById(R.id.icon)).setColorFilter(getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+        Util.updateIconTab(tab.getCustomView().findViewById(R.id.icon),getResources().getDimensionPixelSize(R.dimen.icon_tab_size_unselected),
+                getResources().getDimensionPixelSize(R.dimen.icon_tab_size_unselected));
+        ((ImageView)tab.getCustomView().findViewById(R.id.icon)).setColorFilter(getColor(R.color.tab_unselected), PorterDuff.Mode.SRC_IN);
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+        Util.updateIconTab(tab.getCustomView().findViewById(R.id.icon),getResources().getDimensionPixelSize(R.dimen.icon_tab_size_selected),
+                getResources().getDimensionPixelSize(R.dimen.icon_tab_size_selected));
+        ((ImageView)tab.getCustomView().findViewById(R.id.icon)).setColorFilter(getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
     }
 }

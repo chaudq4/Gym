@@ -13,4 +13,7 @@
     <color name="watching_video">#fafafa</color>
     <color name="colorPrimaryVariant">#FFB94F</color>
     <color name="red">#EF2D2D</color>
+    <color name="tab_unselected">#686868</color>
+    <color name="avt">#D6D5D5</color>
+    <color name="bg_setting">#FFE7C1</color>
 </resources>

@@ -7,6 +7,8 @@ import android.os.Build;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 public class Util {
     public static void setFullScreen(Context mContext) {
@@ -16,5 +18,11 @@ public class Util {
         Window window = ((Activity) mContext).getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(Color.TRANSPARENT);
+    }
+    public static void updateIconTab(ImageView view, int width, int height){
+        LinearLayout.LayoutParams layoutParams= (LinearLayout.LayoutParams) view.getLayoutParams();
+        layoutParams.width=width;
+        layoutParams.height=height;
+        view.setLayoutParams(layoutParams);
     }
 }

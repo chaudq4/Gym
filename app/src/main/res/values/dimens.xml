@@ -8,6 +8,7 @@
     <dimen name="title_instruction">30sp</dimen>
     <dimen name="detail_card_view_margin">3dp</dimen>
     <dimen name="detail_text_size">14sp</dimen>
+    <dimen name="setting_text_size">20sp</dimen>
     <dimen name="detail_text_margin_top">10dp</dimen>
     <dimen name="detail_text_instruction_margin_top">15dp</dimen>
     <dimen name="title_detail">26sp</dimen>
@@ -23,4 +24,10 @@
     <dimen name="time_transition">1000</dimen>
     <dimen name="size_text_login">15sp</dimen>
     <dimen name="detail_text_title_login_margin_top">25dp</dimen>
+    <dimen name="icon_tab_size_selected">35dp</dimen>
+    <dimen name="icon_tab_size_unselected">25dp</dimen>
+    <dimen name="setting_padding">5dp</dimen>
+    <dimen name="setting_text_name_size">25dp</dimen>
+    <dimen name="setting_text_margin_top">5dp</dimen>
+    <dimen name="setting_index_margin_top">50dp</dimen>
 </resources>
