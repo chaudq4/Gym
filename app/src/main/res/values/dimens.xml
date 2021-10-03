@@ -30,4 +30,9 @@
     <dimen name="setting_text_name_size">25dp</dimen>
     <dimen name="setting_text_margin_top">5dp</dimen>
     <dimen name="setting_index_margin_top">50dp</dimen>
+    <dimen name="img_setting_margin_start">15dp</dimen>
+    <dimen name="img_setting_margin_end">10dp</dimen>
+    <dimen name="divider_setting_margin">60dp</dimen>
+    <dimen name="area_setting_margin">20dp</dimen>
+    <dimen name="index_detail_margin_start">15dp</dimen>
 </resources>

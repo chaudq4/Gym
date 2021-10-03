@@ -51,6 +51,7 @@ public class ProgressDialog extends DialogFragment {
         String data = getArguments().getString(TITLE, "");
         AlertDialog alertDialog=new AlertDialog.Builder(activity, R.style.Base_Theme_AppCompat_Dialog)
                 .setView(binding.getRoot())
+                .setTitle(data)
                 .create();
 
         return alertDialog;

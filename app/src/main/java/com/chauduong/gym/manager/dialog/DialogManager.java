@@ -68,9 +68,8 @@ public class DialogManager implements View.OnClickListener {
         mPlayVideoPopupWindow.setAnimationStyle(R.style.popup_window_animation);
         mPlayVideoPopupWindow.showAtLocation(viewParent, Gravity.CENTER, 0, 0);
 
-        ViewGroup root = (ViewGroup) ((Activity) mContext).getWindow().getDecorView().getRootView();
         isShow = true;
-        applyDim(root, 0.7f);
+        applyDim((ViewGroup) viewParent, 0.7f);
         ((AppCompatActivity) mContext).getLifecycle().addObserver(dialogVideoBinding.ytVideo);
         dialogVideoBinding.ytVideo.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
@@ -83,7 +82,7 @@ public class DialogManager implements View.OnClickListener {
             @Override
             public void onDismiss() {
                 isShow = false;
-                clearDim(root);
+                clearDim((ViewGroup) viewParent);
                 dialogVideoBinding.ytVideo.release();
             }
         });
@@ -95,7 +94,6 @@ public class DialogManager implements View.OnClickListener {
         Drawable dim = new ColorDrawable(Color.BLACK);
         dim.setBounds(0, 0, parent.getWidth(), parent.getHeight());
         dim.setAlpha((int) (255 * dimAmount));
-
         ViewGroupOverlay overlay = parent.getOverlay();
         overlay.add(dim);
     }

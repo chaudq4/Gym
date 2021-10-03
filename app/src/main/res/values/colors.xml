@@ -16,4 +16,11 @@
     <color name="tab_unselected">#686868</color>
     <color name="avt">#D6D5D5</color>
     <color name="bg_setting">#FFE7C1</color>
+    <color name="colorSettingAbout">#FF7043</color>
+    <color name="colorSettingRate">#42A5F5</color>
+    <color name="colorSettingInvite">#26C6DA</color>
+    <color name="colorSettingSetting">#26A69A</color>
+    <color name="colorSettingHelp">#AB47BC</color>
+    <color name="colorSettingAccount">#278E2C</color>
+    <color name="divider_color_setting">#65656565</color>
 </resources>

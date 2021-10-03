@@ -34,13 +34,13 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mFragmentSettingBinding.btnExit.setOnClickListener(this::onClick);
+        mFragmentSettingBinding.layoutSetting.btnLogout.setOnClickListener(this::onClick);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnExit:
+            case R.id.btnLogout:
                 mSessionManager = new SessionManager(getContext());
                 mSessionManager.clearSession();
                 getActivity().finish();

@@ -1,77 +1,78 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_dialog_play_video"
-        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/txtName"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="@dimen/detail_text_margin_top"
-            android:gravity="center"
-            android:text="That day an toan"
-            android:textAllCaps="true"
-            android:textColor="@color/detail_title"
-            android:textSize="@dimen/title_detail"
-            android:textStyle="bold" />
+            android:background="@drawable/bg_dialog_play_video"
+            android:orientation="vertical">
 
-        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-            android:id="@+id/ytVideo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txtName"
-            android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top"
-            app:autoPlay="false"
-            app:showFullScreenButton="true"
-            app:showSeekBar="true"
-            app:showVideoCurrentTime="true"
-            app:showVideoDuration="true"
-            app:showYouTubeButton="true" />
+            <TextView
+                android:id="@+id/txtName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="@dimen/detail_text_margin_top"
+                android:gravity="center"
+                android:text="That day an toan"
+                android:textAllCaps="true"
+                android:textColor="@color/detail_title"
+                android:textSize="@dimen/title_detail"
+                android:textStyle="bold" />
 
-        <RelativeLayout
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top"
-            android:layout_marginBottom="@dimen/detail_text_margin_top">
+            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                android:id="@+id/ytVideo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtName"
+                android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top"
+                app:autoPlay="false"
+                app:showFullScreenButton="true"
+                app:showSeekBar="true"
+                app:showVideoCurrentTime="true"
+                app:showVideoDuration="true"
+                app:showYouTubeButton="true" />
 
             <RelativeLayout
-                android:id="@+id/rlCloseVideo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/ripple_watching_video"
-                android:clickable="true">
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top"
+                android:layout_marginBottom="@dimen/detail_text_margin_top">
 
-                <TextView
+                <RelativeLayout
+                    android:id="@+id/rlCloseVideo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="50dp"
-                    android:gravity="center"
-                    android:text="@string/close_video"
-                    android:textAllCaps="true"
-                    android:textColor="@color/watching_video" />
+                    android:layout_height="match_parent"
+                    android:background="@drawable/ripple_watching_video"
+                    android:clickable="true">
 
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_close_button" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="50dp"
+                        android:gravity="center"
+                        android:text="@string/close_video"
+                        android:textAllCaps="true"
+                        android:textColor="@color/watching_video" />
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_close_button" />
+
+
+                </RelativeLayout>
 
 
             </RelativeLayout>
 
 
-        </RelativeLayout>
-
-
-    </LinearLayout>
+        </LinearLayout>
 
 </layout>

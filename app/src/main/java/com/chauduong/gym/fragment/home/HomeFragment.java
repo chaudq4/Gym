@@ -21,6 +21,7 @@ import com.chauduong.gym.R;
 import com.chauduong.gym.adapter.TypeAdapter;
 import com.chauduong.gym.adapter.TypeListener;
 import com.chauduong.gym.databinding.FragmentHomeBinding;
+import com.chauduong.gym.manager.dialog.DialogManager;
 import com.chauduong.gym.model.Type;
 import com.chauduong.gym.ui.HomeActivity;
 
@@ -70,6 +71,7 @@ public class HomeFragment extends Fragment implements TypeListener, HomePresente
     }
 
     private void initDataType() {
+        DialogManager.getInstance(getContext()).showProgressDialog(getFragmentManager(), "Đang tải dữ liệu");
         mHomePresenter.getAllType();
     }
 
@@ -102,6 +104,7 @@ public class HomeFragment extends Fragment implements TypeListener, HomePresente
 
     @Override
     public void onGetAllTypeSuccess(List<Type> typeList) {
+        DialogManager.getInstance(getContext()).dissmissProgressDialog();
         mTypeList.clear();
         mTypeList.addAll(typeList);
         mTypeAdapter.setmTypeList(mTypeList);
@@ -109,6 +112,7 @@ public class HomeFragment extends Fragment implements TypeListener, HomePresente
 
     @Override
     public void onGetAllTypeError(String msg) {
+        DialogManager.getInstance(getContext()).dissmissProgressDialog();
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 

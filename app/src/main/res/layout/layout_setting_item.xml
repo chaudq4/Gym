@@ -1,0 +1,317 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/btnAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ripple_setting"
+                android:clickable="true"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/imgAccount"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="@dimen/img_setting_margin_start"
+                    android:background="@drawable/shape_account"
+                    android:padding="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_account" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_toRightOf="@id/imgAccount"
+                    android:gravity="center"
+                    android:text="@string/account"
+                    android:textSize="21sp" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/img_setting_margin_end"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_baseline_navigate_next_24" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/btnSetting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btnAccount"
+                android:layout_marginTop="@dimen/detail_text_margin_top"
+                android:background="@drawable/ripple_setting"
+                android:clickable="true"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/imgSetting"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="@dimen/img_setting_margin_start"
+                    android:background="@drawable/shape_setting"
+                    android:padding="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_setting" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_toRightOf="@id/imgSetting"
+                    android:gravity="center"
+                    android:text="@string/setting"
+                    android:textSize="21sp" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/img_setting_margin_end"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_baseline_navigate_next_24" />
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/divider_setting"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/btnSetting"
+                android:layout_marginStart="@dimen/divider_setting_margin"
+                android:layout_marginTop="@dimen/area_setting_margin"
+                android:layout_marginEnd="@dimen/divider_setting_margin"
+                android:background="@color/divider_color_setting" />
+
+            <RelativeLayout
+                android:id="@+id/btnInvite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/divider_setting"
+                android:layout_marginTop="@dimen/area_setting_margin"
+                android:background="@drawable/ripple_setting"
+                android:clickable="true"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/imgInvite"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="@dimen/img_setting_margin_start"
+                    android:background="@drawable/shape_invite"
+                    android:padding="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_invite" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_toRightOf="@id/imgInvite"
+                    android:gravity="center"
+                    android:text="@string/invite"
+                    android:textSize="21sp" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/img_setting_margin_end"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_baseline_navigate_next_24" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/btnRate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btnInvite"
+                android:layout_marginTop="@dimen/detail_text_margin_top"
+                android:background="@drawable/ripple_setting"
+                android:clickable="true"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/imgRate"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="@dimen/img_setting_margin_start"
+                    android:background="@drawable/shape_rate"
+                    android:padding="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_rate" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_toRightOf="@id/imgRate"
+                    android:gravity="center"
+                    android:text="@string/rate"
+                    android:textSize="21sp" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/img_setting_margin_end"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_baseline_navigate_next_24" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/btnHelp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btnRate"
+                android:layout_marginTop="@dimen/detail_text_margin_top"
+                android:background="@drawable/ripple_setting"
+                android:clickable="true"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/imgHelp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="@dimen/img_setting_margin_start"
+                    android:background="@drawable/shape_help"
+                    android:padding="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_help" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_toRightOf="@id/imgHelp"
+                    android:gravity="center"
+                    android:text="@string/help"
+                    android:textSize="21sp" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/img_setting_margin_end"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_baseline_navigate_next_24" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/btnAbout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btnHelp"
+                android:layout_marginTop="@dimen/detail_text_margin_top"
+                android:background="@drawable/ripple_setting"
+                android:clickable="true"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/imgAbout"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="@dimen/img_setting_margin_start"
+                    android:background="@drawable/shape_about"
+                    android:padding="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_about" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_toRightOf="@id/imgAbout"
+                    android:gravity="center"
+                    android:text="@string/about"
+                    android:textSize="21sp" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/img_setting_margin_end"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_baseline_navigate_next_24" />
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/divider_about"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/btnAbout"
+                android:layout_marginStart="@dimen/divider_setting_margin"
+                android:layout_marginTop="@dimen/area_setting_margin"
+                android:layout_marginEnd="@dimen/divider_setting_margin"
+                android:background="@color/divider_color_setting" />
+
+            <RelativeLayout
+                android:id="@+id/btnLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/divider_about"
+                android:layout_marginTop="@dimen/area_setting_margin"
+                android:background="@drawable/ripple_setting"
+                android:clickable="true"
+                android:padding="9dp">
+
+                <ImageView
+                    android:id="@+id/imgLogout"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="@dimen/img_setting_margin_start"
+                    android:background="@drawable/shape_logout"
+                    android:padding="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_logout" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_toRightOf="@id/imgLogout"
+                    android:gravity="center"
+                    android:text="@string/logout"
+                    android:textSize="21sp" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/img_setting_margin_end"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_baseline_navigate_next_24" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+</layout>
