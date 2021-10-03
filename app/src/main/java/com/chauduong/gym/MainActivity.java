@@ -1,34 +1,24 @@
 package com.chauduong.gym;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.chauduong.gym.adapter.ViewPagerFragmentAdapter;
 import com.chauduong.gym.databinding.ActivityMainBinding;
-import com.chauduong.gym.fragment.FoodFragment;
-import com.chauduong.gym.fragment.HomeFragment;
-import com.chauduong.gym.fragment.NoteFragment;
-import com.chauduong.gym.fragment.PersonalFragment;
-import com.chauduong.gym.fragment.SettingFragment;
-import com.chauduong.gym.manager.DatabaseListener;
-import com.chauduong.gym.manager.DatabaseManager;
-import com.chauduong.gym.model.Type;
+import com.chauduong.gym.fragment.food.FoodFragment;
+import com.chauduong.gym.fragment.home.HomeFragment;
+import com.chauduong.gym.fragment.note.NoteFragment;
+import com.chauduong.gym.fragment.personal.PersonalFragment;
+import com.chauduong.gym.fragment.setting.SettingFragment;
 import com.chauduong.gym.utils.Util;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -46,13 +36,13 @@ public class MainActivity extends AppCompatActivity  {
             R.drawable.ic_baseline_person_24,
             R.drawable.ic_baseline_settings_24
     };
+    private boolean doubleBackToExitPressedOnce=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-
     }
 
     private void initView() {
@@ -77,5 +67,28 @@ public class MainActivity extends AppCompatActivity  {
         mNoteFragment = new NoteFragment();
         mPersonalFragment = new PersonalFragment();
         mSettingFragment = new SettingFragment();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(getSupportFragmentManager().getBackStackEntryCount()!=0){
+            super.onBackPressed();
+        }else {
+            if (doubleBackToExitPressedOnce) {
+                finish();
+                return;
+            }
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, getString(R.string.back_again_to_exit), Toast.LENGTH_SHORT).show();
+
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+        }
+
     }
 }

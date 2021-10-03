@@ -12,4 +12,5 @@
     <color name="detail_title">#ff7800</color>
     <color name="watching_video">#fafafa</color>
     <color name="colorPrimaryVariant">#FFB94F</color>
+    <color name="red">#EF2D2D</color>
 </resources>

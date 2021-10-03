@@ -2,6 +2,7 @@ package com.chauduong.gym.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.chauduong.gym.R;
 import com.chauduong.gym.databinding.ItemTypeBinding;
 import com.chauduong.gym.model.Type;
@@ -41,7 +43,12 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull TypeViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.mItemTypeBinding.txtName.setText(mTypeList.get(position).getName());
-        holder.mItemTypeBinding.imgType.setImageResource(R.drawable.ic_type_chest);
+        Log.i("chauanh", "onBindViewHolder: "+mTypeList.get(position).getUrlIcon());
+        if (mTypeList.get(position).getUrlIcon() != null) {
+            Glide.with(mContext.getApplicationContext())
+                    .load(mTypeList.get(position).getUrlIcon())
+                    .into(holder.mItemTypeBinding.imgType);
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

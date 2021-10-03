@@ -5,16 +5,16 @@ import java.util.List;
 
 public class Type implements Serializable {
     private String id;
-    private int icon;
+    private String urlIcon;
     private String name;
     private List<Exercise> mExerciseList;
 
-    public int getIcon() {
-        return icon;
+    public String getUrlIcon() {
+        return urlIcon;
     }
 
-    public void setIcon(int icon) {
-        this.icon = icon;
+    public void setUrlIcon(String urlIcon) {
+        this.urlIcon = urlIcon;
     }
 
     public String getName() {
@@ -25,8 +25,8 @@ public class Type implements Serializable {
         this.name = name;
     }
 
-    public Type(int icon, String name) {
-        this.icon = icon;
+    public Type(String urlIcon, String name) {
+        this.urlIcon = urlIcon;
         this.name = name;
     }
 
@@ -53,7 +53,7 @@ public class Type implements Serializable {
     public String toString() {
         return "Type{" +
                 "id='" + id + '\'' +
-                ", icon=" + icon +
+                ", icon=" + urlIcon +
                 ", name='" + name + '\'' +
                 ", mExerciseList=" + mExerciseList +
                 '}';

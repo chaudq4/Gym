@@ -1,0 +1,81 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_transaction">
+
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/logo_transaction"
+            android:transitionName="splash_logo" />
+
+        <RelativeLayout
+            android:transitionName="splash_slogan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imgLogo"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/txt1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_centerHorizontal="true"
+                android:fontFamily="casual"
+                android:text="Strong"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size_text_transaction_1"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt1"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="mind"
+                android:textAllCaps="true"
+                android:textColor="@color/red"
+                android:textSize="@dimen/size_text_transaction_2"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt2"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="casual"
+                android:text="Strong"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size_text_transaction_1"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt3"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="body"
+                android:textAllCaps="true"
+                android:textColor="@color/red"
+                android:textSize="@dimen/size_text_transaction_2"
+                android:textStyle="bold" />
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</layout>
