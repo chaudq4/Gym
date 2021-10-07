@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.chauduong.gym.adapter.ViewPagerFragmentAdapter;
@@ -18,7 +17,7 @@ import com.chauduong.gym.databinding.ActivityMainBinding;
 import com.chauduong.gym.databinding.ItemTabBinding;
 import com.chauduong.gym.fragment.food.FoodFragment;
 import com.chauduong.gym.fragment.home.HomeFragment;
-import com.chauduong.gym.fragment.note.NoteFragment;
+import com.chauduong.gym.fragment.mess.MessFragment;
 import com.chauduong.gym.fragment.personal.PersonalFragment;
 import com.chauduong.gym.fragment.setting.SettingFragment;
 import com.chauduong.gym.utils.Util;
@@ -29,14 +28,14 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     ActivityMainBinding activityMainBinding;
     HomeFragment mHomeFragment;
     FoodFragment mFoodFragment;
-    NoteFragment mNoteFragment;
+    MessFragment mMessFragment;
     PersonalFragment mPersonalFragment;
     SettingFragment mSettingFragment;
     ViewPagerFragmentAdapter mViewPagerFragmentAdapter;
     int icon[] = {
             R.drawable.ic_baseline_home_24,
             R.drawable.ic_baseline_food_bank_24,
-            R.drawable.ic_baseline_sticky_note_2_24,
+            R.drawable.ic_baseline_message_24,
             R.drawable.ic_baseline_person_24,
             R.drawable.ic_baseline_more_vert_24
     };
@@ -55,10 +54,11 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         mViewPagerFragmentAdapter = new ViewPagerFragmentAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         mViewPagerFragmentAdapter.addFragment(mHomeFragment);
         mViewPagerFragmentAdapter.addFragment(mFoodFragment);
-        mViewPagerFragmentAdapter.addFragment(mNoteFragment);
+        mViewPagerFragmentAdapter.addFragment(mMessFragment);
         mViewPagerFragmentAdapter.addFragment(mPersonalFragment);
         mViewPagerFragmentAdapter.addFragment(mSettingFragment);
         activityMainBinding.vpager.setAdapter(mViewPagerFragmentAdapter);
+        activityMainBinding.vpager.setPagingEnabled(false);
         activityMainBinding.tblayout.setupWithViewPager(activityMainBinding.vpager);
         for (int i = 0; i < mViewPagerFragmentAdapter.getCount(); i++) {
             ItemTabBinding itemTabBinding= DataBindingUtil.inflate(getLayoutInflater(),R.layout.item_tab,null,false);
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     private void initFragment() {
         mHomeFragment = new HomeFragment();
         mFoodFragment = new FoodFragment();
-        mNoteFragment = new NoteFragment();
+        mMessFragment = new MessFragment();
         mPersonalFragment = new PersonalFragment();
         mSettingFragment = new SettingFragment();
     }

@@ -37,4 +37,6 @@
     <string name="about">Về chúng tôi</string>
     <string name="help">Hỗ trợ</string>
     <string name="account">Tài khoản</string>
+    <string name="chats">Tin nhắn</string>
+    <string name="search">Tìm kiếm</string>
 </resources>

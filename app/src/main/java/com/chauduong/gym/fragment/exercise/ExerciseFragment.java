@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.chauduong.gym.R;
-import com.chauduong.gym.adapter.ExcersieListener;
 import com.chauduong.gym.adapter.ExcersiseAdapter;
 import com.chauduong.gym.databinding.FragmentExerciseBinding;
 import com.chauduong.gym.fragment.detail.DetailFragment;
@@ -22,7 +21,7 @@ import com.chauduong.gym.model.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExerciseFragment extends Fragment implements ExcersieListener {
+public class ExerciseFragment extends Fragment implements ExcersiseAdapter.ExcersieListener {
     FragmentExerciseBinding mExerciseBinding;
     Type mType;
     ExcersiseAdapter mExcersiseAdapter;

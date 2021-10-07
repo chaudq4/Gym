@@ -1,10 +1,8 @@
 package com.chauduong.gym.fragment.home;
 
-import static android.content.Context.SEARCH_SERVICE;
-
-import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.chauduong.gym.R;
 import com.chauduong.gym.adapter.TypeAdapter;
-import com.chauduong.gym.adapter.TypeListener;
 import com.chauduong.gym.databinding.FragmentHomeBinding;
 import com.chauduong.gym.manager.dialog.DialogManager;
 import com.chauduong.gym.model.Type;
@@ -28,11 +25,12 @@ import com.chauduong.gym.ui.HomeActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment implements TypeListener, HomePresenterListener, SearchView.OnQueryTextListener {
-    private static final int MSG_UPDATE_RV = 1;
-    private static List<Type> mTypeList;
-    private static FragmentHomeBinding mFragmentHomeBinding;
-    static TypeAdapter mTypeAdapter;
+public class HomeFragment extends Fragment implements TypeAdapter.TypeListener, HomePresenterListener, SearchView.OnQueryTextListener {
+    private static final String TAG = "HomeFragment";
+    private  final int MSG_UPDATE_RV = 1;
+    private  List<Type> mTypeList;
+    private  FragmentHomeBinding mFragmentHomeBinding;
+    private  static TypeAdapter mTypeAdapter;
     private HomePresenter mHomePresenter;
 
     public HomeFragment() {
@@ -42,16 +40,48 @@ public class HomeFragment extends Fragment implements TypeListener, HomePresente
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.i(TAG, "onCreateView: ");
         mFragmentHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         return mFragmentHomeBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Log.i(TAG, "onViewCreated: ");
         super.onViewCreated(view, savedInstanceState);
         initView();
         initPresenter();
         initDataType();
+    }
+
+    @Override
+    public void onResume() {
+        Log.i(TAG, "onResume: ");
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        Log.i(TAG, "onPause: ");
+        super.onPause();
+    }
+
+    @Override
+    public void onStart() {
+        Log.i(TAG, "onStart: ");
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        Log.i(TAG, "onStop: ");
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.i(TAG, "onDestroy: ");
+        super.onDestroy();
     }
 
     private void initPresenter() {
@@ -105,9 +135,9 @@ public class HomeFragment extends Fragment implements TypeListener, HomePresente
     @Override
     public void onGetAllTypeSuccess(List<Type> typeList) {
         DialogManager.getInstance(getContext()).dissmissProgressDialog();
-        mTypeList.clear();
-        mTypeList.addAll(typeList);
-        mTypeAdapter.setmTypeList(mTypeList);
+        mTypeAdapter.getmTypeList().clear();
+        mTypeAdapter.getmTypeList().addAll(typeList);
+        mTypeAdapter.notifyDataSetChanged();
     }
 
     @Override

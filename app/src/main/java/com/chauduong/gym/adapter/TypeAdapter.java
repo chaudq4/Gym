@@ -59,6 +59,10 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeViewHolder> {
         });
     }
 
+    public List<Type> getmTypeList() {
+        return mTypeList;
+    }
+
     @Override
     public int getItemCount() {
         return mTypeList.size();
@@ -66,6 +70,10 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeViewHolder> {
 
     public void setmTypeListener(TypeListener mTypeListener) {
         this.mTypeListener = mTypeListener;
+    }
+
+    public  interface TypeListener {
+        void onTypeClick(Type type);
     }
 }
 

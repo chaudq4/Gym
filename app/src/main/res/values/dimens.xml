@@ -35,4 +35,9 @@
     <dimen name="divider_setting_margin">60dp</dimen>
     <dimen name="area_setting_margin">20dp</dimen>
     <dimen name="index_detail_margin_start">15dp</dimen>
+    <dimen name="title_chat">34sp</dimen>
+    <dimen name="image_contact_width">65dp</dimen>
+    <dimen name="contact_margin_start">10dp</dimen>
+    <dimen name="radius_search">30dp</dimen>
+    <dimen name="img_button_mess">40dp</dimen>
 </resources>

@@ -58,6 +58,10 @@ public class ExcersiseAdapter extends RecyclerView.Adapter<ExerciseViewHolder> {
     public void setmExcersieListener(ExcersieListener mExcersieListener) {
         this.mExcersieListener = mExcersieListener;
     }
+
+    public  interface ExcersieListener {
+        void onExerciseClick(Exercise exercise);
+    }
 }
 
 class ExerciseViewHolder extends RecyclerView.ViewHolder {

@@ -9,6 +9,16 @@ public class User implements Serializable {
     private String password;
     private String dob;
     private String sex;
+    private String avatar;
+    private boolean isOnline;
+
+    public boolean isOnline() {
+        return isOnline;
+    }
+
+    public void setOnline(boolean online) {
+        isOnline = online;
+    }
 
     @Override
     public String toString() {
@@ -70,6 +80,15 @@ public class User implements Serializable {
     }
 
     public User() {
+        isOnline=false;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public User(String name, String phoneNumber, String password, String dob, String sex) {

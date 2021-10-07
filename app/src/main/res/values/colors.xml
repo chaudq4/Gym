@@ -5,7 +5,7 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
+    <color name="black">#181818</color>
     <color name="white">#FFFFFFFF</color>
     <color name="colorPrimary">#f7941e</color>
     <color name="dim">#3BFFFFFF</color>
@@ -23,4 +23,7 @@
     <color name="colorSettingHelp">#AB47BC</color>
     <color name="colorSettingAccount">#278E2C</color>
     <color name="divider_color_setting">#65656565</color>
+    <color name="bg_button_chat">#ECECEC</color>
+    <color name="bg_online_chat">#27AE0B</color>
+    <color name="bg_offline_chat">#5B5B5B</color>
 </resources>

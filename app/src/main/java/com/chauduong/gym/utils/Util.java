@@ -25,4 +25,9 @@ public class Util {
         layoutParams.height=height;
         view.setLayoutParams(layoutParams);
     }
+    public static void setVisibilityView(View view, boolean isVisibility){
+        if (view!=null){
+            view.setVisibility(isVisibility?View.VISIBLE:View.GONE);
+        }
+    }
 }
