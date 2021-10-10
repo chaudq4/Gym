@@ -24,6 +24,8 @@
     <color name="colorSettingAccount">#278E2C</color>
     <color name="divider_color_setting">#65656565</color>
     <color name="bg_button_chat">#ECECEC</color>
+    <color name="bg_msg_chat_to">#E0E0E0</color>
+    <color name="bg_msg_chat_from">@color/colorPrimary</color>
     <color name="bg_online_chat">#27AE0B</color>
     <color name="bg_offline_chat">#5B5B5B</color>
 </resources>

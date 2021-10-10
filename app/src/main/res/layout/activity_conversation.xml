@@ -1,0 +1,181 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rl_actionbar"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:background="@color/colorPrimary"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:id="@+id/btnBack"
+                android:layout_width="@dimen/img_button_back_mess"
+                android:layout_height="@dimen/img_button_back_mess"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/ripple_conversation"
+                android:clickable="true"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/img_button_conversation"
+                    android:layout_height="@dimen/img_button_conversation"
+                    android:duplicateParentState="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_baseline_arrow_back_ios_24" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/fl_avatar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btnBack"
+                android:layout_alignParentEnd="true">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgAvatar"
+                    android:layout_width="@dimen/image_contact_width_mess"
+                    android:layout_height="@dimen/image_contact_width_mess"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_baseline_account_circle_24" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgStatus"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginEnd="7dp"
+                    android:layout_marginBottom="7dp"
+                    android:src="@color/bg_online_chat" />
+            </FrameLayout>
+
+
+            <LinearLayout
+                android:id="@+id/layout_user"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/img_button_mess"
+                android:layout_below="@id/btnBack"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_toStartOf="@+id/fl_avatar"
+                android:gravity="start|center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bui Quoc Huy"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size_text_user_name_conversation" />
+
+                <TextView
+                    android:id="@+id/txtStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Active"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size_text_user_status_conversation" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_list_inbox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/layout_bottom_conversation"
+            android:layout_below="@+id/rl_actionbar"
+            android:layout_marginTop="@dimen/detail_text_margin_top"
+            android:layout_marginBottom="@dimen/detail_text_margin_top" />
+
+        <ScrollView
+            android:id="@+id/layout_bottom_conversation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+
+                <FrameLayout
+                    android:id="@+id/btnAdd"
+                    android:layout_width="@dimen/bottom_conversation_height"
+                    android:layout_height="@dimen/bottom_conversation_height"
+                    android:background="@drawable/bg_msg_add"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="@dimen/img_button_conversation"
+                        android:layout_height="@dimen/img_button_conversation"
+                        android:layout_gravity="center"
+                        android:duplicateParentState="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_baseline_add_24" />
+                </FrameLayout>
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/bottom_conversation_height"
+                    android:layout_marginStart="@dimen/conversation_margin_start"
+                    android:layout_marginEnd="@dimen/conversation_margin_start"
+                    android:layout_toStartOf="@id/btnSend"
+                    android:layout_toEndOf="@id/btnAdd"
+                    android:background="@drawable/bg_msg">
+
+                    <EditText
+                        android:id="@+id/edtMsg"
+                        contentPadding="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="5dp"
+                        android:background="@null"
+                        android:gravity="start|center_vertical"
+                        android:hint="Ab"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/btnSend"
+                    android:layout_width="@dimen/bottom_conversation_height"
+                    android:layout_height="@dimen/bottom_conversation_height"
+                    android:layout_toStartOf="@id/btnLoad"
+                    android:background="@drawable/ripple_conversation_sent"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:id="@+id/img_favorite"
+                        android:layout_width="@dimen/img_button_conversation"
+                        android:layout_height="@dimen/img_button_conversation"
+                        android:layout_gravity="center"
+                        android:duplicateParentState="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_baseline_favorite_24" />
+
+                </FrameLayout>
+
+                <Button
+                    android:id="@+id/btnLoad"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:text="+"
+                    android:textColor="@color/white" />
+
+            </RelativeLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+</layout>

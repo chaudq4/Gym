@@ -39,5 +39,17 @@
     <dimen name="image_contact_width">65dp</dimen>
     <dimen name="contact_margin_start">10dp</dimen>
     <dimen name="radius_search">30dp</dimen>
-    <dimen name="img_button_mess">40dp</dimen>
+    <dimen name="img_button_mess">60dp</dimen>
+    <dimen name="img_button_conversation">28dp</dimen>
+    <dimen name="size_text_user_name_conversation">25sp</dimen>
+    <dimen name="size_text_user_status_conversation">14sp</dimen>
+    <dimen name="bottom_conversation_height">40dp</dimen>
+    <dimen name="conversation_margin_start">10dp</dimen>
+    <dimen name="margin_layout_inbox">120dp</dimen>
+    <dimen name="text_size_inbox_msg">16sp</dimen>
+    <dimen name="text_size_inbox_time">12sp</dimen>
+    <dimen name="text_typing">14sp</dimen>
+    <dimen name="img_button_back_mess">40dp</dimen>
+    <dimen name="image_contact_width_mess">70dp</dimen>
+    <dimen name="img_button_conversation_bound">40dp</dimen>
 </resources>

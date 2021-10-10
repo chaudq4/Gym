@@ -39,4 +39,9 @@
     <string name="account">Tài khoản</string>
     <string name="chats">Tin nhắn</string>
     <string name="search">Tìm kiếm</string>
+    <string name="online">Đang hoạt động</string>
+    <string name="offline">Ngoại tuyến</string>
+    <string name="from">Hôm nay có đi đâu trời không, mà hôm nay mưa to vcl ra đi đâu được cơ chứ?</string>
+    <string name="to">Thôi mưa to lắm không đi đâu chơi cả. Ở nhà chụp ảnh indoor đi shop ơi</string>
+    <string name="typing">Đang soạn thảo...</string>
 </resources>

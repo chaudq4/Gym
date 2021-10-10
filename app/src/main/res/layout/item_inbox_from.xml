@@ -1,0 +1,38 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_marginTop="@dimen/detail_text_margin_top"
+        android:layout_marginBottom="@dimen/detail_text_margin_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_layout_inbox"
+        android:background="@drawable/bg_inbox_from"
+        android:paddingStart="@dimen/detail_text_margin_top"
+        android:paddingTop="@dimen/setting_padding"
+        android:paddingEnd="@dimen/detail_text_margin_top"
+        android:paddingBottom="@dimen/setting_padding">
+
+        <ImageView
+            android:id="@+id/imgImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textAlignment="viewStart"
+            android:id="@+id/txtMsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/from"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_inbox_msg" />
+
+        <TextView
+            android:id="@+id/txtTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtMsg"
+            android:layout_alignParentRight="true"
+            android:text="10:20"
+            android:textSize="@dimen/text_size_inbox_time" />
+    </RelativeLayout>
+</layout>

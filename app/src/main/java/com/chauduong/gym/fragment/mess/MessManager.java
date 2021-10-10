@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 
 import com.chauduong.gym.R;
 import com.chauduong.gym.fragment.signin.SignInManagerListener;
+import com.chauduong.gym.manager.session.SessionManager;
 import com.chauduong.gym.model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,7 +32,8 @@ public class MessManager {
         firebaseDatabase = FirebaseDatabase.getInstance(URL_FIREBASE);
     }
 
-    public void getAllListUser() {
+    public void getAllListUserForChat() {
+        SessionManager sessionManager = new SessionManager(mContext);
         Log.i("chauanh", "getAllListUser: ");
         DatabaseReference mDatabaseReference = firebaseDatabase.getReference(USERS);
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
@@ -40,10 +42,11 @@ public class MessManager {
                 List<User> userList = new ArrayList<>();
                 for (DataSnapshot d : snapshot.getChildren()) {
                     User u = d.getValue(User.class);
-                    userList.add(u);
+                    if (!u.getPhoneNumber().equalsIgnoreCase(sessionManager.getUser().getPhoneNumber()))
+                        userList.add(u);
 
                 }
-                Log.i("chauanh", "onDataChange: "+userList.size());
+                Log.i("chauanh", "onDataChange: " + userList.size());
                 mMessManagerListener.onGetAllUserSuccess(userList);
                 mDatabaseReference.removeEventListener(this);
             }

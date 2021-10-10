@@ -98,7 +98,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactViewHolder> {
 
     public void setmContactListener(ContactListener mContactListener) {
         this.mContactListener = mContactListener;
-        notifyDataSetChanged();
     }
 
     @Override

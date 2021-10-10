@@ -17,7 +17,7 @@ public class MessPresenter implements MessManagerListener {
     }
     public void getAllListUser(){
         if (mMessManager!=null){
-            mMessManager.getAllListUser();
+            mMessManager.getAllListUserForChat();
         }
     }
 

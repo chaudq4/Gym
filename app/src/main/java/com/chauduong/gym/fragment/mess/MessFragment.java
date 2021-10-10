@@ -1,8 +1,7 @@
 package com.chauduong.gym.fragment.mess;
 
 
-import android.app.SearchManager;
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chauduong.gym.R;
+import com.chauduong.gym.activity.ConversationActivity;
 import com.chauduong.gym.adapter.ContactAdapter;
 import com.chauduong.gym.adapter.ContactListener;
 import com.chauduong.gym.databinding.FragmentMessBinding;
@@ -30,6 +30,7 @@ import java.util.List;
 
 public class MessFragment extends Fragment implements MessPresenterListener, ContactListener {
     private static final String TAG = "MessFragment";
+    public static final String USER = "key_user";
     FragmentMessBinding mFragmentMessBinding;
     ContactAdapter mContactAdapter;
     List<User> contactList;
@@ -92,7 +93,9 @@ public class MessFragment extends Fragment implements MessPresenterListener, Con
 
     @Override
     public void onContactClick(User user) {
-        Toast.makeText(getContext(), user.getName(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getContext(), ConversationActivity.class);
+        intent.putExtra(USER, user);
+        startActivity(intent);
     }
 
     @Override
