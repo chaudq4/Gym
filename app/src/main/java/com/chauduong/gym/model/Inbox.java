@@ -1,73 +1,95 @@
 package com.chauduong.gym.model;
 
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+import androidx.databinding.Observable;
+
+import com.chauduong.gym.BR;
+
 import java.io.Serializable;
 
-public class Inbox implements Serializable, Comparable, Cloneable {
-    String id;
-    User from;
-    User to;
-    String msg;
-    String link;
-    String time;
-    boolean isRead;
+public class Inbox extends BaseObservable implements Serializable, Comparable, Cloneable {
+    private String id;
+    private User from;
+    private User to;
+    private String msg;
+    private String link;
+    private String time;
+    private boolean isRead;
 
+    @Bindable
     public boolean isRead() {
         return isRead;
     }
 
     public void setRead(boolean read) {
         isRead = read;
+        notifyPropertyChanged(BR.read);
     }
 
+    @Bindable
     public String getTime() {
         return time;
     }
 
     public void setTime(String time) {
         this.time = time;
+        notifyPropertyChanged(BR.time);
     }
 
     public Inbox() {
     }
 
+    @Bindable
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
+        notifyPropertyChanged(BR.id);
     }
 
+    @Bindable
     public User getFrom() {
         return from;
+
     }
 
     public void setFrom(User from) {
         this.from = from;
+        notifyPropertyChanged(BR.from);
     }
 
+    @Bindable
     public User getTo() {
         return to;
     }
 
     public void setTo(User to) {
         this.to = to;
+        notifyPropertyChanged(BR.to);
     }
 
+    @Bindable
     public String getMsg() {
         return msg;
+
     }
 
     public void setMsg(String msg) {
         this.msg = msg;
+        notifyPropertyChanged(BR.msg);
     }
 
+    @Bindable
     public String getLink() {
         return link;
     }
 
     public void setLink(String link) {
         this.link = link;
+        notifyPropertyChanged(BR.link);
     }
 
     @Override

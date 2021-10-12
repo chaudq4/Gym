@@ -1,11 +1,18 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+
+        <variable
+            name="inbox"
+            type="com.chauduong.gym.model.Inbox" />
+    </data>
+
     <RelativeLayout
-        android:layout_marginTop="@dimen/detail_text_margin_top"
-        android:layout_marginBottom="@dimen/detail_text_margin_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/detail_text_margin_top"
         android:layout_marginEnd="@dimen/margin_layout_inbox"
+        android:layout_marginBottom="@dimen/detail_text_margin_top"
         android:background="@drawable/bg_inbox_to"
         android:paddingStart="@dimen/detail_text_margin_top"
         android:paddingTop="@dimen/setting_padding"
@@ -21,7 +28,7 @@
             android:id="@+id/txtMsg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/to"
+            android:text="@{inbox.msg}"
             android:textAlignment="viewStart"
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_inbox_msg" />
@@ -32,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtMsg"
             android:layout_alignParentRight="true"
-            android:text="10:20"
+            android:text="@{inbox.time}"
             android:textSize="@dimen/text_size_inbox_time" />
     </RelativeLayout>
 </layout>

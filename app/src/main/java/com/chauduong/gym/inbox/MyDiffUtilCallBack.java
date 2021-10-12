@@ -1,8 +1,5 @@
-package com.chauduong.gym.adapter;
+package com.chauduong.gym.inbox;
 
-import android.os.Bundle;
-
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 
 import com.chauduong.gym.model.Inbox;
@@ -19,25 +16,25 @@ public class MyDiffUtilCallBack extends DiffUtil.Callback {
     }
 
 
-
     @Override
     public int getOldListSize() {
-        return oldInbox==null?0 :oldInbox.size();
+        return oldInbox == null ? 0 : oldInbox.size();
     }
 
     @Override
     public int getNewListSize() {
-        return newInbox==null?0 :newInbox.size();
+        return newInbox == null ? 0 : newInbox.size();
     }
 
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        return newInbox.get(newItemPosition).getId() == oldInbox.get(oldItemPosition).getId();
+        if (newInbox.get(newItemPosition).getId() == null||oldInbox.get(oldItemPosition).getId()==null) return false;
+        return newInbox.get(newItemPosition).getId().equalsIgnoreCase(oldInbox.get(oldItemPosition).getId());
     }
 
     @Override
     public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-        int result = newInbox.get(newItemPosition).compareTo(oldInbox.get(oldItemPosition));
-        return result==0;
+        if (newInbox.get(newItemPosition).getId() == null||oldInbox.get(oldItemPosition).getId()==null) return false;
+        return newInbox.get(newItemPosition).getId().equalsIgnoreCase(oldInbox.get(oldItemPosition).getId());
     }
 }

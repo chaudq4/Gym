@@ -52,4 +52,7 @@
     <dimen name="img_button_back_mess">40dp</dimen>
     <dimen name="image_contact_width_mess">70dp</dimen>
     <dimen name="img_button_conversation_bound">40dp</dimen>
+    <dimen name="bottom_conversation_height_parent">60dp</dimen>
+    <dimen name="margin_edt_msg">10dp</dimen>
+    <dimen name="padding_edt_msg">5dp</dimen>
 </resources>

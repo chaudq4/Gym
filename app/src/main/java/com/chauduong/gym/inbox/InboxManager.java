@@ -1,4 +1,4 @@
-package com.chauduong.gym.activity;
+package com.chauduong.gym.inbox;
 
 import android.content.Context;
 import android.util.Log;
@@ -14,22 +14,19 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class ConversationManager implements ChildEventListener {
+public class InboxManager implements ChildEventListener {
+    private static final int TOTAL_VISIBLE_COUNT = 10;
     private static final String CONVERSATION = "conversation";
     private static final String LAST_MSG = "lastestmsg";
     private static final String TAG = "ConversationManager";
     private Context mContext;
-    private ConversationManagerListener managerListener;
+    private InboxManagerListener managerListener;
     private SessionManager sessionManager;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
 
-    public ConversationManager(Context mContext, ConversationManagerListener managerListener) {
+    public InboxManager(Context mContext, InboxManagerListener managerListener) {
         this.mContext = mContext;
         this.managerListener = managerListener;
         sessionManager = new SessionManager(mContext);
@@ -49,30 +46,23 @@ public class ConversationManager implements ChildEventListener {
         mDatabaseReference.child(inbox.getTo().getPhoneNumber()).child(inbox.getFrom().getPhoneNumber()).child(LAST_MSG).setValue(inbox);
     }
 
-    public void getAllConversation(User user) {
-
-
-    }
-
-    public void getAllInbox(User toUser, int index) {
+    public void getPagingInbox(User toUser, int index) {
         mDatabaseReference = mFirebaseDatabase.getReference(CONVERSATION);
         if (index >= 2)
             mDatabaseReference.child(sessionManager.getUser().getPhoneNumber()).child(toUser.getPhoneNumber()).removeEventListener(this);
-        mDatabaseReference.child(sessionManager.getUser().getPhoneNumber()).child(toUser.getPhoneNumber()).limitToLast(10 * index).addChildEventListener(this);
+        mDatabaseReference.child(sessionManager.getUser().getPhoneNumber()).child(toUser.getPhoneNumber()).limitToLast(TOTAL_VISIBLE_COUNT * index).addChildEventListener(this);
 
     }
 
     @Override
     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
         if (!snapshot.getKey().equalsIgnoreCase(LAST_MSG)) {
-            Log.i(TAG, "onChildAdded: " + snapshot.getValue());
             managerListener.onGetItemSuccessInbox(snapshot.getValue(Inbox.class));
         }
     }
 
     @Override
     public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-        Log.i(TAG, "onChildChanged: ");
         managerListener.onAddNewInbox();
     }
 
@@ -83,7 +73,6 @@ public class ConversationManager implements ChildEventListener {
 
     @Override
     public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-        Log.i(TAG, "onChildMoved: ");
     }
 
     @Override

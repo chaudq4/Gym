@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chauduong.gym.R;
-import com.chauduong.gym.activity.ConversationActivity;
+import com.chauduong.gym.inbox.InboxActivity;
 import com.chauduong.gym.adapter.ContactAdapter;
 import com.chauduong.gym.adapter.ContactListener;
 import com.chauduong.gym.databinding.FragmentMessBinding;
@@ -93,7 +93,7 @@ public class MessFragment extends Fragment implements MessPresenterListener, Con
 
     @Override
     public void onContactClick(User user) {
-        Intent intent = new Intent(getContext(), ConversationActivity.class);
+        Intent intent = new Intent(getContext(), InboxActivity.class);
         intent.putExtra(USER, user);
         startActivity(intent);
     }
