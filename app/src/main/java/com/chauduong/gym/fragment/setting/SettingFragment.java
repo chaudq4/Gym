@@ -17,6 +17,8 @@ import com.chauduong.gym.databinding.FragmentSettingBinding;
 import com.chauduong.gym.manager.session.SessionManager;
 import com.chauduong.gym.ui.LoginActivity;
 
+import java.util.Objects;
+
 public class SettingFragment extends Fragment implements View.OnClickListener {
     FragmentSettingBinding mFragmentSettingBinding;
     private SessionManager mSessionManager;
@@ -43,7 +45,7 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
             case R.id.btnLogout:
                 mSessionManager = new SessionManager(getContext());
                 mSessionManager.clearSession();
-                getActivity().finish();
+                Objects.requireNonNull(getActivity()).finish();
                 Intent intent = new Intent(getContext(), LoginActivity.class);
                 startActivity(intent);
                 break;

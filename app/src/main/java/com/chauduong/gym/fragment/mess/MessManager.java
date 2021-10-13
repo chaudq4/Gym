@@ -22,19 +22,16 @@ import java.util.List;
 
 public class MessManager {
     private static final String USERS = "users";
-    private Context mContext;
     private FirebaseDatabase firebaseDatabase;
     private MessManagerListener mMessManagerListener;
 
-    public MessManager(Context mContext, MessManagerListener mMessManagerListener) {
-        this.mContext = mContext;
+    public MessManager(MessManagerListener mMessManagerListener) {
         this.mMessManagerListener = mMessManagerListener;
         firebaseDatabase = FirebaseDatabase.getInstance(URL_FIREBASE);
     }
 
-    public void getAllListUserForChat() {
+    public void getAllListUserForChat(Context mContext) {
         SessionManager sessionManager = new SessionManager(mContext);
-        Log.i("chauanh", "getAllListUser: ");
         DatabaseReference mDatabaseReference = firebaseDatabase.getReference(USERS);
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -44,11 +41,8 @@ public class MessManager {
                     User u = d.getValue(User.class);
                     if (!u.getPhoneNumber().equalsIgnoreCase(sessionManager.getUser().getPhoneNumber()))
                         userList.add(u);
-
                 }
-                Log.i("chauanh", "onDataChange: " + userList.size());
                 mMessManagerListener.onGetAllUserSuccess(userList);
-                mDatabaseReference.removeEventListener(this);
             }
 
             @Override

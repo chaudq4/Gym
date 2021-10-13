@@ -14,21 +14,21 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class InboxManager implements ChildEventListener {
     private static final int TOTAL_VISIBLE_COUNT = 10;
     private static final String CONVERSATION = "conversation";
     private static final String LAST_MSG = "lastestmsg";
+    private static final String USERS = "users";
     private static final String TAG = "ConversationManager";
-    private Context mContext;
-    private InboxManagerListener managerListener;
+    private InboxManagerListener inboxManagerListener;
     private SessionManager sessionManager;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
 
-    public InboxManager(Context mContext, InboxManagerListener managerListener) {
-        this.mContext = mContext;
-        this.managerListener = managerListener;
+    public InboxManager(Context mContext, InboxManagerListener inboxManagerListener) {
+        this.inboxManagerListener = inboxManagerListener;
         sessionManager = new SessionManager(mContext);
         mFirebaseDatabase = FirebaseDatabase.getInstance("https://gymgc-55cfd-default-rtdb.asia-southeast1.firebasedatabase.app/");
     }
@@ -54,16 +54,31 @@ public class InboxManager implements ChildEventListener {
 
     }
 
+    public void listenToUserChange(User toUser){
+        mDatabaseReference = mFirebaseDatabase.getReference(USERS);
+        mDatabaseReference.child(toUser.getId()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                inboxManagerListener.onToUserChange(snapshot.getValue(User.class));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     @Override
     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
         if (!snapshot.getKey().equalsIgnoreCase(LAST_MSG)) {
-            managerListener.onGetItemSuccessInbox(snapshot.getValue(Inbox.class));
+            inboxManagerListener.onGetItemSuccessInbox(snapshot.getValue(Inbox.class));
         }
     }
 
     @Override
     public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-        managerListener.onAddNewInbox();
+        inboxManagerListener.onAddNewInbox();
     }
 
     @Override

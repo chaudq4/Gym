@@ -13,6 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,13 +31,13 @@ import com.chauduong.gym.utils.Util;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MessFragment extends Fragment implements MessPresenterListener, ContactListener {
+public class MessFragment extends Fragment implements ContactListener {
     private static final String TAG = "MessFragment";
     public static final String USER = "key_user";
     FragmentMessBinding mFragmentMessBinding;
     ContactAdapter mContactAdapter;
     List<User> contactList;
-    private MessPresenter mMessPresenter;
+    private MessViewModel messViewModel;
 
     public MessFragment() {
     }
@@ -50,19 +53,34 @@ public class MessFragment extends Fragment implements MessPresenterListener, Con
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView();
-        initPresenter();
+        initViewModel();
         initData();
     }
 
     private void initData() {
         Util.setVisibilityView(mFragmentMessBinding.pbContact, true);
-        mMessPresenter.getAllListUser();
+        messViewModel.getAllUserForChar();
     }
 
-    private void initPresenter() {
-        if (mMessPresenter == null) {
-            mMessPresenter = new MessPresenter(getContext(), this);
-        }
+    private void initViewModel() {
+        messViewModel = ViewModelProviders.of(getActivity()).get(MessViewModel.class);
+        messViewModel.getListUserForChar().observe(getViewLifecycleOwner(), new Observer<List<User>>() {
+            @Override
+            public void onChanged(List<User> userList) {
+                mContactAdapter.getUserList().clear();
+                mContactAdapter.getUserList().addAll(userList);
+                mContactAdapter.notifyDataSetChanged();
+                Util.setVisibilityView(mFragmentMessBinding.pbContact, false);
+            }
+        });
+        messViewModel.getMsgGetAllUserError().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                DialogManager.getInstance(getContext()).dissmissProgressDialog();
+                Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void initView() {
@@ -77,19 +95,6 @@ public class MessFragment extends Fragment implements MessPresenterListener, Con
         mFragmentMessBinding.svContact.setQueryHint(getString(R.string.search));
     }
 
-    @Override
-    public void onGetAllUserSuccess(List<User> userList) {
-        mContactAdapter.getUserList().clear();
-        mContactAdapter.getUserList().addAll(userList);
-        mContactAdapter.notifyDataSetChanged();
-        Util.setVisibilityView(mFragmentMessBinding.pbContact, false);
-    }
-
-    @Override
-    public void onGetAllUserError(String msg) {
-        DialogManager.getInstance(getContext()).dissmissProgressDialog();
-        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
-    }
 
     @Override
     public void onContactClick(User user) {
@@ -101,36 +106,6 @@ public class MessFragment extends Fragment implements MessPresenterListener, Con
     @Override
     public void onContactTouch(User user) {
 
-    }
-
-    @Override
-    public void onResume() {
-        Log.i(TAG, "onResume: ");
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        Log.i(TAG, "onPause: ");
-        super.onPause();
-    }
-
-    @Override
-    public void onStart() {
-        Log.i(TAG, "onStart: ");
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        Log.i(TAG, "onStop: ");
-        super.onStop();
-    }
-
-    @Override
-    public void onDestroy() {
-        Log.i(TAG, "onDestroy: ");
-        super.onDestroy();
     }
 
 }

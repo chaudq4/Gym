@@ -58,7 +58,7 @@ public class SignUpFragment extends Fragment implements View.OnClickListener, Si
                 String phoneNumber = mFragmentSignupBinding.edtPhoneNumber.getText().toString().trim();
                 String passWord = mFragmentSignupBinding.edtPassword.getText().toString().trim();
                 mSignUpPresenter.signUp(name, phoneNumber, passWord);
-                DialogManager.getInstance(getContext()).showProgressDialog(getFragmentManager(),null);
+//                DialogManager.getInstance(getContext()).showProgressDialog(getFragmentManager(),null);
                 break;
             default:
                 break;
@@ -69,7 +69,7 @@ public class SignUpFragment extends Fragment implements View.OnClickListener, Si
     public void onSignUpSuccess(User user) {
         mSessionManager = new SessionManager(getContext());
         mSessionManager.createSignIn(user);
-        DialogManager.getInstance(getContext()).dissmissProgressDialog();
+//        DialogManager.getInstance(getContext()).dissmissProgressDialog();
         Intent intent = new Intent();
         intent.putExtra(USER, user);
         intent.setClass(getContext(), MainActivity.class);
@@ -78,7 +78,7 @@ public class SignUpFragment extends Fragment implements View.OnClickListener, Si
 
     @Override
     public void onSignUpError(String msg) {
-        DialogManager.getInstance(getContext()).dissmissProgressDialog();
+//        DialogManager.getInstance(getContext()).dissmissProgressDialog();
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 

@@ -19,10 +19,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.bumptech.glide.Glide;
 import com.chauduong.gym.R;
 import com.chauduong.gym.databinding.ActivityConversationBinding;
 import com.chauduong.gym.model.Inbox;
 import com.chauduong.gym.model.User;
+import com.chauduong.gym.utils.DataBindingAdapter;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,7 +38,6 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
     InboxAdapter mInboxAdapter;
     List<Inbox> inboxList;
     List<Inbox> newList;
-
     InboxViewModel inboxViewModel;
     boolean isScrollEnd;
 
@@ -49,6 +50,7 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
         isScrollEnd = true;
         initViewModel();
         receiveDataFromViewModel();
+        mActivityConversationBinding.setViewModel(inboxViewModel);
 
     }
 
@@ -67,16 +69,14 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onChanged(Boolean aBoolean) {
                 isScrollEnd = true;
-                Log.i(TAG, "onChanged: smoothScrollToPosition");
                 mActivityConversationBinding.rvListInbox.smoothScrollToPosition(mInboxAdapter.getInboxList().size() - 1);
             }
         });
+        inboxViewModel.listenToUserChange(toUser);
 
     }
 
     private void initView() {
-        mActivityConversationBinding.txtName.setText(toUser.getName());
-        mActivityConversationBinding.txtStatus.setText(toUser.isOnline() ? getString(R.string.online) : getString(R.string.offline));
         mActivityConversationBinding.btnBack.setOnClickListener(this);
         mActivityConversationBinding.btnSend.setOnClickListener(this);
         mActivityConversationBinding.swLayout.setOnRefreshListener(this);
@@ -113,14 +113,8 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void sentInbox() {
-        if (mActivityConversationBinding.edtMsg.getText() == null || mActivityConversationBinding.edtMsg.getText().toString().length() == 0) {
-
-        } else {
-            String msg = mActivityConversationBinding.edtMsg.getText().toString();
-            String time = new Date().toString();
-            inboxViewModel.sentInbox(msg, "", time, toUser);
-            mActivityConversationBinding.edtMsg.setText("");
-        }
+        String urlImage = "";
+        inboxViewModel.sentInbox(urlImage);
     }
 
 
@@ -137,9 +131,9 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void afterTextChanged(Editable s) {
         if (s.length() == 0) {
-            mActivityConversationBinding.imgFavorite.setImageResource(R.drawable.ic_baseline_favorite_24);
+            inboxViewModel.setFavorite(true);
         } else {
-            mActivityConversationBinding.imgFavorite.setImageResource(R.drawable.ic_baseline_send_24);
+            inboxViewModel.setFavorite(false);
         }
         if (mActivityConversationBinding.edtMsg.getLineCount() >= 1 && mActivityConversationBinding.edtMsg.getLineCount() < 7) {
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mActivityConversationBinding.layoutMsg.getLayoutParams();

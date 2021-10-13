@@ -42,13 +42,7 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull TypeViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.mItemTypeBinding.txtName.setText(mTypeList.get(position).getName());
-        Log.i("chauanh", "onBindViewHolder: "+mTypeList.get(position).getUrlIcon());
-        if (mTypeList.get(position).getUrlIcon() != null) {
-            Glide.with(mContext.getApplicationContext())
-                    .load(mTypeList.get(position).getUrlIcon())
-                    .into(holder.mItemTypeBinding.imgType);
-        }
+        holder.mItemTypeBinding.setType(mTypeList.get(position));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,14 +59,14 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mTypeList.size();
+        return mTypeList==null?0:mTypeList.size();
     }
 
     public void setmTypeListener(TypeListener mTypeListener) {
         this.mTypeListener = mTypeListener;
     }
 
-    public  interface TypeListener {
+    public interface TypeListener {
         void onTypeClick(Type type);
     }
 }

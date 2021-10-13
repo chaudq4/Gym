@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,7 @@ public class DialogManager implements View.OnClickListener {
     private boolean isShow;
     private PopupWindow mPlayVideoPopupWindow;
     private YouTubePlayer mYouTubePlayer;
-    private ProgressDialog mDialogProgress;
+    private static ProgressDialog mDialogProgress;
 
     public static DialogManager getInstance(Context mContext) {
         if (instance == null)
@@ -113,16 +114,17 @@ public class DialogManager implements View.OnClickListener {
     }
 
     public void showProgressDialog(FragmentManager fragmentManager, String title) {
+        Log.i("chauanh", "showProgressDialog: ");
         mDialogProgress = ProgressDialog.newInstance(title);
         mDialogProgress.show(fragmentManager, null);
     }
 
     public void dissmissProgressDialog() {
+        Log.i("chauanh", "dissmissProgressDialog: ");
         if (mDialogProgress != null
-                && mDialogProgress.getDialog() != null
-                && mDialogProgress.getDialog().isShowing()
-                && !mDialogProgress.isRemoving()) {
+                && mDialogProgress.getDialog() != null) {
             //dialog is showing so do something
+            Log.i("chauanh", "dissmissProgressDialog: ----");
             mDialogProgress.dismiss();
         }
     }

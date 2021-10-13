@@ -13,96 +13,90 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.chauduong.gym.R;
 import com.chauduong.gym.adapter.TypeAdapter;
 import com.chauduong.gym.databinding.FragmentHomeBinding;
+import com.chauduong.gym.manager.database.DatabaseManager;
 import com.chauduong.gym.manager.dialog.DialogManager;
 import com.chauduong.gym.model.Type;
 import com.chauduong.gym.ui.HomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-public class HomeFragment extends Fragment implements TypeAdapter.TypeListener, HomePresenterListener, SearchView.OnQueryTextListener {
+public class HomeFragment extends Fragment implements TypeAdapter.TypeListener, SearchView.OnQueryTextListener {
     private static final String TAG = "HomeFragment";
-    private  final int MSG_UPDATE_RV = 1;
-    private  List<Type> mTypeList;
-    private  FragmentHomeBinding mFragmentHomeBinding;
-    private  static TypeAdapter mTypeAdapter;
-    private HomePresenter mHomePresenter;
+    private FragmentHomeBinding mFragmentHomeBinding;
+    private TypeAdapter mTypeAdapter;
+    private HomeViewModel homeViewModel;
 
     public HomeFragment() {
+
     }
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.i(TAG, "onCreateView: ");
         mFragmentHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         return mFragmentHomeBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Log.i(TAG, "onViewCreated: ");
         super.onViewCreated(view, savedInstanceState);
+        initViewModel();
         initView();
-        initPresenter();
         initDataType();
     }
 
-    @Override
-    public void onResume() {
-        Log.i(TAG, "onResume: ");
-        super.onResume();
-    }
 
-    @Override
-    public void onPause() {
-        Log.i(TAG, "onPause: ");
-        super.onPause();
-    }
+    private void initViewModel() {
+        homeViewModel = ViewModelProviders.of(getActivity()).get(HomeViewModel.class);
+        homeViewModel.getListMutableLiveData().observe(this, new Observer<List<Type>>() {
+            @Override
+            public void onChanged(List<Type> typeList) {
+                DialogManager.getInstance(getContext()).dissmissProgressDialog();
+                mTypeAdapter.setmTypeList(typeList);
+                mTypeAdapter.notifyDataSetChanged();
+            }
+        });
 
-    @Override
-    public void onStart() {
-        Log.i(TAG, "onStart: ");
-        super.onStart();
+        homeViewModel.getCancelGetAll().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                DialogManager.getInstance(getContext()).dissmissProgressDialog();
+                Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+            }
+        });
+        homeViewModel.getSearchError().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                DialogManager.getInstance(getContext()).dissmissProgressDialog();
+                Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
-
-    @Override
-    public void onStop() {
-        Log.i(TAG, "onStop: ");
-        super.onStop();
-    }
-
-    @Override
-    public void onDestroy() {
-        Log.i(TAG, "onDestroy: ");
-        super.onDestroy();
-    }
-
-    private void initPresenter() {
-        if (mHomePresenter == null) mHomePresenter = new HomePresenter(getContext(), this);
-    }
-
 
     private void initView() {
-        if (mTypeList == null) mTypeList = new ArrayList<>();
-        if (mTypeAdapter == null) mTypeAdapter = new TypeAdapter(mTypeList, getContext());
+        if (mTypeAdapter == null)
+            mTypeAdapter = new TypeAdapter(homeViewModel.getListMutableLiveData().getValue(), getContext());
+
         mTypeAdapter.setmTypeListener(this);
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        mFragmentHomeBinding.rvType.setLayoutManager(llm);
         mFragmentHomeBinding.rvType.setAdapter(mTypeAdapter);
         mFragmentHomeBinding.sv.setOnQueryTextListener(this);
     }
 
     private void initDataType() {
-        DialogManager.getInstance(getContext()).showProgressDialog(getFragmentManager(), "Đang tải dữ liệu");
-        mHomePresenter.getAllType();
+        DialogManager.getInstance(getContext()).showProgressDialog(getFragmentManager(), getString(R.string.load_data));
+        homeViewModel.getAllType();
     }
 
     @Override
@@ -116,45 +110,19 @@ public class HomeFragment extends Fragment implements TypeAdapter.TypeListener, 
     @Override
     public boolean onQueryTextSubmit(String query) {
         if (query.length() != 0)
-            mHomePresenter.searchType(query);
+            homeViewModel.searchType(query);
         else
-            mHomePresenter.getAllType();
+            homeViewModel.getAllType();
         return false;
     }
 
     @Override
     public boolean onQueryTextChange(String newText) {
         if (newText.length() != 0)
-            mHomePresenter.searchType(newText);
+            homeViewModel.searchType(newText);
         else
-            mHomePresenter.getAllType();
+            homeViewModel.getAllType();
         return false;
     }
 
-
-    @Override
-    public void onGetAllTypeSuccess(List<Type> typeList) {
-        DialogManager.getInstance(getContext()).dissmissProgressDialog();
-        mTypeAdapter.getmTypeList().clear();
-        mTypeAdapter.getmTypeList().addAll(typeList);
-        mTypeAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onGetAllTypeError(String msg) {
-        DialogManager.getInstance(getContext()).dissmissProgressDialog();
-        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onSearchTypeSuccess(List<Type> typeList) {
-        mTypeList.clear();
-        mTypeList.addAll(typeList);
-        mTypeAdapter.setmTypeList(mTypeList);
-    }
-
-    @Override
-    public void onSearchTypeError(String msg) {
-        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
-    }
 }

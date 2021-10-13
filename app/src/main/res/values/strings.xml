@@ -44,4 +44,6 @@
     <string name="from">Hôm nay có đi đâu trời không, mà hôm nay mưa to vcl ra đi đâu được cơ chứ?</string>
     <string name="to">Thôi mưa to lắm không đi đâu chơi cả. Ở nhà chụp ảnh indoor đi shop ơi</string>
     <string name="typing">Đang soạn thảo...</string>
+    <string name="url_img"><![CDATA[https://firebasestorage.googleapis.com/v0/b/gymgc-55cfd.appspot.com/o/ic_type_chest.jpg?alt=media&token=62556502-2a7c-49c9-a28d-ec5fb4f20f28]]></string>
+    <string name="load_data">Đang tải dữ liệu</string>
 </resources>

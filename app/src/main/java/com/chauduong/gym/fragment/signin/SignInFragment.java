@@ -7,19 +7,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.text.method.KeyListener;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +21,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.chauduong.gym.MainActivity;
 import com.chauduong.gym.R;
@@ -36,10 +32,10 @@ import com.chauduong.gym.manager.dialog.DialogManager;
 import com.chauduong.gym.manager.session.SessionManager;
 import com.chauduong.gym.model.User;
 
-public class SignInFragment extends Fragment implements View.OnClickListener, SignInPresenterListener, TextView.OnEditorActionListener {
+public class SignInFragment extends Fragment implements View.OnClickListener, TextView.OnEditorActionListener {
     private static final String TAG = "SignInFragment ";
     FragmentSigninBinding mFragmentSigninBinding;
-    SignInPresenter mSignInPresenter;
+    SignInViewModel mSignInViewModel;
     SessionManager mSessionManager;
 
     @Override
@@ -52,6 +48,7 @@ public class SignInFragment extends Fragment implements View.OnClickListener, Si
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initSesstion();
+        initViewModel();
         initView();
         if (mSessionManager.isFirtTime()) {
             initAnimation();
@@ -60,7 +57,38 @@ public class SignInFragment extends Fragment implements View.OnClickListener, Si
             mFragmentSigninBinding.layoutTransaction.setVisibility(View.GONE);
             mFragmentSigninBinding.layoutParent.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_in));
         }
-        initPresenter();
+        registerObserver();
+
+    }
+
+    private void registerObserver() {
+        mSignInViewModel.getUserMutableLiveData().observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                if (user != null) {
+                    Intent intent = new Intent(getContext(), MainActivity.class);
+                    intent.putExtra(USER, user);
+                    getActivity().finish();
+                    mSessionManager = new SessionManager(getContext());
+                    mSessionManager.createSignIn(user);
+                    if (mFragmentSigninBinding.cbRememberAccount.isChecked()) {
+                        mSessionManager.putRememberLogin(user.getPhoneNumber(), user.getPassword(), true);
+                    } else {
+                        mSessionManager.setIsRemember(false);
+                    }
+//                    DialogManager.getInstance(getContext()).dissmissProgressDialog();
+                    startActivity(intent);
+                }
+            }
+        });
+
+        mSignInViewModel.getMsgSignError().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+//                DialogManager.getInstance(getContext()).dissmissProgressDialog();
+            }
+        });
     }
 
     private void initSesstion() {
@@ -106,8 +134,9 @@ public class SignInFragment extends Fragment implements View.OnClickListener, Si
     }
 
 
-    private void initPresenter() {
-        mSignInPresenter = new SignInPresenter(this, getContext());
+    private void initViewModel() {
+        mSignInViewModel = ViewModelProviders.of(this).get(SignInViewModel.class);
+        mFragmentSigninBinding.setViewModel(mSignInViewModel);
     }
 
     private void initView() {
@@ -117,43 +146,25 @@ public class SignInFragment extends Fragment implements View.OnClickListener, Si
         mFragmentSigninBinding.edtPhoneNumber.setImeActionLabel("Next", KeyEvent.KEYCODE_ENTER);
         mFragmentSigninBinding.edtPassword.setOnEditorActionListener(this);
         mFragmentSigninBinding.edtPassword.setImeActionLabel("Enter", KeyEvent.KEYCODE_ENTER);
-        if(mFragmentSigninBinding.cbShowPass.isChecked()){
+        if (mFragmentSigninBinding.cbShowPass.isChecked()) {
             mFragmentSigninBinding.edtPassword.setTransformationMethod(null);
-        }else {
+        } else {
             mFragmentSigninBinding.edtPassword.setTransformationMethod(new PasswordTransformationMethod());
         }
         mFragmentSigninBinding.cbShowPass.setOnCheckedChangeListener((buttonView, isChecked) ->
         {
             if (isChecked) {
                 mFragmentSigninBinding.edtPassword.setTransformationMethod(null);
-            }
-            else{
+            } else {
                 mFragmentSigninBinding.edtPassword.setTransformationMethod(new PasswordTransformationMethod());
             }
         });
 
-//        mFragmentSigninBinding.imgShowPass.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                Log.i(TAG, "onLongClick: ");
-//                mFragmentSigninBinding.edtPassword.setTransformationMethod(null);
-//                mFragmentSigninBinding.imgShowPass.setImageResource(R.drawable.ic_show_pass_close);
-//                return false;
-//            }
-//        });
-//        mFragmentSigninBinding.imgShowPass.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mFragmentSigninBinding.edtPassword.setTransformationMethod(new PasswordTransformationMethod());
-//                mFragmentSigninBinding.imgShowPass.setImageResource(R.drawable.ic_show_pass_open);
-//                Log.i(TAG, "onClick: ");
-//            }
-//        });
 
         if (mSessionManager.isRememberLogin()) {
             mFragmentSigninBinding.cbRememberAccount.setChecked(true);
-            mFragmentSigninBinding.edtPhoneNumber.setText(mSessionManager.getLoginPhoneNumber());
-            mFragmentSigninBinding.edtPassword.setText(mSessionManager.getLoginPassWord());
+            mSignInViewModel.setPhoneNumber(mSessionManager.getLoginPhoneNumber());
+            mSignInViewModel.setPassword(mSessionManager.getLoginPassWord());
         } else {
             mFragmentSigninBinding.cbRememberAccount.setChecked(false);
         }
@@ -170,14 +181,12 @@ public class SignInFragment extends Fragment implements View.OnClickListener, Si
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvSignUp:
-                mSignInPresenter.signUp();
+                getFragmentManager().beginTransaction().replace(R.id.fl, new SignUpFragment())
+                        .addToBackStack(null).commit();
                 break;
             case R.id.btnSignIn:
-                String phoneNumber = mFragmentSigninBinding.edtPhoneNumber.getText().toString().trim();
-                String passWord = mFragmentSigninBinding.edtPassword.getText().toString().trim();
-                DialogManager.getInstance(getContext()).showProgressDialog(getFragmentManager(), "Đang đăng nhập");
-
-                mSignInPresenter.login(phoneNumber, passWord);
+//                DialogManager.getInstance(getContext()).showProgressDialog(getFragmentManager(), "Đang đăng nhập");
+                mSignInViewModel.login();
                 break;
             default:
                 break;
@@ -187,49 +196,17 @@ public class SignInFragment extends Fragment implements View.OnClickListener, Si
 
 
     @Override
-    public void onSignInSuccess(User user) {
-        Intent intent = new Intent(getContext(), MainActivity.class);
-        intent.putExtra(USER, user);
-        getActivity().finish();
-        mSessionManager = new SessionManager(getContext());
-        mSessionManager.createSignIn(user);
-        if (mFragmentSigninBinding.cbRememberAccount.isChecked()) {
-            mSessionManager.putRememberLogin(user.getPhoneNumber(), user.getPassword(), true);
-        } else {
-            mSessionManager.setIsRemember(false);
-        }
-        DialogManager.getInstance(getContext()).dissmissProgressDialog();
-        startActivity(intent);
-
-    }
-
-    @Override
-    public void onSignInError(String msg) {
-        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
-        DialogManager.getInstance(getContext()).dissmissProgressDialog();
-    }
-
-    @Override
-    public void onSignUpClick() {
-        getFragmentManager().beginTransaction().replace(R.id.fl, new SignUpFragment())
-                .addToBackStack(null).commit();
-    }
-
-
-    @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         switch (v.getId()) {
             case R.id.edtPhoneNumber:
                 if (actionId == KeyEvent.KEYCODE_ENTER) {
-                  mFragmentSigninBinding.edtPassword.setFocusable(View.FOCUSABLE);
+                    mFragmentSigninBinding.edtPassword.setFocusable(View.FOCUSABLE);
                 }
                 break;
             case R.id.edtPassword:
                 if (actionId == KeyEvent.KEYCODE_ENTER) {
-                    String phoneNumber = mFragmentSigninBinding.edtPhoneNumber.getText().toString().trim();
-                    String passWord = mFragmentSigninBinding.edtPassword.getText().toString().trim();
-                    DialogManager.getInstance(getContext()).showProgressDialog(getFragmentManager(), "Đang đăng nhập");
-                    mSignInPresenter.login(phoneNumber, passWord);
+//                    DialogManager.getInstance(getContext()).showProgressDialog(getFragmentManager(), "Đang đăng nhập");
+                    mSignInViewModel.login();
                 }
                 break;
             default:

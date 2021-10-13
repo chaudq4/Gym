@@ -121,4 +121,5 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
                 getResources().getDimensionPixelSize(R.dimen.icon_tab_size_selected));
         ((ImageView)tab.getCustomView().findViewById(R.id.icon)).setColorFilter(getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
     }
+
 }

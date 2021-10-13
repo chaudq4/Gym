@@ -43,16 +43,8 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ContactViewHolder holder, int position) {
         User user = userList.get(position);
-//        Glide.with(holder.itemView)
-//                .load(user.getAvatar())
-//                .fitCenter()
-//                .into(holder.mItemContactBinding.imgAvatar);
-//        if(user.isOnline()){
-//            holder.mItemContactBinding.imgStatus.setImageResource(mContext.getColor(R.color.bg_online_chat));
-//        }else {
-//            holder.mItemContactBinding.imgStatus.setImageResource(mContext.getColor(R.color.bg_offline_chat));
-//        }
-        holder.mItemContactBinding.txtName.setText(user.getName());
+        holder.mItemContactBinding.setContact(user);
+        Log.i(TAG, "onBindViewHolder: "+user.toString());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,9 +84,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactViewHolder> {
         return userList;
     }
 
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
-    }
 
     public void setmContactListener(ContactListener mContactListener) {
         this.mContactListener = mContactListener;

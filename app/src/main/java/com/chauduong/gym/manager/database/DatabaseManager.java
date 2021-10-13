@@ -2,6 +2,7 @@ package com.chauduong.gym.manager.database;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -16,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class DatabaseManager {
     private static final String EXERCISE = "exercise";
@@ -23,22 +25,16 @@ public class DatabaseManager {
 
     @SuppressLint("StaticFieldLeak")
     private static DatabaseManager instance;
-    Context mContext;
     DatabaseReference mDatabaseReference;
     DatabaseListener mDatabaseListener;
     FirebaseDatabase mFirebaseDatabase;
     private List<Type> typeList;
 
-    private DatabaseManager(Context mContext, DatabaseListener databaseListener) {
-        this.mContext = mContext;
+    public DatabaseManager(DatabaseListener databaseListener) {
         this.mDatabaseListener = databaseListener;
         mFirebaseDatabase = FirebaseDatabase.getInstance("https://gymgc-55cfd-default-rtdb.asia-southeast1.firebasedatabase.app/");
     }
 
-    public static DatabaseManager getInstance(Context mContext, DatabaseListener databaseListener) {
-        if (instance == null) instance = new DatabaseManager(mContext, databaseListener);
-        return instance;
-    }
 
     public void searchType(String key) {
         mDatabaseReference = mFirebaseDatabase.getReference(TYPE);
@@ -65,6 +61,7 @@ public class DatabaseManager {
     }
 
     public void getAllType() {
+        Log.i("chauanh", "getAllType: ");
         mDatabaseReference = mFirebaseDatabase.getReference(TYPE);
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -85,7 +82,9 @@ public class DatabaseManager {
                     mDatabaseListener.onCancelGetAllTye(databaseError.getMessage());
             }
         });
+
     }
+
 
     public void insertType() {
         mDatabaseReference = FirebaseDatabase.getInstance("https://gymgc-55cfd-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference(TYPE);
@@ -123,7 +122,7 @@ public class DatabaseManager {
         Type type = new Type();
         type.setId("id");
         type.setUrlIcon("https://firebasestorage.googleapis.com/v0/b/gymgc-55cfd.appspot.com/o/ic_type_chest.jpg?alt=media&token=62556502-2a7c-49c9-a28d-ec5fb4f20f28");
-        type.setName("ten nhom co");
+        type.setName("ten nhom co" + new Random().nextInt());
         type.setmExerciseList(initExerciseList());
         return type;
     }
