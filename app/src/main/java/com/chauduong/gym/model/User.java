@@ -15,7 +15,29 @@ public class User extends BaseObservable implements Serializable {
     private String dob;
     private String sex;
     private String avatar;
+    private float high;
+    private int weight;
     private boolean isOnline;
+
+    @Bindable
+    public float getHigh() {
+        return high;
+    }
+
+    public void setHigh(float high) {
+        this.high = high;
+        notifyPropertyChanged(BR.high);
+    }
+
+    @Bindable
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+        notifyPropertyChanged(BR.weight);
+    }
 
     public boolean isOnline() {
         return isOnline;

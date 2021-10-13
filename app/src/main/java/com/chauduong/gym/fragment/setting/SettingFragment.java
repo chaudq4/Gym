@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.chauduong.gym.R;
 import com.chauduong.gym.databinding.FragmentSettingBinding;
@@ -22,6 +24,7 @@ import java.util.Objects;
 public class SettingFragment extends Fragment implements View.OnClickListener {
     FragmentSettingBinding mFragmentSettingBinding;
     private SessionManager mSessionManager;
+    private SettingViewModel settingViewModel;
 
     public SettingFragment() {
     }
@@ -37,13 +40,20 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mFragmentSettingBinding.layoutSetting.btnLogout.setOnClickListener(this::onClick);
+        mSessionManager = new SessionManager(getContext());
+        initViewModel();
+    }
+
+    private void initViewModel() {
+        settingViewModel = ViewModelProviders.of(getActivity()).get(SettingViewModel.class);
+        settingViewModel.setListenerUser(mSessionManager.getUser());
+        mFragmentSettingBinding.layoutIndex.setViewModel(settingViewModel);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnLogout:
-                mSessionManager = new SessionManager(getContext());
                 mSessionManager.clearSession();
                 Objects.requireNonNull(getActivity()).finish();
                 Intent intent = new Intent(getContext(), LoginActivity.class);

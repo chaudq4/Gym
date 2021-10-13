@@ -1,10 +1,20 @@
-<layout>
+<layout xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.chauduong.gym.utils.DataBindingAdapter" />
+
+        <variable
+            name="viewModel"
+            type="com.chauduong.gym.fragment.setting.SettingViewModel" />
+    </data>
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/layout_index"
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imgAvatar"
@@ -13,8 +23,8 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="@dimen/radius"
             android:scaleType="centerCrop"
-            android:src="@drawable/img_avatar"
-            app:shapeAppearanceOverlay="@style/SpecificCornerRounded" />
+            app:shapeAppearanceOverlay="@style/SpecificCornerRounded"
+            bind:imageUrl="@{viewModel.userMutableLiveData.avatar}" />
 
         <LinearLayout
             android:id="@+id/layout_detail_index"
@@ -29,7 +39,7 @@
                 android:id="@+id/txtName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Duong Quang Chau"
+                android:text="@{viewModel.userMutableLiveData.name}"
                 android:textSize="@dimen/setting_text_name_size"
                 android:textStyle="bold" />
 
@@ -48,8 +58,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_index_body"
                     android:gravity="center"
-                    android:text="1.65m"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    bind:sethigh="@{viewModel.userMutableLiveData.high}" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -59,8 +69,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_index_body"
                     android:gravity="center"
-                    android:text="62kg"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    bind:setweight="@{viewModel.userMutableLiveData.weight}" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -70,8 +80,9 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_index_body"
                     android:gravity="center"
-                    android:text="23.4"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    bind:high="@{viewModel.userMutableLiveData.high}"
+                    bind:weight="@{viewModel.userMutableLiveData.weight}" />
             </LinearLayout>
 
 

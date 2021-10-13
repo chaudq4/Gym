@@ -3,10 +3,13 @@ package com.chauduong.gym.utils;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
+
+import java.text.DecimalFormat;
 
 public class DataBindingAdapter {
 
@@ -41,4 +44,23 @@ public class DataBindingAdapter {
     public static void setImageResource(ImageView imageView, int resource) {
         imageView.setImageResource(resource);
     }
+
+    @BindingAdapter({"bind:high", "bind:weight"})
+    public static void setBMI(TextView textView, float high, int weight) {
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+        textView.setText(String.valueOf(df.format(weight / (high * high))));
+    }
+
+    @BindingAdapter("bind:sethigh")
+    public static void setTextHigh(TextView textView, float value) {
+        textView.setText(value + "m");
+    }
+
+    @BindingAdapter("bind:setweight")
+    public static void setTextWeight(TextView textView, float value) {
+        textView.setText(value + "kg");
+    }
+
+
 }
