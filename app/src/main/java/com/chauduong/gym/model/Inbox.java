@@ -83,7 +83,7 @@ public class Inbox extends BaseObservable implements Serializable, Comparable, C
     }
 
     @Bindable
-    public String getLink() {
+    public String  getLink() {
         return link;
     }
 

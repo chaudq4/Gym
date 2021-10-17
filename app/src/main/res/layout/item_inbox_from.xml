@@ -1,44 +1,60 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
+
+        <import type="com.chauduong.gym.utils.DataBindingAdapter" />
+
         <variable
             name="inbox"
             type="com.chauduong.gym.model.Inbox" />
     </data>
 
-    <RelativeLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_layout_inbox"
-        android:layout_marginTop="@dimen/detail_text_margin_top"
-        android:layout_marginBottom="@dimen/detail_text_margin_top"
-        android:background="@drawable/bg_inbox_from"
-        android:paddingStart="@dimen/detail_text_margin_top"
-        android:paddingTop="@dimen/setting_padding"
-        android:paddingEnd="@dimen/detail_text_margin_top"
-        android:paddingBottom="@dimen/setting_padding">
+        android:gravity="end">
 
-        <ImageView
-            android:id="@+id/imgImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/txtMsg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{inbox.msg}"
-            android:textAlignment="viewStart"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_inbox_msg" />
-
-        <TextView
-            android:id="@+id/txtTime"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtMsg"
-            android:layout_alignParentRight="true"
-            android:text="@{inbox.time}"
-            android:textSize="@dimen/text_size_inbox_time" />
-    </RelativeLayout>
+            android:layout_marginStart="@dimen/margin_layout_inbox"
+            android:layout_marginTop="@dimen/detail_text_margin_top"
+            android:layout_marginEnd="@dimen/margin_layout_inbox_end"
+            android:layout_marginBottom="@dimen/detail_text_margin_top"
+            android:background="@drawable/bg_inbox_from"
+            android:gravity="end"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/detail_text_margin_top"
+            android:paddingTop="@dimen/setting_padding"
+            android:paddingEnd="@dimen/detail_text_margin_top"
+            android:paddingBottom="@dimen/setting_padding">
+
+            <ImageView
+                android:id="@+id/imgImage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                bind:imageUrlDatabase="@{inbox.link}" />
+
+            <TextView
+                android:id="@+id/txtMsg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{inbox.msg}"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_inbox_msg" />
+
+            <TextView
+                android:id="@+id/txtTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{inbox.time}"
+                android:textAlignment="viewEnd"
+                android:textSize="@dimen/text_size_inbox_time" />
+        </LinearLayout>
+    </LinearLayout>
 </layout>

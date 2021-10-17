@@ -20,24 +20,30 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chauduong.gym.R;
+import com.chauduong.gym.adapter.ConversationApdater;
+import com.chauduong.gym.adapter.ConversationListener;
 import com.chauduong.gym.inbox.InboxActivity;
 import com.chauduong.gym.adapter.ContactAdapter;
 import com.chauduong.gym.adapter.ContactListener;
 import com.chauduong.gym.databinding.FragmentMessBinding;
 import com.chauduong.gym.manager.dialog.DialogManager;
+import com.chauduong.gym.model.Conversation;
 import com.chauduong.gym.model.User;
 import com.chauduong.gym.utils.Util;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MessFragment extends Fragment implements ContactListener {
+public class MessFragment extends Fragment implements ContactListener, ConversationListener {
     private static final String TAG = "MessFragment";
     public static final String USER = "key_user";
-    FragmentMessBinding mFragmentMessBinding;
-    ContactAdapter mContactAdapter;
-    List<User> contactList;
+    private FragmentMessBinding mFragmentMessBinding;
+    private ContactAdapter mContactAdapter;
+    private List<User> contactList;
     private MessViewModel messViewModel;
+    private List<Conversation> conversationList;
+    private ConversationApdater mConversationApdater;
+
 
     public MessFragment() {
     }
@@ -60,6 +66,7 @@ public class MessFragment extends Fragment implements ContactListener {
     private void initData() {
         Util.setVisibilityView(mFragmentMessBinding.pbContact, true);
         messViewModel.getAllUserForChar();
+        messViewModel.getAllConversation();
     }
 
     private void initViewModel() {
@@ -81,6 +88,15 @@ public class MessFragment extends Fragment implements ContactListener {
             }
         });
 
+        messViewModel.getListConversation().observe(getViewLifecycleOwner(), new Observer<List<Conversation>>() {
+            @Override
+            public void onChanged(List<Conversation> conversations) {
+                mConversationApdater.getConversationList().clear();
+                mConversationApdater.getConversationList().addAll(conversations);
+                mConversationApdater.notifyDataSetChanged();
+            }
+        });
+
     }
 
     private void initView() {
@@ -93,6 +109,12 @@ public class MessFragment extends Fragment implements ContactListener {
         mFragmentMessBinding.rvListAccount.setLayoutManager(linearLayoutManager);
         mFragmentMessBinding.svContact.setIconifiedByDefault(false);
         mFragmentMessBinding.svContact.setQueryHint(getString(R.string.search));
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        conversationList = new ArrayList<>();
+        mConversationApdater = new ConversationApdater(getContext(), conversationList, this);
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        mFragmentMessBinding.rvListConversation.setAdapter(mConversationApdater);
+        mFragmentMessBinding.rvListConversation.setLayoutManager(linearLayoutManager);
     }
 
 
@@ -108,4 +130,8 @@ public class MessFragment extends Fragment implements ContactListener {
 
     }
 
+    @Override
+    public void onConversationClick(Conversation conversation) {
+
+    }
 }

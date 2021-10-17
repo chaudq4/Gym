@@ -1,14 +1,27 @@
 package com.chauduong.gym.inbox;
 
+import static com.chauduong.gym.utils.Util.getRealPathFromURIForGallery;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,39 +32,50 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.bumptech.glide.Glide;
 import com.chauduong.gym.R;
-import com.chauduong.gym.databinding.ActivityConversationBinding;
+import com.chauduong.gym.databinding.ActivityInboxBinding;
+import com.chauduong.gym.databinding.DialogProgressBinding;
+import com.chauduong.gym.databinding.DialogProgressUploadBinding;
+import com.chauduong.gym.manager.dialog.ImagePopupWindow;
 import com.chauduong.gym.model.Inbox;
 import com.chauduong.gym.model.User;
-import com.chauduong.gym.utils.DataBindingAdapter;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class InboxActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher, Observer<Inbox>, SwipeRefreshLayout.OnRefreshListener {
+public class InboxActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher, Observer<Inbox>, SwipeRefreshLayout.OnRefreshListener, InboxListener {
     public static final String USER = "key_user";
     private static final String TAG = "ConversationActivity";
-    ActivityConversationBinding mActivityConversationBinding;
+    private static final int REQUEST_PICK_IMAGE = 1;
+    ActivityInboxBinding mActivityInboxBinding;
     User toUser;
     InboxAdapter mInboxAdapter;
     List<Inbox> inboxList;
     List<Inbox> newList;
     InboxViewModel inboxViewModel;
     boolean isScrollEnd;
+    AlertDialog progressUploadDialog;
+    DialogProgressUploadBinding dialogProgressBinding;
+    ImagePopupWindow imagePopupWindow;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivityConversationBinding = DataBindingUtil.setContentView(this, R.layout.activity_conversation);
+        mActivityInboxBinding = DataBindingUtil.setContentView(this, R.layout.activity_inbox);
         initData();
         initView();
+        initPopupImage();
         isScrollEnd = true;
         initViewModel();
         receiveDataFromViewModel();
-        mActivityConversationBinding.setViewModel(inboxViewModel);
+        mActivityInboxBinding.setViewModel(inboxViewModel);
+        updateEdtMessage(mActivityInboxBinding.edtMsg.getText().toString());
 
+    }
+
+    private void initPopupImage() {
+        imagePopupWindow = new ImagePopupWindow(this);
     }
 
     private void receiveDataFromViewModel() {
@@ -69,24 +93,83 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onChanged(Boolean aBoolean) {
                 isScrollEnd = true;
-                mActivityConversationBinding.rvListInbox.smoothScrollToPosition(mInboxAdapter.getInboxList().size() - 1);
+                mActivityInboxBinding.rvListInbox.smoothScrollToPosition(mInboxAdapter.getInboxList().size() - 1);
             }
         });
         inboxViewModel.listenToUserChange(toUser);
+        listenUploadFile();
 
     }
 
+    private void listenUploadFile() {
+        inboxViewModel.getLinkUpload().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                if (progressUploadDialog != null && progressUploadDialog.isShowing())
+                    progressUploadDialog.dismiss();
+                sentInbox(s);
+            }
+        });
+        inboxViewModel.getProgressUpload().observe(this, new Observer<Double>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onChanged(Double aDouble) {
+                Log.i(TAG, "onChanged: pro" + aDouble);
+                dialogProgressBinding.pbUpload.setProgress((int) Math.round(aDouble));
+                dialogProgressBinding.txtProgress.setText((int) Math.round(aDouble) + "%");
+            }
+        });
+        inboxViewModel.getMsgErrorUpload().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                Log.i(TAG, "onChanged: error" + s);
+                if (progressUploadDialog != null && progressUploadDialog.isShowing())
+                    progressUploadDialog.dismiss();
+                Toast.makeText(InboxActivity.this, s, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void initView() {
-        mActivityConversationBinding.btnBack.setOnClickListener(this);
-        mActivityConversationBinding.btnSend.setOnClickListener(this);
-        mActivityConversationBinding.swLayout.setOnRefreshListener(this);
-        mActivityConversationBinding.edtMsg.addTextChangedListener(this);
+        mActivityInboxBinding.btnCamera.setOnClickListener(this);
+        mActivityInboxBinding.btnBack.setOnClickListener(this);
+        mActivityInboxBinding.btnSend.setOnClickListener(this);
+        mActivityInboxBinding.swLayout.setOnRefreshListener(this);
+        mActivityInboxBinding.btnImage.setOnClickListener(this);
+        mActivityInboxBinding.edtMsg.addTextChangedListener(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        mActivityConversationBinding.rvListInbox.setLayoutManager(linearLayoutManager);
-        mInboxAdapter = new InboxAdapter(this, inboxList);
-        mActivityConversationBinding.rvListInbox.setAdapter(mInboxAdapter);
-        mActivityConversationBinding.swLayout.setColorSchemeColors(getColor(R.color.colorPrimary));
+        mActivityInboxBinding.rvListInbox.setLayoutManager(linearLayoutManager);
+        mInboxAdapter = new InboxAdapter(this, inboxList, this);
+        mActivityInboxBinding.rvListInbox.setAdapter(mInboxAdapter);
+        mActivityInboxBinding.swLayout.setColorSchemeColors(getColor(R.color.colorPrimary));
+
+    }
+
+    private void updateEdtMessage(String s) {
+        if (s.length() == 0) {
+            mActivityInboxBinding.edtMsg.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+            updateLayoutSend(false);
+        } else {
+            mActivityInboxBinding.edtMsg.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            updateLayoutSend(true);
+        }
+        if (mActivityInboxBinding.edtMsg.getLineCount() >= 1 && mActivityInboxBinding.edtMsg.getLineCount() < 7) {
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mActivityInboxBinding.layoutMsg.getLayoutParams();
+            layoutParams.width = RelativeLayout.LayoutParams.MATCH_PARENT;
+            layoutParams.height = getResources().getDimensionPixelSize(R.dimen.bottom_conversation_height) + (getResources().getDimensionPixelSize(R.dimen.bottom_conversation_height) / 2 * (mActivityInboxBinding.edtMsg.getLineCount() - 1));
+            int margin = getResources().getDimensionPixelSize(R.dimen.margin_edt_msg);
+            int padding = getResources().getDimensionPixelSize(R.dimen.padding_edt_msg);
+            layoutParams.setMargins(margin, margin, margin, margin);
+            mActivityInboxBinding.layoutMsg.setPadding(padding, padding, padding, padding);
+            mActivityInboxBinding.layoutMsg.setLayoutParams(layoutParams);
+
+            RelativeLayout.LayoutParams llParam = (RelativeLayout.LayoutParams) mActivityInboxBinding.layoutMsgParent.getLayoutParams();
+            llParam.width = RelativeLayout.LayoutParams.MATCH_PARENT;
+            llParam.height = getResources().getDimensionPixelSize(R.dimen.bottom_conversation_height_parent) + (getResources().getDimensionPixelSize(R.dimen.bottom_conversation_height) / 2 * (mActivityInboxBinding.edtMsg.getLineCount() - 1));
+            mActivityInboxBinding.layoutMsgParent.setLayoutParams(llParam);
+
+        }
     }
 
 
@@ -105,15 +188,19 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.btnSend:
-                sentInbox();
+                sentInbox("");
+                break;
+            case R.id.btnImage:
+                openSelecImage();
                 break;
             default:
                 break;
         }
     }
 
-    private void sentInbox() {
-        String urlImage = "";
+
+    private void sentInbox(String link) {
+        String urlImage = link;
         inboxViewModel.sentInbox(urlImage);
     }
 
@@ -130,22 +217,7 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void afterTextChanged(Editable s) {
-        if (s.length() == 0) {
-            inboxViewModel.setFavorite(true);
-        } else {
-            inboxViewModel.setFavorite(false);
-        }
-        if (mActivityConversationBinding.edtMsg.getLineCount() >= 1 && mActivityConversationBinding.edtMsg.getLineCount() < 7) {
-            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mActivityConversationBinding.layoutMsg.getLayoutParams();
-            layoutParams.width = RelativeLayout.LayoutParams.MATCH_PARENT;
-            layoutParams.height = getResources().getDimensionPixelSize(R.dimen.bottom_conversation_height) + (getResources().getDimensionPixelSize(R.dimen.bottom_conversation_height) / 2 * (mActivityConversationBinding.edtMsg.getLineCount() - 1));
-            int margin = getResources().getDimensionPixelSize(R.dimen.margin_edt_msg);
-            int padding = getResources().getDimensionPixelSize(R.dimen.padding_edt_msg);
-            layoutParams.setMargins(margin, margin, margin, margin);
-            mActivityConversationBinding.layoutMsg.setPadding(padding, padding, padding, padding);
-            mActivityConversationBinding.layoutMsg.setLayoutParams(layoutParams);
-        }
-
+        updateEdtMessage(s.toString());
     }
 
     public void loadMore() {
@@ -155,7 +227,7 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void run() {
                 receiveDataFromViewModel();
-                mActivityConversationBinding.swLayout.setRefreshing(false);
+                mActivityInboxBinding.swLayout.setRefreshing(false);
             }
         }, 1000);
 
@@ -166,15 +238,86 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
         newList.add(inbox);
         mInboxAdapter.setInboxList(newList);
         if (!isScrollEnd)
-            mActivityConversationBinding.rvListInbox.scrollToPosition(0);
+            mActivityInboxBinding.rvListInbox.scrollToPosition(0);
         else
-            mActivityConversationBinding.rvListInbox.smoothScrollToPosition(mInboxAdapter.getInboxList().size() - 1);
+            mActivityInboxBinding.rvListInbox.smoothScrollToPosition(mInboxAdapter.getInboxList().size() - 1);
     }
 
     @Override
     public void onRefresh() {
         isScrollEnd = false;
-        mActivityConversationBinding.swLayout.setRefreshing(true);
+        mActivityInboxBinding.swLayout.setRefreshing(true);
         loadMore();
+    }
+
+    private void updateLayoutSend(boolean isSend) {
+        if (isSend) {
+            mActivityInboxBinding.btnSend.setVisibility(View.VISIBLE);
+            mActivityInboxBinding.btnImage.setVisibility(View.GONE);
+            mActivityInboxBinding.btnAudio.setVisibility(View.GONE);
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mActivityInboxBinding.layoutMsg.getLayoutParams();
+            layoutParams.addRule(RelativeLayout.START_OF, R.id.btnSend);
+
+        } else {
+            mActivityInboxBinding.btnSend.setVisibility(View.GONE);
+            mActivityInboxBinding.btnImage.setVisibility(View.VISIBLE);
+            mActivityInboxBinding.btnAudio.setVisibility(View.VISIBLE);
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mActivityInboxBinding.layoutMsg.getLayoutParams();
+            layoutParams.addRule(RelativeLayout.START_OF, mActivityInboxBinding.btnAudio.getId());
+        }
+    }
+
+    private void openSelecImage() {
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(Intent.createChooser(intent, getString(R.string.select_image)), REQUEST_PICK_IMAGE);
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_PICK_IMAGE) {
+            if (resultCode == Activity.RESULT_OK) {
+                inboxViewModel.uploadFile(data.getData());
+                dialogProgressBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.dialog_progress_upload, null, false);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(getString(R.string.upload_image));
+                builder.setView(dialogProgressBinding.getRoot());
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+                    Matrix matrix = new Matrix();
+                    matrix.postRotate(90);
+                    Bitmap tmp = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+                    dialogProgressBinding.imgUpload.setImageBitmap(tmp);
+                    bitmap.recycle();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                progressUploadDialog = builder.create();
+                dialogProgressBinding.pbUpload.setProgress(0);
+                dialogProgressBinding.txtProgress.setText(0 + "%");
+                progressUploadDialog.show();
+            }
+        }
+    }
+
+
+    @Override
+    public void onInboxClick(Inbox inbox) {
+        if (inbox.getLink() != null && inbox.getLink().length() != 0) {
+            Log.i(TAG, "onInboxClick: " + inbox.getLink());
+            imagePopupWindow.showImagePopup(mActivityInboxBinding.layoutInbox, inbox.getLink());
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (imagePopupWindow != null && imagePopupWindow.isShow()) {
+            imagePopupWindow.dissmiss();
+        } else {
+            super.onBackPressed();
+        }
+
     }
 }

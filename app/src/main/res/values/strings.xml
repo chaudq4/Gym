@@ -46,4 +46,10 @@
     <string name="typing">Đang soạn thảo...</string>
     <string name="url_img"><![CDATA[https://firebasestorage.googleapis.com/v0/b/gymgc-55cfd.appspot.com/o/ic_type_chest.jpg?alt=media&token=62556502-2a7c-49c9-a28d-ec5fb4f20f28]]></string>
     <string name="load_data">Đang tải dữ liệu</string>
+    <string name="input_message">Nhập nội dung tin nhắn</string>
+    <string name="select_image">Vui lòng chọn ảnh</string>
+    <string name="upload_image">Đang tải lên ảnh</string>
+    <string name="please_wait">Xin vui lòng đợi</string>
+    <string name="you_want_to_logout">Bạn có muốn đăng xuất không?</string>
+    <string name="cancel">Hủy bỏ</string>
 </resources>

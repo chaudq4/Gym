@@ -1,0 +1,38 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    app:ignore="NamespaceTypo">
+
+    <data>
+
+        <import type="androidx.databinding.DataBindingUtil" />
+
+        <variable
+            name="inbox"
+            type="com.chauduong.gym.model.Inbox" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end">
+
+        <androidx.cardview.widget.CardView
+            android:elevation="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_layout_inbox"
+            android:layout_marginTop="@dimen/detail_text_margin_top"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="@dimen/detail_text_margin_top"
+            bind:cardCornerRadius="@dimen/radius">
+
+            <ImageView
+                android:id="@+id/imgImage"
+                android:layout_width="@dimen/inbox_thumnail_image"
+                android:layout_height="@dimen/inbox_thumnail_image"
+                android:scaleType="centerCrop"
+                bind:imageUrlDatabase="@{inbox.link}" />
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</layout>

@@ -19,5 +19,16 @@
         <item name="cornerFamilyBottomRight">rounded</item>
 
     </style>
+    <style name="Rounded_Image_Inbox">
+        <item name="cornerSizeTopLeft">10dp</item>
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerSizeTopRight">10dp</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerSizeBottomLeft">10dp</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerSizeBottomRight">10dp</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+
+    </style>
 
 </resources>

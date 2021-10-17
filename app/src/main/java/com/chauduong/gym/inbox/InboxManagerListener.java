@@ -9,4 +9,10 @@ public interface InboxManagerListener {
     void onAddNewInbox();
 
     void onToUserChange(User user);
+
+    void onProgressUpload(double percent);
+
+    void onFailed(String msg);
+
+    void onSuccessUpload(String link);
 }

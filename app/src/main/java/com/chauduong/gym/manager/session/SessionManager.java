@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import com.chauduong.gym.model.User;
 
 public class SessionManager {
+    private static final String KEY_NAME = "keyName";
+    private static final String KEY_AVATAR = "kayAvatar";
     private Context mContext;
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
@@ -21,15 +23,15 @@ public class SessionManager {
     private static final String KEY_LOGIN_PHONE = "keyLoginPhone";
     private static final String KEY_LOGIN_PASSWORD = "keyLoginPassword";
     private static final String KEY_LOGIN_ISREMEMBER = "keyLoginIsRemember";
-    private static final String KEY_IS_FIRSTIME ="keyFirstTime";
-    private static boolean isTransition=false;
+    private static final String KEY_IS_FIRSTIME = "keyFirstTime";
+    private static boolean isTransition = false;
 
-    public  boolean isFirtTime() {
-        return  true;
+    public boolean isFirtTime() {
+        return true;
 //        return mSharedPreferences.getBoolean(KEY_IS_FIRSTIME, true);
     }
 
-    public  void setIsFirstTime(boolean isTransition) {
+    public void setIsFirstTime(boolean isTransition) {
         mEditor.putBoolean(KEY_IS_FIRSTIME, isTransition);
         mEditor.commit();
     }
@@ -48,11 +50,15 @@ public class SessionManager {
     public User getUser() {
         User user = new User();
         String id = mSharedPreferences.getString(KEY_ID, null);
+        String name = mSharedPreferences.getString(KEY_NAME, null);
         String phone = mSharedPreferences.getString(KEY_PHONE_NUMBER, null);
         String pass = mSharedPreferences.getString(KEY_PASSWORD, null);
+        String avatar = mSharedPreferences.getString(KEY_AVATAR, null);
+        user.setAvatar(avatar);
         user.setPhoneNumber(phone);
         user.setId(id);
         user.setPassword(pass);
+        user.setName(name);
         return user;
     }
 
@@ -60,7 +66,9 @@ public class SessionManager {
         mEditor.putString(KEY_ID, user.getId());
         mEditor.putString(KEY_PHONE_NUMBER, user.getPhoneNumber());
         mEditor.putString(KEY_PASSWORD, user.getPassword());
+        mEditor.putString(KEY_NAME, user.getName());
         mEditor.putBoolean(KEY_IS_LOGGED_IN, true);
+        mEditor.putString(KEY_AVATAR, user.getAvatar());
         mEditor.commit();
     }
 
@@ -69,13 +77,16 @@ public class SessionManager {
         mEditor.remove(KEY_PHONE_NUMBER);
         mEditor.remove(KEY_PASSWORD);
         mEditor.remove(KEY_IS_LOGGED_IN);
+        mEditor.remove(KEY_AVATAR);
+        mEditor.remove(KEY_NAME);
         mEditor.commit();
     }
 
-    public void setIsRemember(boolean isRemember){
+    public void setIsRemember(boolean isRemember) {
         mEditor.putBoolean(KEY_LOGIN_ISREMEMBER, isRemember);
         mEditor.commit();
     }
+
     public void putRememberLogin(String phoneNumber, String password, boolean isRemember) {
         mEditor.putString(KEY_LOGIN_PHONE, phoneNumber);
         mEditor.putString(KEY_LOGIN_PASSWORD, password);

@@ -1,6 +1,10 @@
 package com.chauduong.gym.inbox;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.icu.text.SimpleDateFormat;
+import android.net.Uri;
+import android.text.format.DateFormat;
 import android.util.Log;
 
 import androidx.databinding.Bindable;
@@ -13,6 +17,7 @@ import com.chauduong.gym.BR;
 import com.chauduong.gym.model.Inbox;
 import com.chauduong.gym.model.User;
 
+import java.time.LocalTime;
 import java.util.Date;
 
 
@@ -25,21 +30,13 @@ public class InboxViewModel extends ViewModel implements InboxManagerListener, O
     private MutableLiveData<Inbox> mListMutableLiveDataInbox;
     private MutableLiveData<Boolean> isNewInbox;
     private MutableLiveData<User> toUser = new MutableLiveData<>();
-
+    private MutableLiveData<String> linkUpload = new MutableLiveData<>();
+    private MutableLiveData<Double> progressUpload = new MutableLiveData<>();
+    private MutableLiveData<String> msgErrorUpload = new MutableLiveData<>();
     private InboxManager inboxManager;
 
     private String msg;
-    private boolean isFavorite = true;
 
-    @Bindable
-    public boolean isFavorite() {
-        return isFavorite;
-    }
-
-    public void setFavorite(boolean favorite) {
-        this.isFavorite = favorite;
-        registry.notifyChange(this, BR.favorite);
-    }
 
     @Bindable
     public String getMsg() {
@@ -77,11 +74,17 @@ public class InboxViewModel extends ViewModel implements InboxManagerListener, O
         Inbox inbox = new Inbox();
         inbox.setTo(toUser.getValue());
         inbox.setMsg(msg);
-        inbox.setTime(new Date().toString());
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+        Date date = new Date();
+        System.out.println(dateFormat.format(date));
+        inbox.setTime(dateFormat.format(date));
         inbox.setLink(link);
         inboxManager.sentInbox(inbox);
         setMsg("");
-        setFavorite(true);
+    }
+
+    public void uploadFile(Uri filePath) {
+        inboxManager.uploadImage(filePath);
     }
 
     public MutableLiveData<Inbox> getmListMutableLiveDataInbox() {
@@ -94,6 +97,18 @@ public class InboxViewModel extends ViewModel implements InboxManagerListener, O
 
     public void listenToUserChange(User toUser) {
         inboxManager.listenToUserChange(toUser);
+    }
+
+    public MutableLiveData<String> getLinkUpload() {
+        return linkUpload;
+    }
+
+    public MutableLiveData<Double> getProgressUpload() {
+        return progressUpload;
+    }
+
+    public MutableLiveData<String> getMsgErrorUpload() {
+        return msgErrorUpload;
     }
 
     @Override
@@ -113,6 +128,21 @@ public class InboxViewModel extends ViewModel implements InboxManagerListener, O
             Log.i(TAG, "onToUserChange: " + user.toString());
             setToUser(user);
         }
+    }
+
+    @Override
+    public void onProgressUpload(double percent) {
+        progressUpload.setValue(percent);
+    }
+
+    @Override
+    public void onFailed(String msg) {
+        msgErrorUpload.setValue(msg);
+    }
+
+    @Override
+    public void onSuccessUpload(String link) {
+        linkUpload.setValue(link);
     }
 
     @Override

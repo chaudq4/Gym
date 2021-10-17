@@ -9,7 +9,7 @@
     <dimen name="detail_card_view_margin">3dp</dimen>
     <dimen name="detail_text_size">14sp</dimen>
     <dimen name="setting_text_size">20sp</dimen>
-    <dimen name="detail_text_margin_top">10dp</dimen>
+    <dimen name="detail_text_margin_top">5dp</dimen>
     <dimen name="detail_text_instruction_margin_top">15dp</dimen>
     <dimen name="title_detail">26sp</dimen>
     <dimen name="detail_text_title_instruction_margin_top">20dp</dimen>
@@ -47,7 +47,7 @@
     <dimen name="conversation_margin_start">10dp</dimen>
     <dimen name="margin_layout_inbox">120dp</dimen>
     <dimen name="text_size_inbox_msg">16sp</dimen>
-    <dimen name="text_size_inbox_time">12sp</dimen>
+    <dimen name="text_size_inbox_time">10sp</dimen>
     <dimen name="text_typing">14sp</dimen>
     <dimen name="img_button_back_mess">40dp</dimen>
     <dimen name="image_contact_width_mess">70dp</dimen>
@@ -55,4 +55,17 @@
     <dimen name="bottom_conversation_height_parent">60dp</dimen>
     <dimen name="margin_edt_msg">10dp</dimen>
     <dimen name="padding_edt_msg">5dp</dimen>
+    <dimen name="text_mess">16</dimen>
+    <dimen name="text_mess_hint">14</dimen>
+    <dimen name="radius_btn_send">20dp</dimen>
+    <dimen name="dialog_progress_title">18sp</dimen>
+    <dimen name="dialog_progress_progress">15sp</dimen>
+    <dimen name="button_pipup_image">24dp</dimen>
+    <dimen name="button_pipup_image_parent">40dp</dimen>
+    <dimen name="margin_layout_inbox_end">15dp</dimen>
+    <dimen name="size_text_login_dialog">20sp</dimen>
+    <dimen name="logout_textsize_content">15sp</dimen>
+    <dimen name="inbox_thumnail_image">100dp</dimen>
+    <dimen name="size_text_conversation_name">18sp</dimen>
+    <dimen name="size_text_conversation_lastmsg">14sp</dimen>
 </resources>
