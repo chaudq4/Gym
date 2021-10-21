@@ -42,8 +42,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 
         mSliderAdapter = new SliderAdapter(getContext());
         SliderItem sliderItem = new SliderItem();
-        sliderItem.setDescription("abc");
-        sliderItem.setUrl("https://scontent-hkt1-2.xx.fbcdn.net/v/t31.18172-8/20448961_699634593561087_8746736614760217131_o.png?_nc_cat=106&ccb=1-5&_nc_sid=cdbe9c&_nc_ohc=CQ8O_ZHcRo4AX-M78AG&_nc_ht=scontent-hkt1-2.xx&oh=f6a8f63a2d7d1178b3944c5b822e9e11&oe=6166911C");
+        sliderItem.setUrl("https://scontent.fhan5-4.fna.fbcdn.net/v/t31.18172-8/20280536_699198310271382_8101066472111972321_o.png?_nc_cat=104&ccb=1-5&_nc_sid=cdbe9c&_nc_ohc=Cr805an7RjMAX_UPSvK&_nc_ht=scontent.fhan5-4.fna&oh=b56cd69ac61b527ae4fc12d4a108183b&oe=6197D38B");
         mSliderAdapter.addItem(sliderItem);
         mSliderAdapter.addItem(sliderItem);
         mFragmentDetailBinding.imageSlider.setSliderAdapter(mSliderAdapter);
@@ -60,7 +59,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 
     private void initView() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 1000; i++) {
             sb.append("abcd");
         }
         mFragmentDetailBinding.txtInstruction.setText(sb.toString());

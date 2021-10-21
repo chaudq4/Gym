@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
@@ -51,9 +52,16 @@ public class DataBindingAdapter {
     @BindingAdapter("bind:imageUrlDatabase")
     public static void loadImageDatabase(ImageView view, String url) {
         if (url != null && url.length() != 0) {
+            CircularProgressDrawable drawable = new CircularProgressDrawable(view.getContext());
+            drawable.setColorSchemeColors(R.color.colorPrimary, R.color.colorPrimary, R.color.colorPrimary);
+            drawable.setCenterRadius(30f);
+            drawable.setStrokeWidth(5f);
+            // set all other properties as you would see fit and start it
+            drawable.start();
             Glide.with(view.getContext())
                     .asBitmap().thumbnail()
                     .load(url)
+                    .placeholder(drawable)
                     .into(new BitmapImageViewTarget(view) {
                         @Override
                         protected void setResource(Bitmap resource) {
@@ -92,9 +100,16 @@ public class DataBindingAdapter {
             view.setImageDrawable(new ColorDrawable(Color.GRAY));
         }
         if (url != null && url.length() != 0) {
+            CircularProgressDrawable drawable = new CircularProgressDrawable(view.getContext());
+            drawable.setColorSchemeColors(R.color.colorPrimary, R.color.colorPrimary, R.color.colorPrimary);
+            drawable.setCenterRadius(30f);
+            drawable.setStrokeWidth(5f);
+            // set all other properties as you would see fit and start it
+            drawable.start();
             Glide.with(view.getContext())
                     .asBitmap().thumbnail()
                     .load(url)
+                    .placeholder(drawable)
                     .into(new BitmapImageViewTarget(view) {
                         @Override
                         protected void setResource(Bitmap resource) {

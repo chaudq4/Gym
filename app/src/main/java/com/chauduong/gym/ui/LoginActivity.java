@@ -17,16 +17,20 @@ import com.chauduong.gym.MainActivity;
 import com.chauduong.gym.R;
 import com.chauduong.gym.databinding.ActivityLoginBinding;
 import com.chauduong.gym.fragment.signin.SignInFragment;
+import com.chauduong.gym.manager.database.DatabaseListener;
+import com.chauduong.gym.manager.database.DatabaseManager;
 import com.chauduong.gym.manager.dialog.DialogManager;
 import com.chauduong.gym.manager.session.SessionManager;
+import com.chauduong.gym.model.Type;
 import com.chauduong.gym.model.User;
+
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding mActivityLoginBinding;
     SignInFragment mSignInFragment;
     boolean doubleBackToExitPressedOnce = false;
     SessionManager mSessionManager;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

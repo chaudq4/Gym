@@ -8,8 +8,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.chauduong.gym.R;
 import com.chauduong.gym.databinding.ItemSliderImageBinding;
 import com.chauduong.gym.model.SliderItem;
@@ -50,13 +52,20 @@ public class SliderAdapter extends SliderViewAdapter<SliderViewHolder> {
     @Override
     public void onBindViewHolder(SliderViewHolder viewHolder, int position) {
         SliderItem sliderItem = mSliderItems.get(position);
-
+        CircularProgressDrawable drawable = new CircularProgressDrawable(context);
+        drawable.setColorSchemeColors(R.color.colorPrimary, R.color.colorPrimary, R.color.colorPrimary);
+        drawable.setCenterRadius(30f);
+        drawable.setStrokeWidth(5f);
+        // set all other properties as you would see fit and start it
+        drawable.start();
         viewHolder.mItemSliderImageBinding.tvAutoImageSlider.setText(sliderItem.getDescription());
         viewHolder.mItemSliderImageBinding.tvAutoImageSlider.setTextSize(16);
         viewHolder.mItemSliderImageBinding.tvAutoImageSlider.setTextColor(Color.WHITE);
         Glide.with(viewHolder.itemView)
                 .load(sliderItem.getUrl())
                 .fitCenter()
+                .placeholder(drawable)
+                .transition(DrawableTransitionOptions.with(new DrawableAlwaysCrossFadeFactory()))
                 .into(viewHolder.mItemSliderImageBinding.ivAutoImageSlider);
 
     }
