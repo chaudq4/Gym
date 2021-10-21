@@ -16,6 +16,8 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.google.android.material.snackbar.Snackbar;
+
 public class Util {
     public static void setFullScreen(Context mContext) {
         ((Activity) mContext).requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -105,5 +107,9 @@ public class Util {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((Activity) mContext).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         return displayMetrics.widthPixels;
+    }
+    public static void showSnackbar(View parent, String content){
+        Snackbar snackbar= Snackbar.make(parent, content, Snackbar.LENGTH_SHORT);
+        snackbar.show();
     }
 }

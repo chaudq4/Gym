@@ -4,10 +4,13 @@ package com.chauduong.gym.fragment.signin;
 import static com.chauduong.gym.fragment.signup.SignUpFragment.USER;
 
 import android.content.Intent;
+import android.hardware.biometrics.BiometricPrompt;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -31,12 +35,16 @@ import com.chauduong.gym.fragment.signup.SignUpFragment;
 import com.chauduong.gym.manager.dialog.DialogManager;
 import com.chauduong.gym.manager.session.SessionManager;
 import com.chauduong.gym.model.User;
+import com.chauduong.gym.utils.FingerHelper;
+import com.chauduong.gym.utils.Util;
+import com.google.android.material.snackbar.Snackbar;
 
 public class SignInFragment extends Fragment implements View.OnClickListener, TextView.OnEditorActionListener {
     private static final String TAG = "SignInFragment ";
     FragmentSigninBinding mFragmentSigninBinding;
     SignInViewModel mSignInViewModel;
     SessionManager mSessionManager;
+    FingerHelper mFingerHelper;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,6 +57,7 @@ public class SignInFragment extends Fragment implements View.OnClickListener, Te
         super.onViewCreated(view, savedInstanceState);
         initSesstion();
         initViewModel();
+        initFinger();
         initView();
         if (mSessionManager.isFirtTime()) {
             initAnimation();
@@ -60,6 +69,43 @@ public class SignInFragment extends Fragment implements View.OnClickListener, Te
         registerObserver();
 
     }
+
+    private void initFinger() {
+        if (mFingerHelper == null)
+            mFingerHelper = new FingerHelper(getContext(), new BiometricPrompt.AuthenticationCallback() {
+                @Override
+                public void onAuthenticationError(int errorCode, CharSequence errString) {
+                    Log.i(TAG, "onAuthenticationError: " + errorCode + " " + errString);
+                    if (errorCode == 7) {
+                        mFragmentSigninBinding.btnFinger.setImageResource(R.drawable.ic_baseline_fingerprint_24_off);
+                        Util.showSnackbar(mFragmentSigninBinding.getRoot(), getString(R.string.more_than_five_authentic));
+                    }
+                    super.onAuthenticationError(errorCode, errString);
+                }
+
+                @Override
+                public void onAuthenticationHelp(int helpCode, CharSequence helpString) {
+                    super.onAuthenticationHelp(helpCode, helpString);
+                    Log.i(TAG, "onAuthenticationHelp: " + helpCode);
+                }
+
+                @Override
+                public void onAuthenticationSucceeded(BiometricPrompt.AuthenticationResult result) {
+                    Log.i(TAG, "onAuthenticationSucceeded: ");
+                    mSignInViewModel.setPhoneNumber(mSessionManager.getLoginPhoneNumber());
+                    mSignInViewModel.setPassword(mSessionManager.getLoginPassWord());
+                    mSignInViewModel.login();
+                    super.onAuthenticationSucceeded(result);
+                }
+
+                @Override
+                public void onAuthenticationFailed() {
+                    Log.i(TAG, "onAuthenticationFailed: ");
+                    super.onAuthenticationFailed();
+                }
+            });
+    }
+
 
     private void registerObserver() {
         mSignInViewModel.getUserMutableLiveData().observe(this, new Observer<User>() {
@@ -146,6 +192,12 @@ public class SignInFragment extends Fragment implements View.OnClickListener, Te
         mFragmentSigninBinding.edtPhoneNumber.setImeActionLabel("Next", KeyEvent.KEYCODE_ENTER);
         mFragmentSigninBinding.edtPassword.setOnEditorActionListener(this);
         mFragmentSigninBinding.edtPassword.setImeActionLabel("Enter", KeyEvent.KEYCODE_ENTER);
+        mFragmentSigninBinding.btnFinger.setOnClickListener(this);
+        if (mSessionManager.isFinger() && mFingerHelper.isActiveBio()) {
+            mFragmentSigninBinding.btnFinger.setImageResource(R.drawable.ic_baseline_fingerprint_24);
+        } else {
+            mFragmentSigninBinding.btnFinger.setImageResource(R.drawable.ic_baseline_fingerprint_24_off);
+        }
         if (mFragmentSigninBinding.cbShowPass.isChecked()) {
             mFragmentSigninBinding.edtPassword.setTransformationMethod(null);
         } else {
@@ -164,7 +216,6 @@ public class SignInFragment extends Fragment implements View.OnClickListener, Te
         if (mSessionManager.isRememberLogin()) {
             mFragmentSigninBinding.cbRememberAccount.setChecked(true);
             mSignInViewModel.setPhoneNumber(mSessionManager.getLoginPhoneNumber());
-            mSignInViewModel.setPassword(mSessionManager.getLoginPassWord());
         } else {
             mFragmentSigninBinding.cbRememberAccount.setChecked(false);
         }
@@ -177,6 +228,7 @@ public class SignInFragment extends Fragment implements View.OnClickListener, Te
     public SignInFragment() {
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.R)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -185,13 +237,25 @@ public class SignInFragment extends Fragment implements View.OnClickListener, Te
                         .addToBackStack(null).commit();
                 break;
             case R.id.btnSignIn:
-//                DialogManager.getInstance(getContext()).showProgressDialog(getFragmentManager(), "Đang đăng nhập");
+                DialogManager.getInstance(getContext()).showProgressDialog(getFragmentManager(), "Đang đăng nhập");
                 mSignInViewModel.login();
+                break;
+            case R.id.btnFinger:
+                onFingerClick();
                 break;
             default:
                 break;
         }
 
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    private void onFingerClick() {
+        if (!(mSessionManager.isFinger() && mFingerHelper.isActiveBio())) {
+            Util.showSnackbar(mFragmentSigninBinding.getRoot(), getString(R.string.havent_active_finger));
+            return;
+        }
+        mFingerHelper.isAvailable();
     }
 
 

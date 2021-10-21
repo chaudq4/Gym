@@ -1,4 +1,4 @@
-package com.chauduong.gym.fragment.setting;
+package com.chauduong.gym.fragment.more;
 
 import androidx.annotation.NonNull;
 
@@ -9,23 +9,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class SettingDatabaseManager {
+public class MoreDatabaseManager {
     private static final String USERS = "users";
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
-    private SettingDatabaseListener mSettingDatabaseListener;
+    private MoreDatabaseListener mMoreDatabaseListener;
 
-    public SettingDatabaseManager(SettingDatabaseListener mSettingDatabaseListener ) {
-        this.mSettingDatabaseListener=mSettingDatabaseListener;
+    public MoreDatabaseManager(MoreDatabaseListener mMoreDatabaseListener) {
+        this.mMoreDatabaseListener = mMoreDatabaseListener;
         mFirebaseDatabase = FirebaseDatabase.getInstance("https://gymgc-55cfd-default-rtdb.asia-southeast1.firebasedatabase.app/");
     }
 
-    public void listenUserChange(User user){
+    public void listenUserChange(User user) {
         mDatabaseReference = mFirebaseDatabase.getReference(USERS);
         mDatabaseReference.child(user.getId()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                mSettingDatabaseListener.onUserChange(snapshot.getValue(User.class));
+                mMoreDatabaseListener.onUserChange(snapshot.getValue(User.class));
             }
 
             @Override

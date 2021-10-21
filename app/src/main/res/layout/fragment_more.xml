@@ -19,7 +19,7 @@
             android:paddingTop="40dp">
 
             <include
-                android:id="@+id/layout_setting"
+                android:id="@+id/layout_more"
                 layout="@layout/layout_setting_item"
                 android:visibility="visible" />
 

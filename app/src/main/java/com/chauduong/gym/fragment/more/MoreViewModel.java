@@ -1,4 +1,4 @@
-package com.chauduong.gym.fragment.setting;
+package com.chauduong.gym.fragment.more;
 
 import android.util.Log;
 
@@ -11,12 +11,12 @@ import androidx.lifecycle.ViewModel;
 import com.chauduong.gym.BR;
 import com.chauduong.gym.model.User;
 
-public class SettingViewModel extends ViewModel implements SettingDatabaseListener, Observable {
+public class MoreViewModel extends ViewModel implements MoreDatabaseListener, Observable {
     private static final String TAG = "SettingViewModel";
 
     private PropertyChangeRegistry registry = new PropertyChangeRegistry();
     private MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();
-    private SettingDatabaseManager settingDatabaseManager = new SettingDatabaseManager(this);
+    private MoreDatabaseManager moreDatabaseManager = new MoreDatabaseManager(this);
 
     @Bindable
     public MutableLiveData<User> getUserMutableLiveData() {
@@ -30,7 +30,7 @@ public class SettingViewModel extends ViewModel implements SettingDatabaseListen
     }
 
     public void setListenerUser(User user) {
-        settingDatabaseManager.listenUserChange(user);
+        moreDatabaseManager.listenUserChange(user);
     }
 
     @Override

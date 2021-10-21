@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.chauduong.gym.fragment.setting.SettingViewModel" />
+            type="com.chauduong.gym.fragment.more.MoreViewModel" />
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"

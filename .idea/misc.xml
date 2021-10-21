@@ -41,11 +41,15 @@
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.33240740740740743" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.25416666666666665" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.346782431052094" />
+        <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_fingerprint_24.xml" value="0.2557291666666667" />
+        <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_fingerprint_24_off.xml" value="0.3212962962962963" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.346782431052094" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.25416666666666665" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.25416666666666665" />
+        <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.2557291666666667" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_mic_24.xml" value="0.25416666666666665" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_more_image_popup_24.xml" value="0.33240740740740743" />
+        <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_phone_24.xml" value="0.2557291666666667" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_photo_camera_24.xml" value="0.346782431052094" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_send_24.xml" value="0.25416666666666665" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.346782431052094" />
@@ -85,6 +89,7 @@
         <entry key="..\:/Project/Gym/app/src/main/res/layout/activity_inbox.xml" value="0.25" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/activity_login.xml" value="0.3333333333333333" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
+        <entry key="..\:/Project/Gym/app/src/main/res/layout/activity_setting.xml" value="0.3333333333333333" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/activity_type.xml" value="0.3333333333333333" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/dialog_confirm_logout.xml" value="0.3333333333333333" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/dialog_progress.xml" value="0.3333333333333333" />

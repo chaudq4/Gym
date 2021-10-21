@@ -24,6 +24,7 @@ public class SessionManager {
     private static final String KEY_LOGIN_PASSWORD = "keyLoginPassword";
     private static final String KEY_LOGIN_ISREMEMBER = "keyLoginIsRemember";
     private static final String KEY_IS_FIRSTIME = "keyFirstTime";
+    private static final String KEY_IS_FINGER = "keyFinger";
     private static boolean isTransition = false;
 
     public boolean isFirtTime() {
@@ -46,6 +47,17 @@ public class SessionManager {
         return mSharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false);
 
     }
+
+    public boolean isFinger() {
+        return mSharedPreferences.getBoolean(KEY_IS_FINGER, false);
+    }
+
+    public void setKeyIsFinger(boolean isFinger) {
+        mEditor.putBoolean(KEY_IS_FINGER, isFinger);
+        mEditor.apply();
+        mEditor.commit();
+    }
+
 
     public User getUser() {
         User user = new User();
@@ -73,12 +85,14 @@ public class SessionManager {
     }
 
     public void clearSession() {
-        mEditor.remove(KEY_ID);
-        mEditor.remove(KEY_PHONE_NUMBER);
-        mEditor.remove(KEY_PASSWORD);
+        if (!isFinger()) {
+            mEditor.remove(KEY_ID);
+            mEditor.remove(KEY_PHONE_NUMBER);
+            mEditor.remove(KEY_PASSWORD);
+            mEditor.remove(KEY_AVATAR);
+            mEditor.remove(KEY_NAME);
+        }
         mEditor.remove(KEY_IS_LOGGED_IN);
-        mEditor.remove(KEY_AVATAR);
-        mEditor.remove(KEY_NAME);
         mEditor.commit();
     }
 

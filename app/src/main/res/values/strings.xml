@@ -52,4 +52,14 @@
     <string name="please_wait">Xin vui lòng đợi</string>
     <string name="you_want_to_logout">Bạn có muốn đăng xuất không?</string>
     <string name="cancel">Hủy bỏ</string>
+    <string name="hardware_not_support_finger">Thiết bị của bạn không hỗ trợ bảo mật vân tay</string>
+    <string name="BIOMETRIC_ERROR_HW_UNAVAILABLE">Tính năng này hiện chưa sẵn sàng</string>
+    <string name="title_setting_finger">Kích hoạt tính năng bảo mật vân tay</string>
+    <string name="active_finger">Bạn có muốn kích hoạt vân tay?</string>
+    <string name="yes">Có</string>
+    <string name="no">Không</string>
+    <string name="title_login_finger">Xác thực vân tay</string>
+    <string name="description_login_finger">Vui lòng xác thực vân tay</string>
+    <string name="havent_active_finger">Vui lòng đăng nhập và kích hoạt tính năng này</string>
+    <string name="more_than_five_authentic">Bạn đã xác thực sai quá 5 lần. Vùi lòng nhập mật nhập đăng nhập!</string>
 </resources>

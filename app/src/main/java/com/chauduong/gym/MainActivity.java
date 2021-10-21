@@ -19,7 +19,7 @@ import com.chauduong.gym.fragment.food.FoodFragment;
 import com.chauduong.gym.fragment.home.HomeFragment;
 import com.chauduong.gym.fragment.mess.MessFragment;
 import com.chauduong.gym.fragment.personal.PersonalFragment;
-import com.chauduong.gym.fragment.setting.SettingFragment;
+import com.chauduong.gym.fragment.more.MoreFragment;
 import com.chauduong.gym.utils.Util;
 import com.google.android.material.tabs.TabLayout;
 
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     FoodFragment mFoodFragment;
     MessFragment mMessFragment;
     PersonalFragment mPersonalFragment;
-    SettingFragment mSettingFragment;
+    MoreFragment mMoreFragment;
     ViewPagerFragmentAdapter mViewPagerFragmentAdapter;
     int icon[] = {
             R.drawable.ic_baseline_home_24,
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         mViewPagerFragmentAdapter.addFragment(mFoodFragment);
         mViewPagerFragmentAdapter.addFragment(mMessFragment);
         mViewPagerFragmentAdapter.addFragment(mPersonalFragment);
-        mViewPagerFragmentAdapter.addFragment(mSettingFragment);
+        mViewPagerFragmentAdapter.addFragment(mMoreFragment);
         activityMainBinding.vpager.setAdapter(mViewPagerFragmentAdapter);
         activityMainBinding.vpager.setPagingEnabled(false);
         activityMainBinding.tblayout.setupWithViewPager(activityMainBinding.vpager);
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         mFoodFragment = new FoodFragment();
         mMessFragment = new MessFragment();
         mPersonalFragment = new PersonalFragment();
-        mSettingFragment = new SettingFragment();
+        mMoreFragment = new MoreFragment();
     }
 
     @Override

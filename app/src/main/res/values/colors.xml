@@ -29,4 +29,5 @@
     <color name="bg_online_chat">#27AE0B</color>
     <color name="bg_offline_chat">#5B5B5B</color>
     <color name="dim_logout">#8E8E8E</color>
+    <color name="icon_login">#87545454</color>
 </resources>
