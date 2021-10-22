@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.chauduong.gym.BR;
+import com.chauduong.gym.fragment.signin.SignInManager;
 import com.chauduong.gym.model.User;
 
 public class MoreViewModel extends ViewModel implements MoreDatabaseListener, Observable {
@@ -31,6 +32,9 @@ public class MoreViewModel extends ViewModel implements MoreDatabaseListener, Ob
 
     public void setListenerUser(User user) {
         moreDatabaseManager.listenUserChange(user);
+    }
+    public void updateStatusUser(User user){
+        moreDatabaseManager.updateStatusUser(user);
     }
 
     @Override

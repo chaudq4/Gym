@@ -62,4 +62,6 @@
     <string name="description_login_finger">Vui lòng xác thực vân tay</string>
     <string name="havent_active_finger">Vui lòng đăng nhập và kích hoạt tính năng này</string>
     <string name="more_than_five_authentic">Bạn đã xác thực sai quá 5 lần. Vùi lòng nhập mật nhập đăng nhập!</string>
+    <string name="sent_image">Đã gửi ảnh</string>
+    <string name="you">Bạn</string>
 </resources>

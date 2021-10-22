@@ -52,7 +52,7 @@
                 android:id="@+id/txtTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{inbox.time}"
+                bind:setTime="@{inbox.time}"
                 android:textAlignment="viewEnd"
                 android:textSize="@dimen/text_size_inbox_time" />
         </LinearLayout>

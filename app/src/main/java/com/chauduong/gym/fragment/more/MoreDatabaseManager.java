@@ -34,4 +34,9 @@ public class MoreDatabaseManager {
             }
         });
     }
+
+    public void updateStatusUser(User user){
+        mDatabaseReference = mFirebaseDatabase.getReference(USERS);
+        mDatabaseReference.child(user.getId()).child("online").setValue(user.isOnline());
+    }
 }

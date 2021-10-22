@@ -2,10 +2,15 @@ package com.chauduong.gym.inbox;
 
 import static com.chauduong.gym.utils.Util.getRealPathFromURIForGallery;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -40,14 +45,19 @@ import com.chauduong.gym.manager.dialog.ImagePopupWindow;
 import com.chauduong.gym.model.Inbox;
 import com.chauduong.gym.model.User;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class InboxActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher, Observer<Inbox>, SwipeRefreshLayout.OnRefreshListener, InboxListener {
     public static final String USER = "key_user";
     private static final String TAG = "ConversationActivity";
     private static final int REQUEST_PICK_IMAGE = 1;
+    private static final int MY_CAMERA_PERMISSION_CODE = 2;
+    private static final int CAMERA_REQUEST = 3;
     ActivityInboxBinding mActivityInboxBinding;
     User toUser;
     InboxAdapter mInboxAdapter;
@@ -58,6 +68,7 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
     AlertDialog progressUploadDialog;
     DialogProgressUploadBinding dialogProgressBinding;
     ImagePopupWindow imagePopupWindow;
+    private Uri imageUri;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -137,6 +148,7 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
         mActivityInboxBinding.swLayout.setOnRefreshListener(this);
         mActivityInboxBinding.btnImage.setOnClickListener(this);
         mActivityInboxBinding.edtMsg.addTextChangedListener(this);
+        mActivityInboxBinding.btnCamera.setOnClickListener(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         mActivityInboxBinding.rvListInbox.setLayoutManager(linearLayoutManager);
@@ -193,8 +205,25 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
             case R.id.btnImage:
                 openSelecImage();
                 break;
+            case R.id.btnCamera:
+                openCamera();
             default:
                 break;
+        }
+    }
+
+    private void openCamera() {
+        if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
+        } else {
+            ContentValues values = new ContentValues();
+            values.put(MediaStore.Images.Media.TITLE, "New Picture");
+            values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
+            imageUri = getContentResolver().insert(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+            startActivityForResult(intent, CAMERA_REQUEST);
         }
     }
 
@@ -277,28 +306,47 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_PICK_IMAGE) {
-            if (resultCode == Activity.RESULT_OK) {
-                inboxViewModel.uploadFile(data.getData());
-                dialogProgressBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.dialog_progress_upload, null, false);
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle(getString(R.string.upload_image));
-                builder.setView(dialogProgressBinding.getRoot());
-                try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
-                    Matrix matrix = new Matrix();
-                    matrix.postRotate(90);
-                    Bitmap tmp = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-                    dialogProgressBinding.imgUpload.setImageBitmap(tmp);
-                    bitmap.recycle();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                progressUploadDialog = builder.create();
-                dialogProgressBinding.pbUpload.setProgress(0);
-                dialogProgressBinding.txtProgress.setText(0 + "%");
-                progressUploadDialog.show();
+        if (requestCode == REQUEST_PICK_IMAGE && resultCode == Activity.RESULT_OK) {
+            inboxViewModel.uploadFile(data.getData());
+            dialogProgressBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.dialog_progress_upload, null, false);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(getString(R.string.upload_image));
+            builder.setView(dialogProgressBinding.getRoot());
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+                Matrix matrix = new Matrix();
+                matrix.postRotate(90);
+                Bitmap tmp = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+                dialogProgressBinding.imgUpload.setImageBitmap(tmp);
+                bitmap.recycle();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+            progressUploadDialog = builder.create();
+            dialogProgressBinding.pbUpload.setProgress(0);
+            dialogProgressBinding.txtProgress.setText(0 + "%");
+            progressUploadDialog.show();
+        }
+        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
+            inboxViewModel.uploadFile(imageUri);
+            dialogProgressBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.dialog_progress_upload, null, false);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(getString(R.string.upload_image));
+            builder.setView(dialogProgressBinding.getRoot());
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                Matrix matrix = new Matrix();
+                matrix.postRotate(90);
+                Bitmap tmp = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+                dialogProgressBinding.imgUpload.setImageBitmap(tmp);
+                bitmap.recycle();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            progressUploadDialog = builder.create();
+            dialogProgressBinding.pbUpload.setProgress(0);
+            dialogProgressBinding.txtProgress.setText(0 + "%");
+            progressUploadDialog.show();
         }
     }
 
@@ -320,4 +368,5 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
         }
 
     }
+
 }

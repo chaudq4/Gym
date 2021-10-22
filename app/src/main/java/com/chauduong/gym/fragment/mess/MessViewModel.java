@@ -57,4 +57,7 @@ public class MessViewModel extends AndroidViewModel implements MessManagerListen
         listConversation.setValue(conversations);
     }
 
+    public void updateStatusReadInbox(Conversation conversation) {
+        mMessManager.updateStatusRead(conversation);
+    }
 }

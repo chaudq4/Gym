@@ -66,7 +66,7 @@ public class MessManager {
 
     public void getAllConversation() {
         DatabaseReference mDatabaseReference = firebaseDatabase.getReference(CONVERSATION);
-        mDatabaseReference.child(sessionManager.getUser().getPhoneNumber()).addValueEventListener(new ValueEventListener() {
+        mDatabaseReference.child(sessionManager.getUser().getPhoneNumber()).orderByChild("lastestmsg/time").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Conversation> conversations = new ArrayList<>();
@@ -75,7 +75,7 @@ public class MessManager {
                     Conversation conversation = new Conversation();
                     conversation.setInbox(inbox);
                     if (inbox != null)
-                        conversations.add(conversation);
+                        conversations.add(0, conversation);
                     Log.i(TAG, "onDataChange: " + conversation.toString());
                 }
                 mMessManagerListener.onGetItemConversation(conversations);
@@ -120,5 +120,10 @@ public class MessManager {
 //            }
 //        });
 
+    }
+
+    public void updateStatusRead(Conversation conversation) {
+        firebaseDatabase.getReference().child(CONVERSATION).child(conversation.getInbox().getTo().getPhoneNumber()).child(conversation.getInbox().getFrom().getPhoneNumber())
+                .child("lastestmsg").child("read").setValue(true);
     }
 }

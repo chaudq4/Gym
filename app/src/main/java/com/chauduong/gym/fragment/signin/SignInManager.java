@@ -34,6 +34,8 @@ public class SignInManager {
                 for (DataSnapshot d : snapshot.getChildren()) {
                     User u = d.getValue(User.class);
                     if (u.getPhoneNumber().equalsIgnoreCase(user.getPhoneNumber()) && u.getPassword().equalsIgnoreCase(user.getPassword())) {
+                        u.setOnline(true);
+                        updateStatusLogin(u);
                         mSignInManagerListener.onSignInSuccess(u);
                         mDatabaseReference.removeEventListener(this);
                         return;
@@ -48,5 +50,10 @@ public class SignInManager {
                 mSignInManagerListener.onSignInError(error.getMessage());
             }
         });
+    }
+
+    public void updateStatusLogin(User user) {
+        DatabaseReference mDatabaseReference = firebaseDatabase.getReference(USERS);
+        mDatabaseReference.child(user.getId()).child("online").setValue(user.isOnline());
     }
 }

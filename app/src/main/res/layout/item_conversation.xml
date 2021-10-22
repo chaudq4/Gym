@@ -15,19 +15,36 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/conversation_margin_start">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgImage"
+        <FrameLayout
+            android:id="@+id/fl_avatar"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_alignParentStart="true"
-            bind:imageUrlConversation="@{conversation.inbox}" />
+            android:layout_alignParentStart="true">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgAvatar"
+                android:layout_width="@dimen/image_contact_width_mess"
+                android:layout_height="@dimen/image_contact_width_mess"
+                android:scaleType="centerCrop"
+                bind:imageUrlConversation="@{conversation.inbox}" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgStatus"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_gravity="end|bottom"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                bind:setStatusConversation="@{conversation.inbox}" />
+        </FrameLayout>
+
 
         <LinearLayout
             android:id="@+id/layout_content"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_marginStart="@dimen/contact_margin_start"
-            android:layout_toEndOf="@id/imgImage"
+            android:layout_toEndOf="@id/fl_avatar"
             android:orientation="vertical"
             android:weightSum="2">
 
@@ -46,9 +63,11 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
+                android:lines="1"
                 android:maxLines="1"
-                android:text="@{conversation.inbox.msg}"
-                android:textSize="@dimen/size_text_conversation_lastmsg" />
+                android:textSize="@dimen/size_text_conversation_lastmsg"
+                bind:setStyleFont="@{conversation.inbox}"
+                bind:setTextConversation="@{conversation}" />
 
         </LinearLayout>
 

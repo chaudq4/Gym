@@ -39,6 +39,8 @@ import com.chauduong.gym.utils.FingerHelper;
 import com.chauduong.gym.utils.Util;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Objects;
+
 public class SignInFragment extends Fragment implements View.OnClickListener, TextView.OnEditorActionListener {
     private static final String TAG = "SignInFragment ";
     FragmentSigninBinding mFragmentSigninBinding;
@@ -114,13 +116,13 @@ public class SignInFragment extends Fragment implements View.OnClickListener, Te
                 if (user != null) {
                     Intent intent = new Intent(getContext(), MainActivity.class);
                     intent.putExtra(USER, user);
-                    getActivity().finish();
-                    mSessionManager = new SessionManager(getContext());
+                    Objects.requireNonNull(getActivity()).finish();
+                    mSessionManager = new SessionManager(Objects.requireNonNull(getContext()));
                     mSessionManager.createSignIn(user);
                     if (mFragmentSigninBinding.cbRememberAccount.isChecked()) {
                         mSessionManager.putRememberLogin(user.getPhoneNumber(), user.getPassword(), true);
                     } else {
-                        mSessionManager.setIsRemember(false);
+                        mSessionManager.putRememberLogin(user.getPhoneNumber(), user.getPassword(), false);
                     }
 //                    DialogManager.getInstance(getContext()).dissmissProgressDialog();
                     startActivity(intent);

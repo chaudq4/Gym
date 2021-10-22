@@ -173,4 +173,49 @@ public class InboxManager implements ChildEventListener {
     public void onCancelled(@NonNull DatabaseError error) {
         Log.i(TAG, "onCancelled: ");
     }
+
+    public void upLoadFileBitmap(Bitmap bitmap) {
+        mStorageReference = mFirebaseStorage.getReference(IMAGE_CHAT);
+        if (bitmap != null) {
+            StorageReference ref = mStorageReference.child("images/" + UUID.randomUUID().toString());
+            Matrix matrix = new Matrix();
+            matrix.postRotate(90);
+            Bitmap tmp = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            Log.i(TAG, "upLoadFileBitmap: "+tmp.getWidth()+" "+tmp.getHeight());
+            if (tmp.getWidth() > 2000)
+                tmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+            else
+                tmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            final byte[] bytes = baos.toByteArray();
+            tmp.recycle();
+            ref.putBytes(bytes)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            if (taskSnapshot.getTask().isComplete()) {
+                                Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
+                                while (!urlTask.isSuccessful()) ;
+                                Uri downloadUrl = urlTask.getResult();
+                                inboxManagerListener.onSuccessUpload(downloadUrl.toString());
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            inboxManagerListener.onFailed(e.getMessage());
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
+                                    .getTotalByteCount());
+                            Log.i(TAG, "onProgress: "+progress);
+                            inboxManagerListener.onProgressUpload(progress);
+                        }
+                    });
+        }
+    }
 }

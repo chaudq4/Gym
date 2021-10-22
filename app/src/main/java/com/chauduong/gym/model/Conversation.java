@@ -14,6 +14,7 @@ public class Conversation extends BaseObservable implements Serializable, Compar
     private String id;
     private Inbox inbox;
 
+
     @Override
     public String toString() {
         return "Conversation{" +

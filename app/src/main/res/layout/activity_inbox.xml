@@ -60,8 +60,8 @@
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_gravity="end|bottom"
-                    android:layout_marginEnd="7dp"
-                    android:layout_marginBottom="7dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
                     android:src="@{viewModel.toUser.online? @color/bg_online_chat:@color/bg_offline_chat}" />
             </FrameLayout>
 

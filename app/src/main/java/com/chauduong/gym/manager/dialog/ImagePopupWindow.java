@@ -1,6 +1,7 @@
 package com.chauduong.gym.manager.dialog;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.PopupWindow;
 import androidx.databinding.DataBindingUtil;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.chauduong.gym.R;
 import com.chauduong.gym.databinding.PopupImageBinding;
 
@@ -35,8 +37,19 @@ public class ImagePopupWindow implements View.OnClickListener {
     }
 
     public void showImagePopup(View parent, String url) {
-        Glide.with(mContext).load(url).into(popupImageBinding.imgImage);
-        popupImageBinding.imgImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        Glide.with(mContext)
+                .asBitmap()
+                .load(url)
+                .into(new BitmapImageViewTarget(popupImageBinding.imgImage) {
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        // Do bitmap magic here
+                        if (resource == null) return;
+                        popupImageBinding.imgImage.setImageBitmap(resource);
+                    }
+                });
+
+//        popupImageBinding.imgImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         imagePopup.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
         imagePopup.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         imagePopup.setBackgroundDrawable(new ColorDrawable(mContext.getColor(R.color.white)));
@@ -62,9 +75,10 @@ public class ImagePopupWindow implements View.OnClickListener {
                 break;
         }
     }
-    public void dissmiss(){
-        if (imagePopup!=null&&imagePopup.isShowing()){
-            isShow=false;
+
+    public void dissmiss() {
+        if (imagePopup != null && imagePopup.isShowing()) {
+            isShow = false;
             imagePopup.dismiss();
         }
     }

@@ -38,6 +38,14 @@ public class ConversationApdater extends RecyclerView.Adapter<ConversationViewHo
     public void onBindViewHolder(@NonNull ConversationViewHolder holder, int position) {
         Conversation conversation = conversationList.get(position);
         holder.itemConversationBinding.setConversation(conversation);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mConversationListener!=null){
+                    mConversationListener.onConversationClick(conversation);
+                }
+            }
+        });
     }
 
     public List<Conversation> getConversationList() {

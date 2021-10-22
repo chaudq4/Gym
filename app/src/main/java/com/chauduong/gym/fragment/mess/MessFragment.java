@@ -27,6 +27,7 @@ import com.chauduong.gym.adapter.ContactAdapter;
 import com.chauduong.gym.adapter.ContactListener;
 import com.chauduong.gym.databinding.FragmentMessBinding;
 import com.chauduong.gym.manager.dialog.DialogManager;
+import com.chauduong.gym.manager.session.SessionManager;
 import com.chauduong.gym.model.Conversation;
 import com.chauduong.gym.model.User;
 import com.chauduong.gym.utils.Util;
@@ -43,7 +44,7 @@ public class MessFragment extends Fragment implements ContactListener, Conversat
     private MessViewModel messViewModel;
     private List<Conversation> conversationList;
     private ConversationApdater mConversationApdater;
-
+    private SessionManager mSessionManager;
 
     public MessFragment() {
     }
@@ -61,6 +62,11 @@ public class MessFragment extends Fragment implements ContactListener, Conversat
         initView();
         initViewModel();
         initData();
+        initSession();
+    }
+
+    private void initSession() {
+        mSessionManager = new SessionManager(getContext());
     }
 
     private void initData() {
@@ -132,6 +138,14 @@ public class MessFragment extends Fragment implements ContactListener, Conversat
 
     @Override
     public void onConversationClick(Conversation conversation) {
-
+        User user;
+        if (conversation.getInbox().getFrom().getId().equalsIgnoreCase(mSessionManager.getUser().getId()))
+            user = conversation.getInbox().getTo();
+        else
+            user = conversation.getInbox().getFrom();
+        messViewModel.updateStatusReadInbox(conversation);
+        Intent intent = new Intent(getContext(), InboxActivity.class);
+        intent.putExtra(USER, user);
+        startActivity(intent);
     }
 }

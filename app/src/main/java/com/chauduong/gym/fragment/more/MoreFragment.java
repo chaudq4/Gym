@@ -100,6 +100,8 @@ public class MoreFragment extends Fragment implements View.OnClickListener {
                 if (alertDialogLogout != null && alertDialogLogout.isShowing())
                     alertDialogLogout.dismiss();
                 mSessionManager.clearSession();
+                mSessionManager.getUser().setOnline(false);
+                moreViewModel.updateStatusUser(mSessionManager.getUser());
                 Objects.requireNonNull(getActivity()).finish();
                 Intent intent = new Intent(getContext(), LoginActivity.class);
                 startActivity(intent);

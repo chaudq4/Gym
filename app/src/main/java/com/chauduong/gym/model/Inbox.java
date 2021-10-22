@@ -14,7 +14,7 @@ public class Inbox extends BaseObservable implements Serializable, Comparable, C
     private User to;
     private String msg;
     private String link;
-    private String time;
+    private long time;
     private boolean isRead;
 
     @Bindable
@@ -28,11 +28,11 @@ public class Inbox extends BaseObservable implements Serializable, Comparable, C
     }
 
     @Bindable
-    public String getTime() {
+    public long getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(long time) {
         this.time = time;
         notifyPropertyChanged(BR.time);
     }

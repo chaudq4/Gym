@@ -5,7 +5,7 @@
         android:layout_height="match_parent">
 
 
-        <ImageView
+        <com.chauduong.gym.ui.ZoomImageView
             android:id="@+id/imgImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

@@ -2,6 +2,7 @@ package com.chauduong.gym.inbox;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.text.format.DateFormat;
@@ -74,10 +75,8 @@ public class InboxViewModel extends ViewModel implements InboxManagerListener, O
         Inbox inbox = new Inbox();
         inbox.setTo(toUser.getValue());
         inbox.setMsg(msg);
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
-        Date date = new Date();
-        System.out.println(dateFormat.format(date));
-        inbox.setTime(dateFormat.format(date));
+        long time= System.currentTimeMillis();
+        inbox.setTime(time);
         inbox.setLink(link);
         inboxManager.sentInbox(inbox);
         setMsg("");
@@ -153,5 +152,9 @@ public class InboxViewModel extends ViewModel implements InboxManagerListener, O
     @Override
     public void removeOnPropertyChangedCallback(OnPropertyChangedCallback callback) {
         registry.remove(callback);
+    }
+
+    public void uploadFileBitmap(Bitmap bitmap) {
+        inboxManager.upLoadFileBitmap(bitmap);
     }
 }
