@@ -114,17 +114,14 @@ public class DialogManager implements View.OnClickListener {
     }
 
     public void showProgressDialog(FragmentManager fragmentManager, String title) {
-        Log.i("chauanh", "showProgressDialog: ");
         mDialogProgress = ProgressDialog.newInstance(title);
         mDialogProgress.show(fragmentManager, null);
     }
 
     public void dissmissProgressDialog() {
-        Log.i("chauanh", "dissmissProgressDialog: ");
         if (mDialogProgress != null
                 && mDialogProgress.getDialog() != null) {
             //dialog is showing so do something
-            Log.i("chauanh", "dissmissProgressDialog: ----");
             mDialogProgress.dismiss();
         }
     }

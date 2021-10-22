@@ -79,8 +79,12 @@ public class SessionManager {
         mEditor.putString(KEY_PHONE_NUMBER, user.getPhoneNumber());
         mEditor.putString(KEY_PASSWORD, user.getPassword());
         mEditor.putString(KEY_NAME, user.getName());
-        mEditor.putBoolean(KEY_IS_LOGGED_IN, true);
         mEditor.putString(KEY_AVATAR, user.getAvatar());
+        mEditor.commit();
+    }
+
+    public void setIsSignIn(boolean isSignIn) {
+        mEditor.putBoolean(KEY_IS_LOGGED_IN, isSignIn);
         mEditor.commit();
     }
 
@@ -118,6 +122,10 @@ public class SessionManager {
 
     public String getLoginPassWord() {
         return mSharedPreferences.getString(KEY_LOGIN_PASSWORD, null);
+    }
+
+    public String getKeyPassword() {
+        return mSharedPreferences.getString(KEY_PASSWORD, null);
     }
 
 }

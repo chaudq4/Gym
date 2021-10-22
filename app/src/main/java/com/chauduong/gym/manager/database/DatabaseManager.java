@@ -61,7 +61,6 @@ public class DatabaseManager {
     }
 
     public void getAllType() {
-        Log.i("chauanh", "getAllType: ");
         mDatabaseReference = mFirebaseDatabase.getReference(TYPE);
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override

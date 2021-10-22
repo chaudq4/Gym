@@ -1,23 +1,32 @@
 package com.chauduong.gym.fragment.more;
 
+import android.app.Application;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.Bindable;
 import androidx.databinding.Observable;
 import androidx.databinding.PropertyChangeRegistry;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.chauduong.gym.BR;
 import com.chauduong.gym.fragment.signin.SignInManager;
+import com.chauduong.gym.manager.session.SessionManager;
 import com.chauduong.gym.model.User;
 
-public class MoreViewModel extends ViewModel implements MoreDatabaseListener, Observable {
+public class MoreViewModel extends AndroidViewModel implements MoreDatabaseListener, Observable {
     private static final String TAG = "SettingViewModel";
 
     private PropertyChangeRegistry registry = new PropertyChangeRegistry();
     private MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();
     private MoreDatabaseManager moreDatabaseManager = new MoreDatabaseManager(this);
+    private SessionManager mSessionManager= new SessionManager(getApplication());
+
+    public MoreViewModel(@NonNull Application application) {
+        super(application);
+    }
 
     @Bindable
     public MutableLiveData<User> getUserMutableLiveData() {
@@ -41,6 +50,7 @@ public class MoreViewModel extends ViewModel implements MoreDatabaseListener, Ob
     public void onUserChange(User user) {
         Log.i(TAG, "onUserChange: " + user.toString());
         setUserMutableLiveData(user);
+        mSessionManager.createSignIn(user);
     }
 
     @Override

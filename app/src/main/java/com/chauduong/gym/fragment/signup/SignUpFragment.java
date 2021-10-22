@@ -2,6 +2,7 @@ package com.chauduong.gym.fragment.signup;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +70,7 @@ public class SignUpFragment extends Fragment implements View.OnClickListener, Si
     public void onSignUpSuccess(User user) {
         mSessionManager = new SessionManager(getContext());
         mSessionManager.createSignIn(user);
+        mSessionManager.setIsSignIn(true);
 //        DialogManager.getInstance(getContext()).dissmissProgressDialog();
         Intent intent = new Intent();
         intent.putExtra(USER, user);

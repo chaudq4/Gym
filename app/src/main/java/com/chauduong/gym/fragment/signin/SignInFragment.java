@@ -94,8 +94,8 @@ public class SignInFragment extends Fragment implements View.OnClickListener, Te
                 @Override
                 public void onAuthenticationSucceeded(BiometricPrompt.AuthenticationResult result) {
                     Log.i(TAG, "onAuthenticationSucceeded: ");
-                    mSignInViewModel.setPhoneNumber(mSessionManager.getLoginPhoneNumber());
-                    mSignInViewModel.setPassword(mSessionManager.getLoginPassWord());
+                    mSignInViewModel.setPhoneNumber(mSessionManager.getUser().getPhoneNumber());
+                    mSignInViewModel.setPassword(mSessionManager.getKeyPassword());
                     mSignInViewModel.login();
                     super.onAuthenticationSucceeded(result);
                 }
@@ -119,6 +119,7 @@ public class SignInFragment extends Fragment implements View.OnClickListener, Te
                     Objects.requireNonNull(getActivity()).finish();
                     mSessionManager = new SessionManager(Objects.requireNonNull(getContext()));
                     mSessionManager.createSignIn(user);
+                    mSessionManager.setIsSignIn(true);
                     if (mFragmentSigninBinding.cbRememberAccount.isChecked()) {
                         mSessionManager.putRememberLogin(user.getPhoneNumber(), user.getPassword(), true);
                     } else {

@@ -21,6 +21,7 @@ import com.chauduong.gym.databinding.FragmentFoodBinding;
 public class FoodFragment extends Fragment {
     FragmentFoodBinding mFragmentFoodBinding;
     FoodViewModel foodViewModel;
+
     public FoodFragment() {
     }
 
@@ -39,11 +40,9 @@ public class FoodFragment extends Fragment {
         foodViewModel.getStringMutableLiveData().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
-//                Log.i("chauanh", "cdef: "+s);
 
             }
         });
-//        Log.i("cdef", "onViewCreated: "+foodViewModel.getStringMutableLiveData().hasObservers());
         foodViewModel.gen();
     }
 }
