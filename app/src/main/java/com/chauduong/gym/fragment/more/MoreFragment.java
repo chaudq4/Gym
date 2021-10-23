@@ -55,6 +55,7 @@ public class MoreFragment extends Fragment implements View.OnClickListener {
     private void initViewModel() {
         moreViewModel = ViewModelProviders.of(getActivity()).get(MoreViewModel.class);
         moreViewModel.setListenerUser(mSessionManager.getUser());
+        moreViewModel.setListenerBodyInformation(mSessionManager.getUser());
         mFragmentMoreBinding.layoutIndex.setViewModel(moreViewModel);
     }
 

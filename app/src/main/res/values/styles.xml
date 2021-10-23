@@ -2,24 +2,30 @@
 <resources>
 
     <style name="DetailText">
-        <item name="android:textSize"> @dimen/detail_text_size</item>
+        <item name="android:textSize">@dimen/detail_text_size</item>
         <item name="android:textAlignment">textStart</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="ItemSettingText">
-        <item name="android:textSize"> @dimen/setting_text_size</item>
+        <item name="android:textSize">@dimen/setting_text_size</item>
         <item name="android:textAlignment">textStart</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textStyle">normal</item>
     </style>
+
     <style name="popup_window_animation">
         <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
         <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
     </style>
 
-        <style parent="Theme.AppCompat.Light" name="RaisedButtonGreen">
-        </style>
-
+    <style name="RaisedButtonGreen" parent="Theme.AppCompat.Light"></style>
+    <style name="InputTextInformation">
+        <item name="android:textSize">@dimen/addinfor_edittext_size</item>
+        <item name="android:textAlignment">viewEnd</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:inputType">numberDecimal</item>
+    </style>
 
 </resources>

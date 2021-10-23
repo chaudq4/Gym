@@ -80,7 +80,7 @@ public class SignInFragment extends Fragment implements View.OnClickListener, Te
                     Log.i(TAG, "onAuthenticationError: " + errorCode + " " + errString);
                     if (errorCode == 7) {
                         mFragmentSigninBinding.btnFinger.setImageResource(R.drawable.ic_baseline_fingerprint_24_off);
-                        Util.showSnackbar(mFragmentSigninBinding.getRoot(), getString(R.string.more_than_five_authentic));
+                        Util.showSnackbar(mFragmentSigninBinding.getRoot(), getString(R.string.more_than_five_authentic), Util.TYPE_SNACK_BAR_WRONG);
                     }
                     super.onAuthenticationError(errorCode, errString);
                 }
@@ -255,7 +255,7 @@ public class SignInFragment extends Fragment implements View.OnClickListener, Te
     @RequiresApi(api = Build.VERSION_CODES.R)
     private void onFingerClick() {
         if (!(mSessionManager.isFinger() && mFingerHelper.isActiveBio())) {
-            Util.showSnackbar(mFragmentSigninBinding.getRoot(), getString(R.string.havent_active_finger));
+            Util.showSnackbar(mFragmentSigninBinding.getRoot(), getString(R.string.havent_active_finger), Util.TYPE_SNACK_BAR_WARNING);
             return;
         }
         mFingerHelper.isAvailable();

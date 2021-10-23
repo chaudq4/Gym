@@ -195,19 +195,22 @@ public class DataBindingAdapter {
     }
 
     @BindingAdapter({"bind:high", "bind:weight"})
-    public static void setBMI(TextView textView, float high, int weight) {
+    public static void setBMI(TextView textView, String height, String w) {
+        if (height==null||w==null) return;
+        float high = Float.parseFloat(height);
+        float weight = Float.parseFloat(w);
         DecimalFormat df = new DecimalFormat();
         df.setMaximumFractionDigits(2);
         textView.setText(String.valueOf(df.format(weight / (high * high))));
     }
 
     @BindingAdapter("bind:sethigh")
-    public static void setTextHigh(TextView textView, float value) {
+    public static void setTextHigh(TextView textView, String value) {
         textView.setText(value + "m");
     }
 
     @BindingAdapter("bind:setweight")
-    public static void setTextWeight(TextView textView, float value) {
+    public static void setTextWeight(TextView textView, String value) {
         textView.setText(value + "kg");
     }
 

@@ -30,4 +30,8 @@
     <color name="bg_offline_chat">#5B5B5B</color>
     <color name="dim_logout">#8E8E8E</color>
     <color name="icon_login">#87545454</color>
+    <color name="snack_success">#008305</color>
+    <color name="snack_warning">#FFAA00</color>
+    <color name="snack_wrong">#D10000</color>
+    <color name="snack_normal">#5D5D5D</color>
 </resources>

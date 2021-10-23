@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModel;
 import com.chauduong.gym.BR;
 import com.chauduong.gym.fragment.signin.SignInManager;
 import com.chauduong.gym.manager.session.SessionManager;
+import com.chauduong.gym.model.BodyInformation;
 import com.chauduong.gym.model.User;
 
 public class MoreViewModel extends AndroidViewModel implements MoreDatabaseListener, Observable {
@@ -22,7 +23,18 @@ public class MoreViewModel extends AndroidViewModel implements MoreDatabaseListe
     private PropertyChangeRegistry registry = new PropertyChangeRegistry();
     private MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();
     private MoreDatabaseManager moreDatabaseManager = new MoreDatabaseManager(this);
-    private SessionManager mSessionManager= new SessionManager(getApplication());
+    private SessionManager mSessionManager = new SessionManager(getApplication());
+    private MutableLiveData<BodyInformation> bodyInformationMutableLiveData = new MutableLiveData<>();
+
+    @Bindable
+    public MutableLiveData<BodyInformation> getBodyInformationMutableLiveData() {
+        return bodyInformationMutableLiveData;
+    }
+
+    public void setBodyInformationMutableLiveData(BodyInformation bodyInformation) {
+        bodyInformationMutableLiveData.setValue(bodyInformation);
+        registry.notifyChange(this, BR.bodyInformationMutableLiveData);
+    }
 
     public MoreViewModel(@NonNull Application application) {
         super(application);
@@ -42,7 +54,12 @@ public class MoreViewModel extends AndroidViewModel implements MoreDatabaseListe
     public void setListenerUser(User user) {
         moreDatabaseManager.listenUserChange(user);
     }
-    public void updateStatusUser(User user){
+
+    public void setListenerBodyInformation(User user) {
+        moreDatabaseManager.listenerBodyInformation(user);
+    }
+
+    public void updateStatusUser(User user) {
         moreDatabaseManager.updateStatusUser(user);
     }
 
@@ -51,6 +68,11 @@ public class MoreViewModel extends AndroidViewModel implements MoreDatabaseListe
         Log.i(TAG, "onUserChange: " + user.toString());
         setUserMutableLiveData(user);
         mSessionManager.createSignIn(user);
+    }
+
+    @Override
+    public void onUpdateLastBodyInformation(BodyInformation bodyInformation) {
+        setBodyInformationMutableLiveData(bodyInformation);
     }
 
     @Override

@@ -59,7 +59,7 @@
                     android:background="@drawable/bg_index_body"
                     android:gravity="center"
                     android:textColor="@color/white"
-                    bind:sethigh="@{viewModel.userMutableLiveData.high}" />
+                    bind:sethigh="@{viewModel.bodyInformationMutableLiveData.height}" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -70,7 +70,7 @@
                     android:background="@drawable/bg_index_body"
                     android:gravity="center"
                     android:textColor="@color/white"
-                    bind:setweight="@{viewModel.userMutableLiveData.weight}" />
+                    bind:setweight="@{viewModel.bodyInformationMutableLiveData.weight}" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -81,8 +81,8 @@
                     android:background="@drawable/bg_index_body"
                     android:gravity="center"
                     android:textColor="@color/white"
-                    bind:high="@{viewModel.userMutableLiveData.high}"
-                    bind:weight="@{viewModel.userMutableLiveData.weight}" />
+                    bind:high="@{viewModel.bodyInformationMutableLiveData.height}"
+                    bind:weight="@{viewModel.bodyInformationMutableLiveData.weight}" />
             </LinearLayout>
 
 

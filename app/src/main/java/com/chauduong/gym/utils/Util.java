@@ -1,24 +1,38 @@
 package com.chauduong.gym.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import androidx.databinding.DataBindingUtil;
+
+import com.chauduong.gym.R;
+import com.chauduong.gym.databinding.MySnackbarBinding;
 import com.google.android.material.snackbar.Snackbar;
 
 public class Util {
+    public static final int TYPE_SNACK_BAR_SUCCESS = 0;
+    public static final int TYPE_SNACK_BAR_WARNING = 1;
+    public static final int TYPE_SNACK_BAR_WRONG = 2;
+    public static final int TYPE_SNACK_BAR_NORMAL = 3;
+
     public static void setFullScreen(Context mContext) {
         ((Activity) mContext).requestWindowFeature(Window.FEATURE_NO_TITLE);
         ((Activity) mContext).getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -108,8 +122,52 @@ public class Util {
         ((Activity) mContext).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         return displayMetrics.widthPixels;
     }
-    public static void showSnackbar(View parent, String content){
-        Snackbar snackbar= Snackbar.make(parent, content, Snackbar.LENGTH_SHORT);
+
+    @SuppressLint("RestrictedApi")
+    public static void showSnackbar(View parent, String content, int type) {
+        Snackbar snackbar = Snackbar.make(parent, "", Snackbar.LENGTH_LONG);
+        Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
+        TextView textView = (TextView) layout.findViewById(R.id.snackbar_text);
+        textView.setVisibility(View.INVISIBLE);
+        MySnackbarBinding mySnackbarBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.my_snackbar, null, false);
+
+
+//If the view is not covering the whole snackbar layout, add this line
+        Context mContext = parent.getContext();
+        switch (type) {
+            case TYPE_SNACK_BAR_SUCCESS:
+                mySnackbarBinding.imgIcon.setImageResource(R.drawable.ic_baseline_done_24);
+                mySnackbarBinding.snackLayoutParent.setBackgroundResource(R.drawable.snackbar_shape_success);
+
+                break;
+            case TYPE_SNACK_BAR_WARNING:
+                mySnackbarBinding.imgIcon.setImageResource(R.drawable.ic_baseline_warning_24);
+                mySnackbarBinding.snackLayoutParent.setBackgroundResource(R.drawable.snackbar_shape_warning);
+                break;
+            case TYPE_SNACK_BAR_WRONG:
+                mySnackbarBinding.imgIcon.setImageResource(R.drawable.ic_baseline_info_24);
+                mySnackbarBinding.snackLayoutParent.setBackgroundResource(R.drawable.snackbar_shape_wrong);
+                break;
+            case TYPE_SNACK_BAR_NORMAL:
+                mySnackbarBinding.snackLayoutParent.setBackgroundResource(R.drawable.snackbar_shape_normal);
+                break;
+            default:
+                break;
+        }
+        mySnackbarBinding.txtContent.setText(content);
+        mySnackbarBinding.txtContent.setTextColor(mContext.getColor(R.color.white));
+        layout.setPadding(0, 0, 0, 0);
+        layout.addView(mySnackbarBinding.getRoot(), 0);
+        layout.setBackground(new ColorDrawable(Color.TRANSPARENT));
         snackbar.show();
+    }
+
+    public static boolean checkValidEditText(View parent, EditText editText) {
+        if (editText.getText().toString().length() == 0) {
+            Util.showSnackbar(parent, parent.getContext().getString(R.string.please_add_information), TYPE_SNACK_BAR_WARNING);
+            editText.requestFocus();
+            return false;
+        }
+        return true;
     }
 }

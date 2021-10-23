@@ -1,7 +1,12 @@
 package com.chauduong.gym.fragment.more;
 
+import static com.chauduong.gym.fragment.personal.PersonalManager.BODY_INFORMATION;
+
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
+import com.chauduong.gym.model.BodyInformation;
 import com.chauduong.gym.model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,8 +40,27 @@ public class MoreDatabaseManager {
         });
     }
 
-    public void updateStatusUser(User user){
+    public void updateStatusUser(User user) {
         mDatabaseReference = mFirebaseDatabase.getReference(USERS);
         mDatabaseReference.child(user.getId()).child("online").setValue(user.isOnline());
+    }
+
+    public void listenerBodyInformation(User user) {
+        mDatabaseReference = mFirebaseDatabase.getReference(BODY_INFORMATION);
+        mDatabaseReference.child(user.getPhoneNumber()).limitToLast(1).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot d : snapshot.getChildren()) {
+                    BodyInformation bodyInformation = d.getValue(BodyInformation.class);
+                    mMoreDatabaseListener.onUpdateLastBodyInformation(bodyInformation);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
