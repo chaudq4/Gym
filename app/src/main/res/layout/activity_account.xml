@@ -1,0 +1,286 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.chauduong.gym.utils.DataBindingAdapter" />
+
+        <variable
+            name="user"
+            type="com.chauduong.gym.ui.AccountViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/title_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/account_actionbar_height"
+            android:background="@color/colorPrimary">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/conversation_margin_start"
+                android:background="@null"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_baseline_arrow_back_24" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="@dimen/img_setting_margin_end"
+                android:text="@string/update_accout"
+                android:textColor="@color/white"
+                android:textSize="@dimen/account_title_size" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/image_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title_layout"
+            android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top">
+
+            <FrameLayout
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerInParent="true">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgAvatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    bind:imageUrl="@{user.user.avatar}" />
+
+                <FrameLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="80dp"
+                    android:addStatesFromChildren="true"
+                    android:background="@drawable/shape_update_avatar"
+                    android:clickable="true">
+
+                    <ImageButton
+                        android:id="@+id/btnUpdateImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@null"
+                        android:src="@drawable/ic_baseline_camera_update_24" />
+                </FrameLayout>
+
+            </FrameLayout>
+
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/btnUpdate"
+            android:layout_below="@+id/image_layout"
+            android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top"
+            android:layout_marginBottom="@dimen/detail_text_title_instruction_margin_top">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/detail_text_title_instruction_margin_top">
+
+                <TextView
+                    style="@style/Account_Text_Title"
+                    android:text="Số điện thoại" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/detail_text_margin_top"
+                    android:background="@drawable/shape_account_content">
+
+                    <TextView
+                        android:id="@+id/edtPhone"
+                        style="@style/Account_EditText_Content"
+                        android:background="@android:color/transparent"
+                        android:text="@{user.user.phoneNumber}"
+                        android:textColor="#B5B5B5" />
+                </FrameLayout>
+
+
+                <TextView
+                    style="@style/Account_Text_Title"
+                    android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top"
+                    android:text="Mật khẩu" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_account_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="13dp"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginEnd="13dp"
+                        android:layout_marginBottom="13dp"
+                        android:layout_toStartOf="@id/btnChangePass"
+                        android:background="@android:color/transparent"
+                        android:editable="false"
+                        android:inputType="textPassword"
+                        android:text="abc13579"
+                        tools:ignore="Deprecated" />
+
+                    <FrameLayout
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/detail_text_title_instruction_margin_top"
+                        android:addStatesFromChildren="true"
+                        android:background="@drawable/ripple_change_password"
+                        android:clickable="true">
+
+                        <ImageButton
+                            android:id="@+id/btnChangePass"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center"
+                            android:background="@null"
+                            android:src="@drawable/ic_baseline_edit_24" />
+                    </FrameLayout>
+
+                </RelativeLayout>
+
+
+                <TextView
+                    style="@style/Account_Text_Title"
+                    android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top"
+                    android:text="Họ và tên" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/detail_text_margin_top"
+                    android:background="@drawable/shape_account_content">
+
+                    <EditText
+                        android:id="@+id/edtName"
+                        style="@style/Account_EditText_Content"
+                        android:background="@android:color/transparent"
+                        android:text="@={user.user.name}" />
+                </FrameLayout>
+
+
+                <TextView
+                    style="@style/Account_Text_Title"
+                    android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top"
+                    android:text="Ngày sinh" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/detail_text_margin_top"
+                    android:background="@drawable/shape_account_content">
+
+                    <EditText
+                        android:id="@+id/edtDob"
+                        style="@style/Account_EditText_Content"
+                        android:background="@android:color/transparent"
+                        android:text="@={user.user.dob}" />
+                </FrameLayout>
+
+                <TextView
+                    style="@style/Account_Text_Title"
+                    android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top"
+                    android:text="Giới tính" />
+
+                <RadioGroup
+                    android:id="@+id/sex_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_male"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="@={user.user.male}"
+                        android:text="@string/male" />
+
+                    <RadioButton
+                        android:id="@+id/rb_female"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="@={!user.user.male}"
+                        android:text="@string/female" />
+
+                </RadioGroup>
+
+                <TextView
+                    style="@style/Account_Text_Title"
+                    android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top"
+                    android:text="Email" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/detail_text_margin_top"
+                    android:background="@drawable/shape_account_content">
+
+                    <EditText
+                        android:id="@+id/edtEmail"
+                        style="@style/Account_EditText_Content"
+                        android:background="@android:color/transparent"
+                        android:text="@={user.user.email}" />
+                </FrameLayout>
+
+                <TextView
+                    style="@style/Account_Text_Title"
+                    android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top"
+                    android:text="Địa chỉ" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/detail_text_margin_top"
+                    android:background="@drawable/shape_account_content">
+
+                    <EditText
+                        android:id="@+id/edtAddress"
+                        style="@style/Account_EditText_Content"
+                        android:background="@android:color/transparent"
+                        android:text="@={user.user.address}" />
+                </FrameLayout>
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/btnUpdate"
+            android:layout_width="200dp"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/detail_text_title_instruction_margin_top"
+            android:background="@drawable/ripple_button_login"
+            android:text="@string/update" />
+    </RelativeLayout>
+</layout>

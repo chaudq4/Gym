@@ -65,8 +65,8 @@ public class MoreViewModel extends AndroidViewModel implements MoreDatabaseListe
 
     @Override
     public void onUserChange(User user) {
-        Log.i(TAG, "onUserChange: " + user.toString());
         setUserMutableLiveData(user);
+        Log.i(TAG, "onUserChange: "+user.toString());
         mSessionManager.createSignIn(user);
     }
 

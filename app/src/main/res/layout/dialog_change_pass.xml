@@ -1,0 +1,172 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_add_information"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_login_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/change_password"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/addinfor_edittext_title_size" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top"
+            android:text="@string/old_password"
+            android:textSize="@dimen/addinfor_edittext_size" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/detail_text_margin_top"
+            android:background="@drawable/shape_account_content">
+
+            <EditText
+                android:id="@+id/edtOldPass"
+                style="@style/Account_EditText_Content"
+                android:layout_toStartOf="@id/imgCheckOldPass"
+                android:background="@android:color/transparent"
+                android:inputType="textPassword"
+                android:textColor="#B5B5B5" />
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/imgCheckOldPass"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/img_setting_margin_end"
+                android:src="@drawable/ic_baseline_close_pass_24" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/new_password"
+            android:textSize="@dimen/addinfor_edittext_size" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/detail_text_margin_top"
+            android:background="@drawable/shape_account_content">
+
+            <EditText
+                android:id="@+id/edtNewPass"
+                style="@style/Account_EditText_Content"
+                android:layout_toStartOf="@id/imgCheckNewPass"
+                android:background="@android:color/transparent"
+                android:inputType="textPassword"
+                android:textColor="#B5B5B5" />
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/imgCheckNewPass"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/img_setting_margin_end"
+                android:src="@drawable/ic_baseline_close_pass_24" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/new_password"
+            android:textSize="@dimen/addinfor_edittext_size" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/detail_text_margin_top"
+            android:background="@drawable/shape_account_content">
+
+            <EditText
+                android:id="@+id/edtReNewPass"
+                style="@style/Account_EditText_Content"
+                android:layout_toStartOf="@id/imgCheckReNewPass"
+                android:background="@android:color/transparent"
+                android:inputType="textPassword"
+                android:textColor="#B5B5B5" />
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/imgCheckReNewPass"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/img_setting_margin_end"
+                android:src="@drawable/ic_baseline_done_pass_24" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top"
+            android:background="@drawable/shape_dialog_button_logout"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/btnCancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/margin_edt_msg"
+                    android:layout_marginEnd="@dimen/margin_edt_msg"
+                    android:background="@drawable/ripple_button_cancel_logout"
+                    android:clickable="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/cancel"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp" />
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btnOK"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="@dimen/margin_edt_msg"
+                    android:layout_marginEnd="@dimen/margin_edt_msg"
+                    android:background="@drawable/ripple_button_ok_logout"
+                    android:text="@string/update"
+                    android:textAllCaps="false"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

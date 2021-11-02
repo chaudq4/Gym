@@ -34,4 +34,8 @@
     <color name="snack_warning">#FFAA00</color>
     <color name="snack_wrong">#D10000</color>
     <color name="snack_normal">#5D5D5D</color>
+    <color name="bg_update_avatar">#A5A5A5</color>
+    <color name="account_content_text">#646464</color>
+    <color name="bg_edittext_account">#C3C3C3</color>
+
 </resources>

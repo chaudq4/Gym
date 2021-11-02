@@ -79,4 +79,17 @@
     <string name="date">Ngày nhập liệu</string>
     <string name="add_bodyinfor_success">Thêm thành công</string>
     <string name="add_bodyinfor_faild">"Không thể thêm "</string>
+    <string name="change_password">Đổi mật khẩu</string>
+    <string name="update_accout">Thông tin tài khoản</string>
+    <string name="update">Cập nhật</string>
+    <string name="chose_date">Chọn ngày</string>
+    <string name="male">Nam</string>
+    <string name="female">Nữ</string>
+    <string name="old_password">Mật khẩu cũ</string>
+    <string name="new_password">Mật khẩu mới</string>
+    <string name="invalid_pass">Vui lòng kiểm tra lại dữ liệu nhập</string>
+    <string name="update_password_fail">Không thể thay đổi mật khẩu. Xin vui lòng kiểm tra lại!</string>
+    <string name="update_password_success">Đã đổi mật khẩu thành công</string>
+    <string name="update_avatar_success">Cập nhật ảnh đại diện thành công</string>
+    <string name="update_avatar_fail">Không thể cập nhật ảnh đại diện</string>
 </resources>

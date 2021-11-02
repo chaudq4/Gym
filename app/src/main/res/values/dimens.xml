@@ -72,4 +72,6 @@
     <dimen name="addinfor_edittext_size">16sp</dimen>
     <dimen name="addinfor_edittext_title_size">25sp</dimen>
     <dimen name="radius_snackbar">15dp</dimen>
+    <dimen name="account_actionbar_height">60dp</dimen>
+    <dimen name="account_title_size">23sp</dimen>
 </resources>

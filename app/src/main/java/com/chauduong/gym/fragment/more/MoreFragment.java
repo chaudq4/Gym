@@ -22,6 +22,7 @@ import com.chauduong.gym.R;
 import com.chauduong.gym.databinding.DialogConfirmLogoutBinding;
 import com.chauduong.gym.databinding.FragmentMoreBinding;
 import com.chauduong.gym.manager.session.SessionManager;
+import com.chauduong.gym.ui.AccountActivity;
 import com.chauduong.gym.ui.LoginActivity;
 import com.chauduong.gym.ui.SettingActivity;
 
@@ -48,6 +49,7 @@ public class MoreFragment extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         mFragmentMoreBinding.layoutMore.btnLogout.setOnClickListener(this::onClick);
         mFragmentMoreBinding.layoutMore.btnSetting.setOnClickListener(this);
+        mFragmentMoreBinding.layoutMore.btnAccount.setOnClickListener(this);
         mSessionManager = new SessionManager(getContext());
         initViewModel();
     }
@@ -63,6 +65,9 @@ public class MoreFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.btnAccount:
+                openAccountActivity();
+                break;
             case R.id.btnLogout:
                 showConfirmLogout();
                 break;
@@ -72,6 +77,11 @@ public class MoreFragment extends Fragment implements View.OnClickListener {
             default:
                 break;
         }
+    }
+
+    private void openAccountActivity() {
+        Intent intent = new Intent(getContext(), AccountActivity.class);
+        startActivity(intent);
     }
 
     private void onSettingClick() {

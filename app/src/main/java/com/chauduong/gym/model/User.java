@@ -13,30 +13,32 @@ public class User extends BaseObservable implements Serializable {
     private String phoneNumber;
     private String password;
     private String dob;
-    private String sex;
+    private boolean male;
     private String avatar;
-    private float high;
-    private int weight;
+    private String email;
+    private String address;
     private boolean isOnline;
 
-    @Bindable
-    public float getHigh() {
-        return high;
-    }
-
-    public void setHigh(float high) {
-        this.high = high;
-        notifyPropertyChanged(BR.high);
-    }
 
     @Bindable
-    public int getWeight() {
-        return weight;
+    public String getEmail() {
+        return email;
     }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
-        notifyPropertyChanged(BR.weight);
+    public void setEmail(String email) {
+        this.email = email;
+        notifyPropertyChanged(BR.email);
+    }
+
+    @Bindable
+    public String getAddress() {
+        return address;
+
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+        notifyPropertyChanged(BR.address);
     }
 
     public boolean isOnline() {
@@ -55,7 +57,7 @@ public class User extends BaseObservable implements Serializable {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", password='" + password + '\'' +
                 ", dob='" + dob + '\'' +
-                ", sex='" + sex + '\'' +
+                ", sex='" + male + '\'' +
                 ", avatar='" + avatar + '\'' +
                 ", isOnline=" + isOnline +
                 '}';
@@ -114,14 +116,13 @@ public class User extends BaseObservable implements Serializable {
     }
 
     @Bindable
-    public String getSex() {
-        return sex;
+    public boolean isMale() {
+        return male;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
-        notifyPropertyChanged(BR.sex);
-
+    public void setMale(boolean male) {
+        this.male = male;
+        notifyPropertyChanged(BR.male);
     }
 
     public User() {
@@ -140,11 +141,11 @@ public class User extends BaseObservable implements Serializable {
 
     }
 
-    public User(String name, String phoneNumber, String password, String dob, String sex) {
+    public User(String name, String phoneNumber, String password, String dob, boolean sex) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.dob = dob;
-        this.sex = sex;
+        this.male = sex;
     }
 }
