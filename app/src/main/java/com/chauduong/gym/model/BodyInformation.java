@@ -7,9 +7,9 @@ import com.chauduong.gym.BR;
 
 import java.io.Serializable;
 
-public class BodyInformation extends BaseObservable implements Serializable {
+public class BodyInformation extends BaseObservable implements Serializable, Comparable {
     private String id;
-    private String date;
+    private float date;
     private String height;
     private String weight;
     private String muscle;
@@ -31,11 +31,11 @@ public class BodyInformation extends BaseObservable implements Serializable {
     }
 
     @Bindable
-    public String getDate() {
+    public float getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(float date) {
         this.date = date;
         notifyPropertyChanged(BR.date);
     }
@@ -110,7 +110,7 @@ public class BodyInformation extends BaseObservable implements Serializable {
         notifyPropertyChanged(BR.water);
     }
 
-    public BodyInformation(String height, String weight, String muscle, String fat, String protein, String mineral, String water, String date) {
+    public BodyInformation(String height, String weight, String muscle, String fat, String protein, String mineral, String water, float date) {
         this.date = date;
         this.height = height;
         this.weight = weight;
@@ -134,5 +134,16 @@ public class BodyInformation extends BaseObservable implements Serializable {
                 ", mineral='" + mineral + '\'' +
                 ", water='" + water + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if (o instanceof BodyInformation) {
+            BodyInformation b = (BodyInformation) o;
+            if (((BodyInformation) o).getDate() == this.date) return 0;
+            if (((BodyInformation) o).getDate() > date) return -1;
+            return 1;
+        }
+        return 0;
     }
 }

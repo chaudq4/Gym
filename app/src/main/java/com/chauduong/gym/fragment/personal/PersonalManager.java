@@ -14,8 +14,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PersonalManager {
     public static final String BODY_INFORMATION = "bodyinformation";
@@ -45,5 +51,48 @@ public class PersonalManager {
                 .addOnSuccessListener(unused -> mPersonalManagerListener.onAddBodyInformationSuccess())
                 .addOnFailureListener(e -> mPersonalManagerListener.onAddBodyInformationFail());
 
+    }
+
+    public void getAllBodyInformation() {
+        User user = mSessionManager.getUser();
+        mDatabaseReference = firebaseDatabase.getReference(BODY_INFORMATION);
+        mDatabaseReference.child(user.getPhoneNumber()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<BodyInformation> bodyInformations = new ArrayList<>();
+                for (DataSnapshot d : snapshot.getChildren()) {
+                    BodyInformation b = d.getValue(BodyInformation.class);
+                    bodyInformations.add(b);
+                }
+                mPersonalManagerListener.onGetAllBodyInformationSuccess(bodyInformations);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                mPersonalManagerListener.onGetAllBodyInformationError(error.getMessage());
+            }
+        });
+    }
+
+    public void searchBodyInformation(long millisFromDate, long millisToDate) {
+        User user = mSessionManager.getUser();
+        mDatabaseReference = firebaseDatabase.getReference(BODY_INFORMATION);
+        mDatabaseReference.child(user.getPhoneNumber()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<BodyInformation> bodyInformations = new ArrayList<>();
+                for (DataSnapshot d : snapshot.getChildren()) {
+                    BodyInformation b = d.getValue(BodyInformation.class);
+                    if (b.getDate() <= millisToDate && b.getDate() >= millisFromDate)
+                        bodyInformations.add(b);
+                }
+                mPersonalManagerListener.onSearchBodyInformationSuccess(bodyInformations);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                mPersonalManagerListener.onSearchBodyInformationError(error.getMessage());
+            }
+        });
     }
 }

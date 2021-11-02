@@ -47,7 +47,7 @@ public class MoreDatabaseManager {
 
     public void listenerBodyInformation(User user) {
         mDatabaseReference = mFirebaseDatabase.getReference(BODY_INFORMATION);
-        mDatabaseReference.child(user.getPhoneNumber()).limitToLast(1).addValueEventListener(new ValueEventListener() {
+        mDatabaseReference.child(user.getPhoneNumber()).limitToLast(1).orderByChild("date").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot d : snapshot.getChildren()) {

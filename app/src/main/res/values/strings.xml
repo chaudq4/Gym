@@ -69,11 +69,11 @@
     <string name="input_information">Nhập các chỉ số cơ thể</string>
     <string name="weight">Cân nặng</string>
     <string name="height">Chiều cao</string>
-    <string name="muscle">Khối lượng cơ (MM)</string>
+    <string name="muscle">Tỷ lệ cơ (SMM)</string>
     <string name="fat">Khối lượng mỡ (BFM)</string>
     <string name="protetin">Khối lượng đạm (P)</string>
     <string name="mineral">Khoáng (Mineral)</string>
-    <string name="water">Nước (TBW)</string>
+    <string name="water">Tỷ lệ nước (TBW)</string>
     <string name="add">Thêm</string>
     <string name="please_add_information">Vui lòng nhập thông tin</string>
     <string name="date">Ngày nhập liệu</string>
@@ -82,7 +82,7 @@
     <string name="change_password">Đổi mật khẩu</string>
     <string name="update_accout">Thông tin tài khoản</string>
     <string name="update">Cập nhật</string>
-    <string name="chose_date">Chọn ngày</string>
+    <string name="chose_date">Chọn thời gian</string>
     <string name="male">Nam</string>
     <string name="female">Nữ</string>
     <string name="old_password">Mật khẩu cũ</string>
@@ -92,4 +92,10 @@
     <string name="update_password_success">Đã đổi mật khẩu thành công</string>
     <string name="update_avatar_success">Cập nhật ảnh đại diện thành công</string>
     <string name="update_avatar_fail">Không thể cập nhật ảnh đại diện</string>
+    <string name="upper_limit_fat">Giới hạn trên tỷ lệ mỡ</string>
+    <string name="lower_limit_fat">Giới hạn dưới tỷ lệ mỡ</string>
+    <string name="please_check_information">Vui lòng kiểm tra dữ liệu nhập</string>
+    <string name="chart">BIỂU ĐỒ CƠ THỂ</string>
+    <string name="chose_date_search">Thời gian theo dõi</string>
+    <string name="clear">Xóa</string>
 </resources>
