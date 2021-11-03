@@ -57,8 +57,10 @@
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.2557291666666667" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_mic_24.xml" value="0.25416666666666665" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_more_image_popup_24.xml" value="0.33240740740740743" />
+        <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.346782431052094" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_phone_24.xml" value="0.2557291666666667" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_photo_camera_24.xml" value="0.346782431052094" />
+        <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_save_alt_24.xml" value="0.3289070480081716" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_send_24.xml" value="0.25416666666666665" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.346782431052094" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_detail_circle.xml" value="0.12" />
@@ -117,6 +119,7 @@
         <entry key="..\:/Project/Gym/app/src/main/res/layout/dialog_confirm_logout.xml" value="0.3333333333333333" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/dialog_progress.xml" value="0.3333333333333333" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/dialog_progress_upload.xml" value="0.33" />
+        <entry key="..\:/Project/Gym/app/src/main/res/layout/dialog_select_chart.xml" value="0.3333333333333333" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/dialog_video.xml" value="0.3333333333333333" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/fragment_conversation.xml" value="0.3333333333333333" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/fragment_detail.xml" value="0.25" />
@@ -150,6 +153,7 @@
         <entry key="..\:/Project/Gym/app/src/main/res/layout/layout_setting_item.xml" value="0.33" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/my_snackbar.xml" value="0.25" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/popup_image.xml" value="0.3333333333333333" />
+        <entry key="..\:/Project/Gym/app/src/main/res/menu/main_menu.xml" value="0.20677083333333332" />
       </map>
     </option>
   </component>

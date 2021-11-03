@@ -1,6 +1,8 @@
 package com.chauduong.gym.fragment.personal;
 
 import android.app.Application;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -8,16 +10,29 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.chauduong.gym.R;
 import com.chauduong.gym.model.BodyInformation;
+import com.chauduong.gym.utils.Util;
+import com.github.mikephil.charting.charts.Chart;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class PersonalViewModel extends AndroidViewModel implements PersonalManagerListener {
+public class PersonalViewModel extends AndroidViewModel implements PersonalManagerListener, SaveChartListener {
     private PersonalManager personalManager;
     private MutableLiveData<Boolean> isAddSuccess = new MutableLiveData<>();
     private MutableLiveData<List<BodyInformation>> listBodyInformation = new MutableLiveData<>();
+    private boolean resultSave;
+    private int countChartSave;
+    private int sizeListChartRequest;
+    private MutableLiveData<Boolean> isSaveSuccess = new MutableLiveData<>();
+
+    public MutableLiveData<Boolean> getIsSaveSuccess() {
+        return isSaveSuccess;
+    }
 
     public MutableLiveData<List<BodyInformation>> getListBodyInformation() {
         return listBodyInformation;
@@ -82,4 +97,35 @@ public class PersonalViewModel extends AndroidViewModel implements PersonalManag
             personalManager.searchBodyInformation(millisFromDate, millisToDate);
         }
     }
+
+    public void saveChartGallery(List<Chart> chartList) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        sizeListChartRequest = chartList.size();
+        resultSave = true;
+        countChartSave = 0;
+        for (Chart chart : chartList) {
+            executorService.execute(new SaveChartThread(chart, this));
+        }
+        executorService.shutdown();
+    }
+
+    @Override
+    public void onComplete(boolean result) {
+        countChartSave++;
+        resultSave = resultSave && result;
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                if (countChartSave == sizeListChartRequest && resultSave) {
+                    isSaveSuccess.setValue(true);
+                }
+                if (countChartSave == sizeListChartRequest && !resultSave) {
+                    isSaveSuccess.setValue(false);
+                }
+            }
+        });
+
+
+    }
+
 }

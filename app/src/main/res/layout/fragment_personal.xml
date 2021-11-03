@@ -31,7 +31,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:gravity="center"
+                        android:layout_marginStart="30dp"
+                        android:gravity="start|center_vertical"
                         android:text="@string/chose_date_search"
                         android:textAllCaps="true"
                         android:textColor="@color/account_content_text"
@@ -182,6 +183,23 @@
                     app:layout_collapseMode="pin"
                     app:title="@string/chart">
 
+                    <FrameLayout
+                        android:id="@+id/btnMore"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="10dp"
+                        android:addStatesFromChildren="true"
+                        android:background="@drawable/ripple"
+                        android:clickable="true">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_baseline_more_vert_24" />
+                    </FrameLayout>
+
                 </androidx.appcompat.widget.Toolbar>
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -194,7 +212,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/bg_chart_layout"
             android:paddingStart="15dp"
-            android:paddingTop="50dp"
+            android:paddingTop="30dp"
             android:paddingEnd="10dp"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 

@@ -1,20 +1,25 @@
 package com.chauduong.gym.fragment.personal;
 
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,9 +31,11 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.chauduong.gym.R;
 import com.chauduong.gym.databinding.DialogAddinfomationbodyBinding;
+import com.chauduong.gym.databinding.DialogSelectChartBinding;
 import com.chauduong.gym.databinding.FragmentPersonalBinding;
 import com.chauduong.gym.model.BodyInformation;
 import com.chauduong.gym.utils.Util;
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -51,10 +58,9 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.appbar.AppBarLayout;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -65,7 +71,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-public class PersonalFragment extends Fragment implements View.OnClickListener, OnChartValueSelectedListener {
+public class PersonalFragment extends Fragment implements View.OnClickListener, OnChartValueSelectedListener, AppBarLayout.OnOffsetChangedListener {
     private static final int TYPE_CHART_WEIGHT = 1;
     private FragmentPersonalBinding mFragmentPersonalBinding;
     private PersonalViewModel mPersonalViewModel;
@@ -76,6 +82,8 @@ public class PersonalFragment extends Fragment implements View.OnClickListener, 
     private LineChart mChartComplex;
     private long millisFromDate = 0;
     private long millisToDate = 0;
+    private AlertDialog mSaveChartDialog;
+
 
     public PersonalFragment() {
     }
@@ -121,6 +129,19 @@ public class PersonalFragment extends Fragment implements View.OnClickListener, 
                 updateFatChart(bodyInformations);
                 updateMuscleChart(bodyInformations);
                 updateComplexChart(bodyInformations);
+            }
+        });
+        mPersonalViewModel.getIsSaveSuccess().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (mSaveChartDialog != null && mSaveChartDialog.isShowing()) {
+                    if (aBoolean) {
+                        Util.showSnackbar(mFragmentPersonalBinding.getRoot(), getString(R.string.save_to_gallery_success), Util.TYPE_SNACK_BAR_SUCCESS);
+                    } else {
+                        Util.showSnackbar(mFragmentPersonalBinding.getRoot(), getString(R.string.save_to_gallery_error), Util.TYPE_SNACK_BAR_WRONG);
+                    }
+                    mSaveChartDialog.dismiss();
+                }
             }
         });
     }
@@ -322,7 +343,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener, 
             x.setTextColor(Color.BLACK);
             mChartMuscle.getAxisRight().setEnabled(false);
             Legend l = mChartMuscle.getLegend();
-            l.setTextSize(14f);
             l.setForm(Legend.LegendForm.LINE);
             l.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
 
@@ -399,7 +419,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener, 
             Legend l = mChartFat.getLegend();
             l.setForm(Legend.LegendForm.LINE);
             l.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
-            l.setTextSize(14f);
             ArrayList<Entry> values = new ArrayList<>();
             for (BodyInformation b : bodyInformations) {
                 float val = Float.parseFloat(b.getFat());
@@ -502,7 +521,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener, 
             data.setData(dataBMIChart(bodyInformationList));
             xAxis.setAxisMinimum(data.getXMin() - 864);
             xAxis.setAxisMaximum(data.getXMax() + 864);
-
+            mChartWeight.getLegend().setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
             mChartWeight.setData(data);
             mChartWeight.invalidate();
             mChartWeight.animateX(2000);
@@ -511,20 +530,16 @@ public class PersonalFragment extends Fragment implements View.OnClickListener, 
         }
     }
 
-    private ArrayList<Entry> initDataEnrtry(List<BodyInformation> bodyInformationList, int type) {
+
+    private DataSet dataWeightChart(List<BodyInformation> bodyInformationList) {
         ArrayList<Entry> entries = new ArrayList<>();
         for (int i = 0; i < bodyInformationList.size(); i++) {
             float value = 0;
-            if (type == TYPE_CHART_WEIGHT)
-                value = Float.parseFloat(bodyInformationList.get(i).getWeight());
+            value = Float.parseFloat(bodyInformationList.get(i).getWeight());
             entries.add(new Entry(bodyInformationList.get(i).getDate(), value));
         }
-        return entries;
-    }
-
-    private DataSet dataWeightChart(List<BodyInformation> bodyInformationList) {
         LineData d = new LineData();
-        LineDataSet set = new LineDataSet(initDataEnrtry(bodyInformationList, TYPE_CHART_WEIGHT), getString(R.string.weight));
+        LineDataSet set = new LineDataSet(entries, getString(R.string.weight));
         set.setColor(getContext().getColor(R.color.colorSettingAccount));
         set.setLineWidth(2f);
         set.setCircleColor((getContext().getColor(R.color.colorSettingAccount)));
@@ -558,11 +573,13 @@ public class PersonalFragment extends Fragment implements View.OnClickListener, 
         return new BarData(set);
     }
 
+    @SuppressLint("RestrictedApi")
     private void initView() {
+        mFragmentPersonalBinding.btnMore.setOnClickListener(this);
+        mFragmentPersonalBinding.appbar.addOnOffsetChangedListener(this);
         mFragmentPersonalBinding.btnAdd.setOnClickListener(this);
+        mFragmentPersonalBinding.btnClear.setOnClickListener(this);
         mFragmentPersonalBinding.toolbar.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        mFragmentPersonalBinding.toolbar.setTitleTextColor(Color.RED);
-        mFragmentPersonalBinding.toolbar.setLogo(R.drawable.ic_baseline_area_chart_24);
         mChartWeight = mFragmentPersonalBinding.chartWeight;
         mChartFat = mFragmentPersonalBinding.chartFat;
         mChartMuscle = mFragmentPersonalBinding.chartMuscle;
@@ -614,6 +631,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener, 
         });
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -623,9 +641,90 @@ public class PersonalFragment extends Fragment implements View.OnClickListener, 
             case R.id.btnSearh:
                 search();
                 break;
+            case R.id.btnClear:
+                clearAndSearchAll();
+                break;
+            case R.id.btnMore:
+                showMoreMenu();
+                break;
             default:
                 break;
         }
+    }
+
+    private void showMoreMenu() {
+        PopupMenu menu = new PopupMenu(getContext(), mFragmentPersonalBinding.btnMore);
+        menu.getMenuInflater().inflate(R.menu.main_menu, menu.getMenu());
+        menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @SuppressLint("NonConstantResourceId")
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.btnClearMenu:
+                        clearAndSearchAll();
+                        break;
+                    case R.id.btnSaveMenu:
+                        showSelectChart();
+                        break;
+                }
+                return false;
+            }
+        });
+        menu.show();
+    }
+
+    private void showSelectChart() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        DialogSelectChartBinding dialogSelectChartBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_select_chart, null, false);
+        builder.setView(dialogSelectChartBinding.getRoot());
+        dialogSelectChartBinding.btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mSaveChartDialog != null && mSaveChartDialog.isShowing()) {
+                    mSaveChartDialog.dismiss();
+                }
+            }
+        });
+        dialogSelectChartBinding.btnOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    List<Chart> chartArrayList = new ArrayList<>();
+                    if (dialogSelectChartBinding.cbHeight.isChecked()) {
+                        chartArrayList.add(mChartWeight);
+                    }
+                    if (dialogSelectChartBinding.cbFat.isChecked()) {
+                        chartArrayList.add(mChartFat);
+                    }
+                    if (dialogSelectChartBinding.cbMuscle.isChecked()) {
+                        chartArrayList.add(mChartMuscle);
+                    }
+                    if (dialogSelectChartBinding.cbComplex.isChecked()) {
+                        chartArrayList.add(mChartComplex);
+                    }
+                    mPersonalViewModel.saveChartGallery(chartArrayList);
+
+                } else {
+                    Util.requestStoragePermission(mFragmentPersonalBinding.getRoot(), getActivity());
+                }
+            }
+        });
+        mSaveChartDialog = builder.create();
+        mSaveChartDialog.getWindow().setBackgroundDrawable((new ColorDrawable(android.graphics.Color.TRANSPARENT)));
+        mSaveChartDialog.setCanceledOnTouchOutside(false);
+        mSaveChartDialog.setCancelable(false);
+        mSaveChartDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        if (mSaveChartDialog != null && !mSaveChartDialog.isShowing())
+            mSaveChartDialog.show();
+    }
+
+
+    private void clearAndSearchAll() {
+        mFragmentPersonalBinding.edtFromDate.setText("");
+        mFragmentPersonalBinding.edtToDate.setText("");
+        millisToDate = 0;
+        millisFromDate = 0;
+        mPersonalViewModel.getAllBodyInformation();
     }
 
     private void search() {
@@ -760,4 +859,14 @@ public class PersonalFragment extends Fragment implements View.OnClickListener, 
     public void onNothingSelected() {
 
     }
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        if (Math.abs(verticalOffset) == appBarLayout.getTotalScrollRange()) {
+            mFragmentPersonalBinding.btnMore.setVisibility(View.VISIBLE);
+        } else {
+            mFragmentPersonalBinding.btnMore.setVisibility(View.GONE);
+        }
+    }
+
 }

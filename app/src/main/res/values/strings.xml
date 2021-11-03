@@ -98,4 +98,11 @@
     <string name="chart">BIỂU ĐỒ CƠ THỂ</string>
     <string name="chose_date_search">Thời gian theo dõi</string>
     <string name="clear">Xóa</string>
+    <string name="save_to_gallery">Lưu</string>
+    <string name="clear_filter">Xóa lọc ngày</string>
+    <string name="manager_bodyinformation">Quản lý chỉ số</string>
+    <string name="save_to_gallery_success">Lưu thành công</string>
+    <string name="save_to_gallery_error">Có lỗi xảy ra. Vui lòng kiểm tra lại!</string>
+    <string name="select_chart">Chọn biểu đồ</string>
+    <string name="complex">Nước, đạm, khoáng</string>
 </resources>

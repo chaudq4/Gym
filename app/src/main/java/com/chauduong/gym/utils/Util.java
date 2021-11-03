@@ -1,5 +1,8 @@
 package com.chauduong.gym.utils;
 
+import static androidx.core.app.ActivityCompat.requestPermissions;
+
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -20,7 +23,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 
 import com.chauduong.gym.R;
@@ -32,6 +37,7 @@ public class Util {
     public static final int TYPE_SNACK_BAR_WARNING = 1;
     public static final int TYPE_SNACK_BAR_WRONG = 2;
     public static final int TYPE_SNACK_BAR_NORMAL = 3;
+    private static final int PERMISSION_STORAGE = 0;
 
     public static void setFullScreen(Context mContext) {
         ((Activity) mContext).requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -169,5 +175,21 @@ public class Util {
             return false;
         }
         return true;
+    }
+
+    public static void requestStoragePermission(View view, Activity activity) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            Snackbar.make(view, "Cấp quyền ghi dữ liệu vào thư viện", Snackbar.LENGTH_INDEFINITE)
+                    .setAction(android.R.string.ok, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_STORAGE);
+                        }
+                    }).show();
+        } else {
+            Toast.makeText(activity, "Vui lòng cấp quyền!", Toast.LENGTH_SHORT)
+                    .show();
+            requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_STORAGE);
+        }
     }
 }

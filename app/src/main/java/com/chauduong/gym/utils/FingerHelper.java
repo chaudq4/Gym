@@ -46,7 +46,6 @@ public class FingerHelper {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.R)
     public void isAvailable() {
         BiometricManager biometricManager = BiometricManager.from(mContext);
         switch (biometricManager.canAuthenticate()) {
@@ -61,7 +60,7 @@ public class FingerHelper {
                 Toast.makeText(mContext, mContext.getText(R.string.BIOMETRIC_ERROR_HW_UNAVAILABLE), Toast.LENGTH_SHORT).show();
                 break;
             case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
-                // Prompts the user to create credentials that your app accepts.
+//                 Prompts the user to create credentials that your app accepts.
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 builder.setTitle(mContext.getString(R.string.title_setting_finger));
                 builder.setMessage(mContext.getString(R.string.active_finger));
