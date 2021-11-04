@@ -16,4 +16,7 @@ public interface PersonalManagerListener {
     void onSearchBodyInformationSuccess(List<BodyInformation> bodyInformations);
 
     void onSearchBodyInformationError(String message);
+
+    void onUpdateBodySuccess();
+    void onUpdateBodyError(String msg);
 }

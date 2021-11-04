@@ -40,5 +40,6 @@
     <color name="bg_edittext_account">#C3C3C3</color>
     <color name="chart_muscle_fill">#81D4FA</color>
     <color name="chart_muscle">#4FC3F7</color>
-
+    <color name="color_bg_infor_item">#4DB6AC</color>
+    <color name="color_button_update">#80DEEA</color>
 </resources>

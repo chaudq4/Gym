@@ -1,0 +1,116 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.chauduong.gym.utils.DataBindingAdapter" />
+
+        <variable
+            name="body"
+            type="com.chauduong.gym.model.BodyInformation" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_item_body_infor"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imgCalender"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_baseline_calendar_today_24" />
+
+            <TextView
+                android:id="@+id/txtDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/conversation_margin_start"
+                android:layout_toEndOf="@id/imgCalender"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                bind:setDateInfor="@{body.date}" />
+
+            <FrameLayout
+                android:id="@+id/btnMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:addStatesFromChildren="true"
+                android:background="@drawable/ripple"
+                android:padding="3dp">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="top"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_baseline_unfold_more_24" />
+            </FrameLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top">
+
+            <TextView
+                android:id="@+id/txtWeight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/detail_text_body_infor"
+                bind:setWeightBody="@{body.weight}" />
+
+            <TextView
+                android:id="@+id/txtHeight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/detail_text_body_infor"
+                bind:setHeightBody="@{body.height}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/txtFat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/body_infor_margin_top"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/detail_text_body_infor"
+                bind:setMuscleBody="@{body.muscle}" />
+
+            <TextView
+                android:id="@+id/txtMuscle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/body_infor_margin_top"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/detail_text_body_infor"
+                bind:setFatBody="@{body.fat}" />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

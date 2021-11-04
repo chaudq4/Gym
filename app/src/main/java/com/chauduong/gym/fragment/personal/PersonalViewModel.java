@@ -92,6 +92,16 @@ public class PersonalViewModel extends AndroidViewModel implements PersonalManag
 
     }
 
+    @Override
+    public void onUpdateBodySuccess() {
+
+    }
+
+    @Override
+    public void onUpdateBodyError(String msg) {
+
+    }
+
     public void searchBodyInformation(long millisFromDate, long millisToDate) {
         if (personalManager != null) {
             personalManager.searchBodyInformation(millisFromDate, millisToDate);

@@ -95,4 +95,36 @@ public class PersonalManager {
             }
         });
     }
+
+    public void updateBodyInformation(BodyInformation bodyInformation) {
+        User user = mSessionManager.getUser();
+        mDatabaseReference = firebaseDatabase.getReference(BODY_INFORMATION);
+        mDatabaseReference.child(user.getPhoneNumber()).child(bodyInformation.getId()).setValue(bodyInformation).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                mPersonalManagerListener.onUpdateBodySuccess();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                mPersonalManagerListener.onUpdateBodyError(e.getMessage());
+            }
+        });
+    }
+
+    public void deleteBodyInformation(BodyInformation bodyInformation) {
+        User user = mSessionManager.getUser();
+        mDatabaseReference = firebaseDatabase.getReference(BODY_INFORMATION);
+        mDatabaseReference.child(user.getPhoneNumber()).child(bodyInformation.getId()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                mPersonalManagerListener.onUpdateBodySuccess();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                mPersonalManagerListener.onUpdateBodyError(e.getMessage());
+            }
+        });
+    }
 }

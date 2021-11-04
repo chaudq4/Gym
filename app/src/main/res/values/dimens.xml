@@ -74,4 +74,6 @@
     <dimen name="radius_snackbar">15dp</dimen>
     <dimen name="account_actionbar_height">60dp</dimen>
     <dimen name="account_title_size">23sp</dimen>
+    <dimen name="body_infor_margin_top">10dp</dimen>
+    <dimen name="detail_text_body_infor">12sp</dimen>
 </resources>

@@ -25,6 +25,7 @@
         android:theme="@style/Theme.Gym">
         <activity android:name=".ui.AccountActivity" />
         <activity android:name=".ui.SettingActivity" />
+        <activity android:name=".fragment.bodyinformation.BodyInformationActivity"/>
         <activity
             android:name=".ui.LoginActivity"
             android:exported="true"

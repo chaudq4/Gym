@@ -5,13 +5,13 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +33,7 @@ import com.chauduong.gym.R;
 import com.chauduong.gym.databinding.DialogAddinfomationbodyBinding;
 import com.chauduong.gym.databinding.DialogSelectChartBinding;
 import com.chauduong.gym.databinding.FragmentPersonalBinding;
+import com.chauduong.gym.fragment.bodyinformation.BodyInformationActivity;
 import com.chauduong.gym.model.BodyInformation;
 import com.chauduong.gym.utils.Util;
 import com.github.mikephil.charting.charts.Chart;
@@ -666,11 +667,19 @@ public class PersonalFragment extends Fragment implements View.OnClickListener, 
                     case R.id.btnSaveMenu:
                         showSelectChart();
                         break;
+                    case R.id.btnManagerMenu:
+                        showBodyInformationActivity();
+                        break;
                 }
                 return false;
             }
         });
         menu.show();
+    }
+
+    private void showBodyInformationActivity() {
+        Intent intent = new Intent(getContext(), BodyInformationActivity.class);
+        startActivity(intent);
     }
 
     private void showSelectChart() {

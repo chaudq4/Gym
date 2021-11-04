@@ -26,6 +26,7 @@
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/bg_inbox_from.xml" value="0.346782431052094" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/bg_inbox_to.xml" value="0.25416666666666665" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/bg_index_body.xml" value="0.346782431052094" />
+        <entry key="..\:/Project/Gym/app/src/main/res/drawable/bg_item_body_infor.xml" value="0.3416666666666667" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/bg_msg.xml" value="0.25416666666666665" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/bg_msg_add.xml" value="0.346782431052094" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/bg_setting_rectangle.xml" value="0.346782431052094" />
@@ -45,6 +46,7 @@
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_camera_update_24.xml" value="0.3333333333333333" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.33240740740740743" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_close_pass_24.xml" value="0.346782431052094" />
+        <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_delete_sweep_24.xml" value="0.1963963963963964" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_done_24.xml" value="0.346782431052094" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_done_pass_24.xml" value="0.346782431052094" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.25416666666666665" />
@@ -68,8 +70,10 @@
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/marker_fat.xml" value="0.346782431052094" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ripple.xml" value="0.3536458333333333" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ripple_button_cancel_logout.xml" value="0.33240740740740743" />
+        <entry key="..\:/Project/Gym/app/src/main/res/drawable/ripple_button_cancel_update_infor.xml" value="0.20765765765765765" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ripple_button_login.xml" value="0.346782431052094" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ripple_button_ok_logout.xml" value="0.24010416666666667" />
+        <entry key="..\:/Project/Gym/app/src/main/res/drawable/ripple_button_update_body_infor.xml" value="0.20765765765765765" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ripple_change_password.xml" value="0.346782431052094" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ripple_chat_button.xml" value="0.25416666666666665" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/ripple_conversation.xml" value="0.25416666666666665" />
@@ -96,6 +100,7 @@
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/shape_rate.xml" value="0.346782431052094" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/shape_setting.xml" value="0.346782431052094" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/shape_update_avatar.xml" value="0.3333333333333333" />
+        <entry key="..\:/Project/Gym/app/src/main/res/drawable/shape_update_information.xml" value="0.20765765765765765" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/shape_window_dim.xml" value="0.3536458333333333" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/shapebgsearch.xml" value="0.346782431052094" />
         <entry key="..\:/Project/Gym/app/src/main/res/drawable/shapebgsearchcontact.xml" value="0.346782431052094" />
@@ -110,7 +115,7 @@
         <entry key="..\:/Project/Gym/app/src/main/res/layout/activity_home.xml" value="0.3333333333333333" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/activity_inbox.xml" value="0.25" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/activity_login.xml" value="0.3333333333333333" />
-        <entry key="..\:/Project/Gym/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
+        <entry key="..\:/Project/Gym/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/activity_setting.xml" value="0.3333333333333333" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/activity_type.xml" value="0.3333333333333333" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/custom_marker_view.xml" value="0.3333333333333333" />
@@ -120,9 +125,12 @@
         <entry key="..\:/Project/Gym/app/src/main/res/layout/dialog_progress.xml" value="0.3333333333333333" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/dialog_progress_upload.xml" value="0.33" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/dialog_select_chart.xml" value="0.3333333333333333" />
+        <entry key="..\:/Project/Gym/app/src/main/res/layout/dialog_update_body_information.xml" value="0.25" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/dialog_video.xml" value="0.3333333333333333" />
+        <entry key="..\:/Project/Gym/app/src/main/res/layout/fragment_body_information.xml" value="0.1900900900900901" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/fragment_conversation.xml" value="0.3333333333333333" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/fragment_detail.xml" value="0.25" />
+        <entry key="..\:/Project/Gym/app/src/main/res/layout/fragment_detail_body.xml" value="0.25" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/fragment_exercise.xml" value="0.3333333333333333" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/fragment_food.xml" value="0.24479166666666666" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/fragment_home.xml" value="0.3333333333333333" />
@@ -134,6 +142,7 @@
         <entry key="..\:/Project/Gym/app/src/main/res/layout/fragment_signin.xml" value="0.25" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/fragment_signup.xml" value="0.3333333333333333" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/frament_begin_transaction.xml" value="0.25" />
+        <entry key="..\:/Project/Gym/app/src/main/res/layout/item_body_infor.xml" value="0.3333333333333333" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/item_contact.xml" value="0.5" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/item_conversation.xml" value="0.3333333333333333" />
         <entry key="..\:/Project/Gym/app/src/main/res/layout/item_excersice.xml" value="0.5" />

@@ -196,7 +196,7 @@ public class DataBindingAdapter {
 
     @BindingAdapter({"bind:high", "bind:weight"})
     public static void setBMI(TextView textView, String height, String w) {
-        if (height==null||w==null) return;
+        if (height == null || w == null) return;
         float high = Float.parseFloat(height);
         float weight = Float.parseFloat(w);
         DecimalFormat df = new DecimalFormat();
@@ -260,5 +260,32 @@ public class DataBindingAdapter {
         textView.setTypeface(null, isRead ? Typeface.NORMAL : Typeface.BOLD);
     }
 
+    @BindingAdapter("bind:setDateInfor")
+    public static void setDateInfor(TextView textView, float value) {
+        long unixDate = (long) (value * 100000);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        Date resulted = new Date(unixDate);
+        textView.setText(sdf.format(resulted));
+    }
+
+    @BindingAdapter("bind:setWeightBody")
+    public static void setTextWeightBody(TextView textView, String value) {
+        textView.setText(textView.getContext().getString(R.string.weight) + ": " + value + "kg");
+    }
+
+    @BindingAdapter("bind:setHeightBody")
+    public static void setTextHeightBody(TextView textView, String value) {
+        textView.setText(textView.getContext().getString(R.string.height) + ": " + value + "m");
+    }
+
+    @BindingAdapter("bind:setMuscleBody")
+    public static void setTextMuscleBody(TextView textView, String value) {
+        textView.setText(textView.getContext().getString(R.string.muscle) + ": " + value);
+    }
+
+    @BindingAdapter("bind:setFatBody")
+    public static void setTextFatBody(TextView textView, String value) {
+        textView.setText(textView.getContext().getString(R.string.fat) + ": " + value);
+    }
 
 }

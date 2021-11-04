@@ -1,0 +1,329 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.chauduong.gym.utils.DataBindingAdapter" />
+
+        <variable
+            name="body"
+            type="com.chauduong.gym.model.BodyInformation" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_update_information"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_login_parent">
+
+        <RelativeLayout
+            android:id="@+id/txtTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/update_bodyinformation"
+                android:textAllCaps="true"
+                android:textSize="@dimen/addinfor_edittext_title_size"
+                android:textStyle="bold" />
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/height_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtTitle"
+            android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="@string/height"
+                android:textSize="@dimen/addinfor_edittext_size" />
+
+            <EditText
+                android:id="@+id/edtHeight"
+                style="@style/InputTextInformation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@={body.height}" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/weight_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/height_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="@string/weight"
+                android:textSize="@dimen/addinfor_edittext_size" />
+
+            <EditText
+                android:id="@+id/edtWeight"
+                style="@style/InputTextInformation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@={body.weight}" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/muscle_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/weight_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="@string/muscle"
+                android:textSize="@dimen/addinfor_edittext_size" />
+
+            <EditText
+                android:id="@+id/edtMuscle"
+                style="@style/InputTextInformation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@={body.muscle}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fat_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/muscle_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="@string/fat"
+                android:textSize="@dimen/addinfor_edittext_size" />
+
+            <EditText
+                android:id="@+id/edtFat"
+                style="@style/InputTextInformation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@={body.fat}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/protetin_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fat_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="@string/protetin"
+                android:textSize="@dimen/addinfor_edittext_size" />
+
+            <EditText
+
+                android:id="@+id/edtProtetin"
+                style="@style/InputTextInformation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@={body.protein}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mineral_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/protetin_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="@string/mineral"
+                android:textSize="@dimen/addinfor_edittext_size" />
+
+            <EditText
+                android:id="@+id/edtMineral"
+                style="@style/InputTextInformation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@={body.mineral}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/water_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/mineral_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="@string/water"
+                android:textSize="@dimen/addinfor_edittext_size" />
+
+            <EditText
+                android:id="@+id/edtWater"
+                style="@style/InputTextInformation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@={body.water}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/date_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/water_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="@string/date"
+                android:textSize="@dimen/addinfor_edittext_size" />
+
+            <EditText
+                android:id="@+id/edtDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:enabled="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:textAlignment="viewEnd"
+                android:textSize="@dimen/addinfor_edittext_size"
+                bind:setDateInfor="@{body.date}" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_below="@+id/date_parent"
+            android:layout_marginTop="@dimen/detail_text_title_instruction_margin_top"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="7">
+
+            <FrameLayout
+                android:id="@+id/btnDelete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:addStatesFromChildren="true"
+                android:background="@drawable/ripple"
+                android:clickable="true"
+                android:padding="5dp">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/ic_baseline_delete_sweep_24" />
+
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/btnCancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/margin_edt_msg"
+                    android:layout_marginEnd="@dimen/margin_edt_msg"
+                    android:background="@drawable/ripple_button_cancel_update_infor"
+                    android:clickable="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/cancel"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/btnOK"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/margin_edt_msg"
+                    android:layout_marginEnd="@dimen/margin_edt_msg"
+                    android:background="@drawable/ripple_button_update_body_infor" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/update"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>
